@@ -1,18 +1,17 @@
 Name:           wxGTK
 Version:        2.4.2
-Release:        0.fdr.2.2
-Epoch:          0
-Summary:        %{name} is the GTK+ port of the wxWidgets GUI library
+Release:        6
+Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
-Source0:        %{name}-%{version}.tar.bz2
-Patch0:		wxGTK-2.4.2-privates.patch
+Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+Patch0:         wxGTK-2.4.2-privates.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  gtk+-devel gtk2-devel pkgconfig zlib-devel >= 0:1.1.4
+BuildRequires:  gtk+-devel gtk2-devel zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel libjpeg-devel libtiff-devel
-Requires:       %{name}-common = %{epoch}:%{version}-%{release}
+Requires:       %{name}-common = %{version}-%{release}
 
 %description
 wxWidgets/GTK is the GTK+ (1.2) port of the C++ cross-platform wxWidgets
@@ -23,8 +22,8 @@ ranging from networking to HTML display and image manipulation.
 %package        devel
 Group:          Development/Libraries
 Summary:        Development files for the wxGTK library
-Requires:       %{name} = %{epoch}:%{version}-%{release}
-Requires:       %{name}-common-devel = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}-common-devel = %{version}-%{release}
 Requires:       gtk+-devel
 Conflicts:      %{name}2-devel
 
@@ -34,7 +33,7 @@ This package includes files needed to link with the wxGTK library.
 %package     -n %{name}2
 Group:          System Environment/Libraries
 Summary:        %{name}2 is the GTK2 port of the wxWidgets GUI library
-Requires:       %{name}-common = %{epoch}:%{version}-%{release}
+Requires:       %{name}-common = %{version}-%{release}
 
 %description -n %{name}2
 wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
@@ -45,8 +44,8 @@ ranging from networking to HTML display and image manipulation.
 %package     -n %{name}2-devel
 Group:          Development/Libraries
 Summary:        Development files for the wxGTK2 library
-Requires:       %{name}2 = %{epoch}:%{version}-%{release}
-Requires:       %{name}-common-devel = %{epoch}:%{version}-%{release}
+Requires:       %{name}2 = %{version}-%{release}
+Requires:       %{name}-common-devel = %{version}-%{release}
 Requires:       gtk2-devel
 Conflicts:      %{name}-devel
 
@@ -70,7 +69,7 @@ Common development files for wxWidgets/GTK1 and GTK2.
 %package        gl
 Summary:        OpenGL add-on for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    gl
 %{summary}.
@@ -78,7 +77,7 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 %package     -n %{name}2-gl
 Summary:        OpenGL add-on for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name}2 = %{epoch}:%{version}-%{release}
+Requires:       %{name}2 = %{version}-%{release}
 
 %description -n %{name}2-gl
 %{summary}.
@@ -86,7 +85,7 @@ Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 %package        stc
 Summary:        Styled text control add-on for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    stc
 Styled text control add-on for wxGTK. Based on the Scintillia project.
@@ -94,7 +93,7 @@ Styled text control add-on for wxGTK. Based on the Scintillia project.
 %package     -n %{name}2-stc
 Summary:        Styled text control add-on for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name}2 = %{epoch}:%{version}-%{release}
+Requires:       %{name}2 = %{version}-%{release}
 
 %description -n %{name}2-stc
 Styled text control add-on for wxGTK2. Based on the Scintillia project.
@@ -102,7 +101,7 @@ Styled text control add-on for wxGTK2. Based on the Scintillia project.
 %package        xrc
 Summary:        The XML-based resource system for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name} = %{epoch}:%{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    xrc
 The XML-based resource system, known as XRC, allows user interface
@@ -113,7 +112,7 @@ This package is for the GTK 1.2 backend
 %package     -n %{name}2-xrc
 Summary:        The XML-based resource system for the wxWidgets library
 Group:          System Environment/Libraries
-Requires:       %{name}2 = %{epoch}:%{version}-%{release}
+Requires:       %{name}2 = %{version}-%{release}
 
 %description -n %{name}2-xrc
 The XML-based resource system, known as XRC, allows user interface
@@ -269,6 +268,12 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Wed Nov 10 2004 Matthias Saou <http://freshrpms.net/> 2.4.2-6
+- Bump release to provide Extras upgrade path.
+- Fix spaces/tabs in spec.
+- Remove unneeded zero epochs.
+- Add full source URL.
+
 * Tue Jun 22 2004 Ville Skyttä <ville.skytta at iki.fi> - 0:2.4.2-0.fdr.2
 - s/wxWindows/wxWidgets/
 - Fix release tag.
