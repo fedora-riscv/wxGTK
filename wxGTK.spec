@@ -1,12 +1,13 @@
 Name:           wxGTK
 Version:        2.4.2
-Release:        6
+Release:        7
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         wxGTK-2.4.2-privates.patch
+Patch0:         %{name}-2.4.2-privates.patch
+Patch1:         %{name}-2.4.2-aclocal18.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk+-devel gtk2-devel zlib-devel >= 1.1.4
@@ -24,6 +25,9 @@ Group:          Development/Libraries
 Summary:        Development files for the wxGTK library
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-common-devel = %{version}-%{release}
+Requires:       %{name}-gl = %{version}-%{release}
+Requires:       %{name}-stc = %{version}-%{release}
+Requires:       %{name}-xrc = %{version}-%{release}
 Requires:       gtk+-devel
 Conflicts:      %{name}2-devel
 
@@ -46,6 +50,9 @@ Group:          Development/Libraries
 Summary:        Development files for the wxGTK2 library
 Requires:       %{name}2 = %{version}-%{release}
 Requires:       %{name}-common-devel = %{version}-%{release}
+Requires:       %{name}2-gl = %{version}-%{release}
+Requires:       %{name}2-stc = %{version}-%{release}
+Requires:       %{name}2-xrc = %{version}-%{release}
 Requires:       gtk2-devel
 Conflicts:      %{name}-devel
 
@@ -123,7 +130,8 @@ This package is for the GTK2 backend.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch -p1 -b privates
+%patch0 -p1 -b .privates
+%patch1 -b .aclocal18
 
 
 %build
@@ -214,7 +222,7 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 %defattr(-,root,root,-)
 %ghost %{_bindir}/wx-config
 %{_bindir}/wxgtk-*-config
-%{_libdir}/libwx_gtk-*.so
+%{_libdir}/libwx_gtk[-_]*.so
 %{_libdir}/wx/include/gtk-*
 
 %files -n %{name}2
@@ -225,7 +233,7 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 %defattr(-,root,root,-)
 %ghost %{_bindir}/wx-config
 %{_bindir}/wxgtk2*-config
-%{_libdir}/libwx_gtk2-*.so
+%{_libdir}/libwx_gtk2[-_]*.so
 %{_libdir}/wx/include/gtk2*
 
 %files common -f wxstd.lang
@@ -242,32 +250,37 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 %files gl
 %defattr(-,root,root,-)
-%{_libdir}/libwx_gtk_gl-*.so*
+%{_libdir}/libwx_gtk_gl-*.so.*
 
 %files -n %{name}2-gl
 %defattr(-,root,root,-)
-%{_libdir}/libwx_gtk2_gl-*.so*
+%{_libdir}/libwx_gtk2_gl-*.so.*
 
 %files stc
 %defattr(-,root,root,-)
 %doc contrib/src/stc/README.txt
-%{_libdir}/libwx_gtk_stc-*.so*
+%{_libdir}/libwx_gtk_stc-*.so.*
 
 %files -n %{name}2-stc
 %defattr(-,root,root,-)
 %doc contrib/src/stc/README.txt
-%{_libdir}/libwx_gtk2_stc-*.so*
+%{_libdir}/libwx_gtk2_stc-*.so.*
 
 %files xrc
 %defattr(-,root,root,-)
-%{_libdir}/libwx_gtk_xrc-*.so*
+%{_libdir}/libwx_gtk_xrc-*.so.*
 
 %files -n %{name}2-xrc
 %defattr(-,root,root,-)
-%{_libdir}/libwx_gtk2_xrc-*.so*
+%{_libdir}/libwx_gtk2_xrc-*.so.*
 
 
 %changelog
+* Mon Dec  6 2004 Ville Skyttä <ville.skytta at iki.fi> - 2.4.2-7
+- Patch to avoid aclocal >= 1.8 warnings from wxwin.m4.
+- Move unversioned *.so links for -gl, -stc and -xrc to -devel, make -devel
+  require them.
+
 * Wed Nov 10 2004 Matthias Saou <http://freshrpms.net/> 2.4.2-6
 - Bump release to provide Extras upgrade path.
 - Fix spaces/tabs in spec.
