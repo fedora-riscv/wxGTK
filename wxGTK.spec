@@ -2,7 +2,8 @@
 
 Name:           wxGTK
 Version:        2.4.2
-Release:        8
+Release:        9
+
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
@@ -292,6 +293,9 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+- rebuilt
+
 * Sun Jan 23 2005 Ville Skyttä <ville.skytta at iki.fi> - 2.4.2-8
 - Fix wx-config for x86_64 (#145508).
 - Honor $RPM_OPT_FLAGS better, as well as %%{__cc} and %%{__cxx}.
