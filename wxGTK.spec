@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.4.2
-Release:        0.fdr.1.rh90
+Release:        0.fdr.1.1
 Epoch:          0
 Summary:        %{name} is the GTK+ port of the wxWindows GUI library
 License:        BSD
