@@ -1,12 +1,13 @@
 Name:           wxGTK
 Version:        2.4.2
-Release:        0.fdr.1.1
+Release:        0.fdr.2.2
 Epoch:          0
-Summary:        %{name} is the GTK+ port of the wxWindows GUI library
+Summary:        %{name} is the GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
-URL:            http://www.wxwindows.org/
+URL:            http://www.wxwidgets.org/
 Source0:        %{name}-%{version}.tar.bz2
+Patch0:		wxGTK-2.4.2-privates.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk+-devel gtk2-devel pkgconfig zlib-devel >= 0:1.1.4
@@ -14,7 +15,7 @@ BuildRequires:  libpng-devel libjpeg-devel libtiff-devel
 Requires:       %{name}-common = %{epoch}:%{version}-%{release}
 
 %description
-wxWindows/GTK is the GTK+ (1.2) port of the C++ cross-platform wxWindows
+wxWidgets/GTK is the GTK+ (1.2) port of the C++ cross-platform wxWidgets
 GUI library, offering classes for all common GUI controls as well as a
 comprehensive set of helper classes for most common application tasks,
 ranging from networking to HTML display and image manipulation.
@@ -32,11 +33,11 @@ This package includes files needed to link with the wxGTK library.
 
 %package     -n %{name}2
 Group:          System Environment/Libraries
-Summary:        %{name}2 is the GTK2 port of the wxWindows GUI library
+Summary:        %{name}2 is the GTK2 port of the wxWidgets GUI library
 Requires:       %{name}-common = %{epoch}:%{version}-%{release}
 
 %description -n %{name}2
-wxWindows/GTK2 is the GTK2 port of the C++ cross-platform wxWindows
+wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
 GUI library, offering classes for all common GUI controls as well as a
 comprehensive set of helper classes for most common application tasks,
 ranging from networking to HTML display and image manipulation.
@@ -57,17 +58,17 @@ Group:          System Environment/Libraries
 Summary:        wxGTK* common files
 
 %description    common
-Common files for wxWindows/GTK1 and GTK2.
+Common files for wxWidgets/GTK1 and GTK2.
 
 %package        common-devel
 Group:          Development/Libraries
 Summary:        wxGTK* common development files
 
 %description    common-devel
-Common development files for wxWindows/GTK1 and GTK2.
+Common development files for wxWidgets/GTK1 and GTK2.
 
 %package        gl
-Summary:        OpenGL add-on for the wxWindows library
+Summary:        OpenGL add-on for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 
@@ -75,7 +76,7 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 %{summary}.
 
 %package     -n %{name}2-gl
-Summary:        OpenGL add-on for the wxWindows library
+Summary:        OpenGL add-on for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 
@@ -83,7 +84,7 @@ Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 %{summary}.
 
 %package        stc
-Summary:        Styled text control add-on for the wxWindows library
+Summary:        Styled text control add-on for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 
@@ -91,7 +92,7 @@ Requires:       %{name} = %{epoch}:%{version}-%{release}
 Styled text control add-on for wxGTK. Based on the Scintillia project.
 
 %package     -n %{name}2-stc
-Summary:        Styled text control add-on for the wxWindows library
+Summary:        Styled text control add-on for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 
@@ -99,7 +100,7 @@ Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 Styled text control add-on for wxGTK2. Based on the Scintillia project.
 
 %package        xrc
-Summary:        The XML-based resource system for the wxWindows library
+Summary:        The XML-based resource system for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name} = %{epoch}:%{version}-%{release}
 
@@ -110,7 +111,7 @@ text files and loaded into the application at run-time.
 This package is for the GTK 1.2 backend
 
 %package     -n %{name}2-xrc
-Summary:        The XML-based resource system for the wxWindows library
+Summary:        The XML-based resource system for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name}2 = %{epoch}:%{version}-%{release}
 
@@ -123,6 +124,7 @@ This package is for the GTK2 backend.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch -p1 -b privates
 
 
 %build
@@ -267,6 +269,13 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Tue Jun 22 2004 Ville Skyttä <ville.skytta at iki.fi> - 0:2.4.2-0.fdr.2
+- s/wxWindows/wxWidgets/
+- Fix release tag.
+
+* Sat May 22 2004 Noa Resare <noa@resare.com> - 0:2.4.2-0.fdr.1.3
+- Merged fix from wxGTK cvs head, now works with recent gtk2
+
 * Sat Oct 11 2003 Ville Skyttä <ville.skytta at iki.fi> - 0:2.4.2-0.fdr.1
 - Update to 2.4.2.
 
