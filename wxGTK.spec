@@ -1,6 +1,8 @@
+%define x11libdir %{_prefix}/X11R6/%{_lib}
+
 Name:           wxGTK
 Version:        2.4.2
-Release:        7
+Release:        8
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
@@ -132,19 +134,27 @@ This package is for the GTK2 backend.
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .privates
 %patch1 -b .aclocal18
+sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in
 
 
 %build
 mkdir _gtk1 _gtk2
-export APPEXTRACFLAGS="$RPM_OPT_FLAGS"
-export APPEXTRACXXFLAGS="$RPM_OPT_FLAGS"
+export CC="%{__cc}"
+export CXX="%{__cxx}"
+export CFLAGS="$RPM_OPT_FLAGS"
+export CXXFLAGS="$RPM_OPT_FLAGS"
+# --disable-optimise prevents our $RPM_OPT_FLAGS being overridden
+# (see OPTIMISE in configure).
 
 cd _gtk1
 ../configure \
   --prefix=%{_prefix} \
+  --libdir=%{_libdir} \
+  --x-libraries=%{x11libdir} \
   --with-opengl \
   --enable-shared \
-  --enable-soname
+  --enable-soname \
+  --disable-optimise
 make %{?_smp_mflags}
 make %{?_smp_mflags} -C contrib/src/stc
 make %{?_smp_mflags} -C contrib/src/xrc
@@ -152,9 +162,12 @@ make %{?_smp_mflags} -C contrib/src/xrc
 cd ../_gtk2
 ../configure \
   --prefix=%{_prefix} \
+  --libdir=%{_libdir} \
+  --x-libraries=%{x11libdir} \
   --with-opengl \
   --enable-shared \
   --enable-soname \
+  --disable-optimise \
   --enable-gtk2
 make %{?_smp_mflags}
 make %{?_smp_mflags} -C contrib/src/stc
@@ -166,6 +179,9 @@ cd ..
 %install
 rm -rf $RPM_BUILD_ROOT
 
+# Since we're not using %%configure, we would really like to use
+# "make install DESTDIR=..." instead of %%makeinstall here to keep things in
+# sync.  Unfortunately that does not work.
 cd _gtk1
 %makeinstall
 %makeinstall -C contrib/src/stc
@@ -276,6 +292,10 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Sun Jan 23 2005 Ville Skyttä <ville.skytta at iki.fi> - 2.4.2-8
+- Fix wx-config for x86_64 (#145508).
+- Honor $RPM_OPT_FLAGS better, as well as %%{__cc} and %%{__cxx}.
+
 * Mon Dec  6 2004 Ville Skyttä <ville.skytta at iki.fi> - 2.4.2-7
 - Patch to avoid aclocal >= 1.8 warnings from wxwin.m4.
 - Move unversioned *.so links for -gl, -stc and -xrc to -devel, make -devel
