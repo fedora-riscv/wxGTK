@@ -352,7 +352,7 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 - Now build/include both gtk/gtk2 libs
 - buildroot -> RPM_BUILD_ROOT
 
-* Mon Mar  3 2003 Dams <anvil@livna.org> 
+* Mon Mar  3 2003 Dams <anvil@livna.org>
 - Initial build.
 - Disable unicode as it breaks lmule
 - use the %find_lang macro for locale
