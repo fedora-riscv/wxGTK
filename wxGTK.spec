@@ -1,6 +1,6 @@
 Name:           wxGTK
-Version:        2.4.1
-Release:        0.fdr.4.rh80
+Version:        2.4.2
+Release:        0.fdr.1.rh80
 Epoch:          0
 Summary:        %{name} is the GTK+ port of the wxWindows GUI library
 License:        BSD
@@ -153,7 +153,6 @@ make %{?_smp_mflags} -C contrib/src/xrc
 
 cd ..
 
-# -----------------------------------------------------------------------------
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -268,6 +267,9 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Sat Oct 11 2003 Ville Skyttä <ville.skytta at iki.fi> - 0:2.4.2-0.fdr.1
+- Update to 2.4.2.
+
 * Mon Aug  4 2003 Ville Skyttä <ville.skytta at iki.fi> - 0:2.4.1-0.fdr.4
 - Borrow Matthias Saou's -gl and -stc subpackages.
 
