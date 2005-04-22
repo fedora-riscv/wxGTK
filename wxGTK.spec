@@ -2,15 +2,16 @@
 
 Name:           wxGTK
 Version:        2.4.2
-Release:        9
+Release:        10
 
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         %{name}-2.4.2-privates.patch
-Patch1:         %{name}-2.4.2-aclocal18.patch
+Patch0:         wxGTK-2.4.2-privates.patch
+Patch1:         wxGTK-2.4.2-aclocal18.patch
+Patch2:		wxGTK-2.4.2-gcc4.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk+-devel gtk2-devel zlib-devel >= 1.1.4
@@ -135,6 +136,8 @@ This package is for the GTK2 backend.
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .privates
 %patch1 -b .aclocal18
+%patch2 -p1 -b .gcc4
+
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in
 
 
@@ -293,6 +296,9 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Fri Apr 22 2005 Dams <anvil[AT]livna.org> - 2.4.2-10
+- Added patch from Ignacio and Denis to fix build with gcc4 
+
 * Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
 - rebuilt
 
