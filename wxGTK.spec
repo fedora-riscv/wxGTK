@@ -2,8 +2,7 @@
 
 Name:           wxGTK
 Version:        2.4.2
-Release:        10
-
+Release:        11
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
@@ -16,6 +15,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk+-devel gtk2-devel zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel libjpeg-devel libtiff-devel
+BuildRequires:  libGL libGLU
 Requires:       %{name}-common = %{version}-%{release}
 
 %description
@@ -296,6 +296,10 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Sat May  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 2.4.2-11
+- Add BR libGL and libGLU to fix FC4 build failure
+  (alternatively use xorg-x11-Mesa-libGL xorg-x11-Mesa-libGLU).
+
 * Fri Apr 22 2005 Dams <anvil[AT]livna.org> - 2.4.2-10
 - Added patch from Ignacio and Denis to fix build with gcc4 
 
