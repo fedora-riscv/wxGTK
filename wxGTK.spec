@@ -2,7 +2,7 @@
 
 Name:           wxGTK
 Version:        2.4.2
-Release:        11
+Release:        12
 Summary:        GTK+ port of the wxWidgets GUI library
 License:        BSD
 Group:          System Environment/Libraries
@@ -138,7 +138,7 @@ This package is for the GTK2 backend.
 %patch1 -b .aclocal18
 %patch2 -p1 -b .gcc4
 
-sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in
+sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
 
 %build
@@ -296,6 +296,10 @@ ln -sf $(basename %{_bindir}/wxgtk2*-config) %{_bindir}/wx-config
 
 
 %changelog
+* Sun May  8 2005 Thorsten Leemhuis <fedora[AT]leemhuis.info> - 2.4.2-12
+- sed -i -e 's|/usr/lib\b|%%{_libdir}|' in configure also to fix
+  x86_64
+
 * Sat May  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 2.4.2-11
 - Add BR libGL and libGLU to fix FC4 build failure
   (alternatively use xorg-x11-Mesa-libGL xorg-x11-Mesa-libGLU).
