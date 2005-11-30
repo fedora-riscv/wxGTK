@@ -2,7 +2,7 @@
 
 Name:           wxGTK
 Version:        2.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -11,6 +11,7 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+Patch0:         wxGTK-2.6.2-intl_cpp.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
@@ -19,16 +20,19 @@ BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
 
 # all of these are for previous Fedora Extras sub-packages
-Obsoletes:      wxGTK2 < %{version}-%{release}
+Obsoletes:      wxGTK2 < 2.6.2-1
 Provides:       wxGTK2 = %{version}-%{release}
-Obsoletes:      wxGTK-common < %{version}-%{release}
+
+Obsoletes:      wxGTK-common < 2.6.2-1
 Provides:       wxGTK-common = %{version}-%{release}
-Obsoletes:      wxGTK2-xrc < %{version}-%{release}
-Obsoletes:      wxGTK-xrc < %{version}-%{release}
+
+Obsoletes:      wxGTK2-xrc < 2.6.2-1
+Obsoletes:      wxGTK-xrc < 2.6.2-1
 Provides:       wxGTK2-xrc = %{version}-%{release}
 Provides:       wxGTK-xrc = %{version}-%{release}
-Obsoletes:      wxGTK2-stc < %{version}-%{release}
-Obsoletes:      wxGTK-stc < %{version}-%{release}
+
+Obsoletes:      wxGTK2-stc < 2.6.2-1
+Obsoletes:      wxGTK-stc < 2.6.2-1
 Provides:       wxGTK2-stc = %{version}-%{release}
 Provides:       wxGTK-stc = %{version}-%{release}
 
@@ -67,6 +71,7 @@ OpenGL add-on for the wxWidgets library.
 
 %prep
 %setup -q
+%patch0 -p0 -b .intlcpp
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -163,6 +168,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 30 2005 Matthew Miller <mattdm@mattdm.org> - 2.6.2-3
+- add wxGTK-2.6.2-intl_cpp.patch to deal with amule and probably other
+  issues (see bug #154618 comment #47)
+- obsolete wxGTK2 < 2.6.2-1 specifically, at Matthias Saou's suggestion
+
 * Mon Nov 28 2005 Matthew Miller <mattdm@mattdm.org> - 2.6.2-2
 - implemented some suggestions from Matthias Saou:
 -   removed extraneous / from last line of ./configure 
