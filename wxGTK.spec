@@ -2,7 +2,7 @@
 
 Name:           wxGTK
 Version:        2.6.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -12,6 +12,8 @@ Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
 Patch0:         wxGTK-2.6.2-intl_cpp.patch
+Patch1:         wxGTK-2.6.2-socketclosefix.patch
+Patch2:         wxGTK-2.6.2-gcc41stringh.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
@@ -72,6 +74,8 @@ OpenGL add-on for the wxWidgets library.
 %prep
 %setup -q
 %patch0 -p0 -b .intlcpp
+%patch1 -p1 -b .socketclose
+%patch2 -p1 -b .gcc41
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -168,6 +172,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 06 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.2-4
+- add wxGTK-2.6.2-socketclosefix.patch to fix aMule crashes. see
+  bugzilla bug #178184
+- add wxGTK-2.6.2-gcc41stringh.patch (pulled from CVS) to make build on 
+  FC5 devel w/ gcc-4.1.
+  
 * Wed Nov 30 2005 Matthew Miller <mattdm@mattdm.org> - 2.6.2-3
 - add wxGTK-2.6.2-intl_cpp.patch to deal with amule and probably other
   issues (see bug #154618 comment #47)
