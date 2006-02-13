@@ -2,7 +2,7 @@
 
 Name:           wxGTK
 Version:        2.6.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -172,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.2-5
+- rebuild in preparation for FC5
+
 * Mon Feb 06 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.2-4
 - add wxGTK-2.6.2-socketclosefix.patch to fix aMule crashes. see
   bugzilla bug #178184
