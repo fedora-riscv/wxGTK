@@ -1,8 +1,12 @@
 %define x11libdir %{_prefix}/X11R6/%{_lib}
 
+# Option - build an ODBC subpackage using unixODBC. (This is currently 
+# broken; see <https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=176950>.)
+%define withodbc 0
+
 Name:           wxGTK
-Version:        2.6.2
-Release:        5%{?dist}
+Version:        2.6.3
+Release:        0%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -11,15 +15,15 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         wxGTK-2.6.2-intl_cpp.patch
-Patch1:         wxGTK-2.6.2-socketclosefix.patch
-Patch2:         wxGTK-2.6.2-gcc41stringh.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
+%if %{withodbc}
+BuildRequires:  unixODBC-devel
+%endif
 
 # all of these are for previous Fedora Extras sub-packages
 Obsoletes:      wxGTK2 < 2.6.2-1
@@ -68,14 +72,20 @@ Obsoletes:      wxGTK2-gl < %{version}-%{release}
 Provides:       wxGTK2-gl = %{version}-%{release}
 
 %description gl
-OpenGL add-on for the wxWidgets library.
+OpenGL (a 3D graphics API) add-on for the wxWidgets library.
 
+%if %{withodbc}
+%package        odbc
+Summary:        ODBC add-on for the wxWidgets library
+Group:          System Environment/Libraries
+Requires:       %{name} = %{version}-%{release}
+
+%description odbc
+ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
+%endif
 
 %prep
 %setup -q
-%patch0 -p0 -b .intlcpp
-%patch1 -p1 -b .socketclose
-%patch2 -p1 -b .gcc41
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -89,6 +99,9 @@ export GDK_USE_XFT=1
   --x-libraries=%{x11libdir} \
   --with-gtk=2 \
   --with-opengl \
+%if %{withodbc}
+  --with-odbc \
+%endif
   --with-sdl \
   --with-gnomeprint \
   --enable-shared \
@@ -170,8 +183,31 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_libdir}/libwx_gtk2u_gl-*.so.*
 
+%if %{withodbc}
+%files odbc
+%defattr(-,root,root,-)
+%{_libdir}/libwx_gtk2u_odbc-*.so.*
+%endif
 
 %changelog
+* Sat Mar 25 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-1    
+- 2.6.3 final
+- remove the locale_install thing -- that was just an issue with using the
+  release candidate.
+
+* Tue Mar 21 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-0.rc2
+- update to 2.6.3-rc2 package
+- all patches now upstream -- removing 'em.
+- use complete 'wxWidgets' source tarball instead of the wxGTK-subset one,
+  since that's all there is for the release candidate. I'm operating under
+  the assumption that we'll have a wxGTK source tarball in the future --
+  otherwise, I'm going to eventually have to change the name of this
+  package again. :)
+- add ODBC support via unixODBC as subpackage (see bug #176950)
+- wait, no; comment out ODBC support as it doesn't build...
+- add explicit make locale_install; apparently not done as part of
+  the general 'make install' anymore.
+
 * Mon Feb 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.2-5
 - rebuild in preparation for FC5
 
