@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.6.3
-Release:        1%{?dist}
+Release:        2.6.3.2.0%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,12 +15,13 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+Patch0:         wxGTK-2.6.3.2-cvs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
-BuildRequires:  libGL-devel, libGLU-devel
+BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
 %endif
@@ -86,6 +87,8 @@ ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
 
 %prep
 %setup -q
+
+%patch0 -p1 -b .2.6.3.2
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -190,11 +193,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Fri May 31 2006 Matthwe Miller <mattdm@mattdm.org> - 2.6.3-1
-- mesa-*-devel buildrequires to just *-devel, for building on FC4 and
-  for The Future
+* Thu Apr 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.0
+- patch to cvs subrelease 2.6.3.2 (matches wxPython)
 
-* Sat Mar 25 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-0    
+* Sat Mar 25 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-1    
 - 2.6.3 final
 - remove the locale_install thing -- that was just an issue with using the
   release candidate.
@@ -250,7 +252,7 @@ rm -rf $RPM_BUILD_ROOT
   Add dist tag.
 - From Tom Callaway: Build and include libwx_gtk2u_animate-2.6.
 
-
+* Thu Apr 28 2005 Matthew Miller <mattdm@mattdm.org> 2.6.1-0.1
 - update to 2.6.1
 - from Michael Schwendt in 2.4.2-11 package: build-require
   xorg-x11-Mesa-libGL and xorg-x11-Mesa-libGLU (the libGL and libGLU
