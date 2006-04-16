@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.6.3
-Release:        2.6.3.2.0%{?dist}
+Release:        2.6.3.2.1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -21,7 +21,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
-BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
+BuildRequires:  libGL-devel, libGLU-devel
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
 %endif
@@ -193,6 +193,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Apr 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.1
+- oops -- forgot to change mesa-libGL*-devel -> libGL*-devel
+
 * Thu Apr 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.0
 - patch to cvs subrelease 2.6.3.2 (matches wxPython)
 
