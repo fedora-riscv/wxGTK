@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.6.3
-Release:        2.6.3.2.1%{?dist}
+Release:        2.6.3.2.2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -56,6 +56,7 @@ Summary:        Development files for the wxGTK2 library
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-gl = %{version}-%{release}
 Requires:       gtk2-devel
+Requires:       libGL-devel, libGLU-devel
 Obsoletes:      wxGTK2-devel < %{version}-%{release}
 Provides:       wxGTK2-devel = %{version}-%{release}
 Obsoletes:      wxGTK-common-devel < %{version}-%{release}
@@ -193,6 +194,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul  3 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.2
+- add libGL-devel and libGLU-devel requires to wxGTK-devel package
+  (see bug #197501).
+
 * Thu Apr 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.1
 - oops -- forgot to change mesa-libGL*-devel -> libGL*-devel
 
