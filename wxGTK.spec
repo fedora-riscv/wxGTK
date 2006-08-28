@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.6.3
-Release:        2.6.3.2.2%{?dist}
+Release:        2.6.3.2.3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -194,6 +194,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Aug 28 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.3
+- bump release for FC6 rebuild
+
 * Mon Jul  3 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.2
 - add libGL-devel and libGLU-devel requires to wxGTK-devel package
   (see bug #197501).
