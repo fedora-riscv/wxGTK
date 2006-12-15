@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.0
-Release:        2.8.0.1.1%{?dist}
+Release:        2.8.0.1.2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -23,7 +23,7 @@ BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  libGL-devel, libGLU-devel
 BuildRequires:  gstreamer-devel >= 0.10
-BuildRequires:  autoconf
+BuildRequires:  autoconf, gettext
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
 %endif
@@ -213,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Dec 15 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.2
+- buildrequires gettext
+
 * Thu Dec 14 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.1
 - patch to 2.8.0.1 wxPython subrelease (following upstream wxPython)
   from wxWidgets CVS
