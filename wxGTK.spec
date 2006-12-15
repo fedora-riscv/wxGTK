@@ -5,8 +5,8 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.6.3
-Release:        2.6.3.2.3%{?dist}
+Version:        2.8.0
+Release:        2.8.0.1.1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,13 +15,15 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         wxGTK-2.6.3.2-cvs.patch
+Patch0:         wxGTK-2.8.0.1-cvs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  libGL-devel, libGLU-devel
+BuildRequires:  gstreamer-devel >= 0.10
+BuildRequires:  autoconf
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
 %endif
@@ -89,19 +91,22 @@ ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
 %prep
 %setup -q
 
-%patch0 -p1 -b .2.6.3.2
+%patch0 -p1 -b .2.8.0.1
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
 
 %build
+
+# must do this to regenerate ./configure after the 2.8.0.1 patch.
+autoconf
+
 export GDK_USE_XFT=1
 
 # --disable-optimise prevents our $RPM_OPT_FLAGS being overridden
 # (see OPTIMISE in configure).
 %configure \
   --x-libraries=%{x11libdir} \
-  --with-gtk=2 \
   --with-opengl \
 %if %{withodbc}
   --with-odbc \
@@ -112,14 +117,25 @@ export GDK_USE_XFT=1
   --enable-soname \
   --disable-optimise \
   --enable-debug_info \
+  --enable-intl \
   --enable-unicode \
-  --enable-compat22
+  --enable-no_deps \
+  --disable-rpath \
+  --enable-geometry \
+  --enable-graphics_ctx \
+  --enable-sound \
+  --enable-mediactrl \
+  --enable-display \
+  --enable-compat24
 
 make %{?_smp_mflags}
 make %{?_smp_mflags} -C contrib/src/stc
 make %{?_smp_mflags} -C contrib/src/ogl
 make %{?_smp_mflags} -C contrib/src/gizmos
-make %{?_smp_mflags} -C contrib/src/animate
+make %{?_smp_mflags} -C contrib/src/svg
+
+# Why isn't this this part of the main build? Need to investigate.
+make %{?_smp_mflags} -C locale allmo
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -129,12 +145,13 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall -C contrib/src/stc
 %makeinstall -C contrib/src/ogl
 %makeinstall -C contrib/src/gizmos
-%makeinstall -C contrib/src/animate
+%makeinstall -C contrib/src/svg
+
 
 # this ends up being a symlink into the buildroot directly -- 
 # not what we want!
 rm $RPM_BUILD_ROOT%{_bindir}/wx-config
-ln -s %{_libdir}/wx/config/gtk2-unicode-release-2.6 $RPM_BUILD_ROOT%{_bindir}/wx-config
+ln -s %{_libdir}/wx/config/gtk2-unicode-release-2.8 $RPM_BUILD_ROOT%{_bindir}/wx-config
 
 %find_lang wxstd
 %find_lang wxmsw
@@ -153,27 +170,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f wxstd.lang
 %defattr(-,root,root,-)
-%doc CHANGES*.txt COPYING.LIB LICENCE.txt README*.txt
+%doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
+%doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
 %{_libdir}/libwx_baseu-*.so.*
 %{_libdir}/libwx_baseu_net-*.so.*
 %{_libdir}/libwx_baseu_xml-*.so.*
 %{_libdir}/libwx_gtk2u_adv-*.so.*
-%{_libdir}/libwx_gtk2u_animate-*.so.*
+%{_libdir}/libwx_gtk2u_aui-*.so.*
 %{_libdir}/libwx_gtk2u_core-*.so.*
 %{_libdir}/libwx_gtk2u_gizmos-*.so.*
 %{_libdir}/libwx_gtk2u_gizmos_xrc*.so.*
 %{_libdir}/libwx_gtk2u_html-*.so.*
-%{_libdir}/libwx_gtk2u_media-*.so.*
 %{_libdir}/libwx_gtk2u_ogl-*.so.*
-%{_libdir}/libwx_gtk2u_xrc-*.so.*
-%{_libdir}/libwx_gtk2u_stc-*.so.*
 %{_libdir}/libwx_gtk2u_qa-*.so.*
+%{_libdir}/libwx_gtk2u_richtext-*.so.*
+%{_libdir}/libwx_gtk2u_stc-*.so.*
+%{_libdir}/libwx_gtk2u_svg-*.so.*
+%{_libdir}/libwx_gtk2u_xrc-*.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %{_bindir}/wx-config
 %{_bindir}/wxrc*
-%{_includedir}/wx-2.6
+%{_includedir}/wx-2.8
 %{_libdir}/libwx_*.so
 %dir %{_libdir}/wx
 %dir %{_libdir}/wx/include
@@ -194,6 +213,27 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Dec 14 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.1
+- patch to 2.8.0.1 wxPython subrelease (following upstream wxPython)
+  from wxWidgets CVS
+
+* Thu Dec 14 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.0.1
+- update to 2.8.0 release
+- gtk2 is now the default (and gtk1.2 gone -- about time!)
+- compatibility with wxWidgets 2.2 is now gone; add flag to build 2.4 with
+  compatibility, though (now off by default)
+- added "--enable-no_deps" for faster builds
+- added "--enable-intl", because that seems like a good idea
+- added disable-rpath, enable-geometry, enable-graphics_ctx, enable-sound,
+  enable-mediactrl, and enable-display to better match upstream wxPython
+  package.
+- buildrequires: gstreamer-devel
+- "animate" contributed module no longer exists.
+- enable the svg contributed module
+- build the .mo files explicitly -- not sure why that's not happening
+  automatically.
+- minor -- location of doc files in src tarball has changed
+
 * Mon Aug 28 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.3
 - bump release for FC6 rebuild
 

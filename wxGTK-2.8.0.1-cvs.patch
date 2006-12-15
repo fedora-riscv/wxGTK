@@ -1,0 +1,5248 @@
+# Generated with `cvs diff -u -R -N -r WX_2_8_0 -r wxPy_2_8_0_1`, and then
+# trimmed for non-platform-relevant changes
+
+Index: wxWidgets/Makefile.in
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/Makefile.in,v
+retrieving revision 1.669
+retrieving revision 1.670
+diff -u -r1.669 -r1.670
+--- wxWidgets/Makefile.in	2006/12/04 01:14:25	1.669
++++ wxWidgets/Makefile.in	2006/12/11 06:19:27	1.670
+@@ -2157,6 +2157,7 @@
+ 	wx/mac/sound.h \
+ 	wx/mac/spinbutt.h \
+ 	wx/mac/spinctrl.h \
++	wx/mac/srchctrl.h \
+ 	wx/mac/statbmp.h \
+ 	wx/mac/statbox.h \
+ 	wx/mac/statline.h \
+@@ -2230,6 +2231,9 @@
+ 	wx/mac/carbon/printdlg.h \
+ 	wx/mac/carbon/printmac.h \
+ 	wx/mac/carbon/private.h \
++	wx/mac/carbon/private/mactext.h \
++	wx/mac/carbon/private/overlay.h \
++	wx/mac/carbon/private/print.h \
+ 	wx/mac/carbon/radiobox.h \
+ 	wx/mac/carbon/radiobut.h \
+ 	wx/mac/carbon/region.h \
+@@ -2237,6 +2241,7 @@
+ 	wx/mac/carbon/slider.h \
+ 	wx/mac/carbon/spinbutt.h \
+ 	wx/mac/carbon/spinctrl.h \
++	wx/mac/carbon/srchctrl.h \
+ 	wx/mac/carbon/statbmp.h \
+ 	wx/mac/carbon/statbox.h \
+ 	wx/mac/carbon/statline.h \
+@@ -2871,6 +2876,7 @@
+ 	wx/generic/scrolwin.h \
+ 	wx/generic/spinctlg.h \
+ 	wx/generic/splitter.h \
++	wx/generic/srchctlg.h \
+ 	wx/generic/textdlgg.h \
+ 	wx/generic/timer.h \
+ 	wx/generic/treectlg.h \
+@@ -2988,6 +2994,7 @@
+ 	wx/spinbutt.h \
+ 	wx/spinctrl.h \
+ 	wx/splitter.h \
++	wx/srchctrl.h \
+ 	wx/statline.h \
+ 	wx/tab.h \
+ 	wx/tabctrl.h \
+@@ -3497,6 +3504,7 @@
+ 	monodll_rgncmn.o \
+ 	monodll_settcmn.o \
+ 	monodll_sizer.o \
++	monodll_srchcmn.o \
+ 	monodll_statbar.o \
+ 	monodll_stockitem.o \
+ 	monodll_tbarbase.o \
+@@ -3532,6 +3540,7 @@
+ 	monodll_selstore.o \
+ 	monodll_spinctlg.o \
+ 	monodll_splitter.o \
++	monodll_srchctlg.o \
+ 	monodll_textdlgg.o \
+ 	monodll_tipwin.o \
+ 	monodll_toolbkg.o \
+@@ -3670,6 +3679,7 @@
+ 	monodll_rgncmn.o \
+ 	monodll_settcmn.o \
+ 	monodll_sizer.o \
++	monodll_srchcmn.o \
+ 	monodll_statbar.o \
+ 	monodll_stockitem.o \
+ 	monodll_tbarbase.o \
+@@ -3705,6 +3715,7 @@
+ 	monodll_selstore.o \
+ 	monodll_spinctlg.o \
+ 	monodll_splitter.o \
++	monodll_srchctlg.o \
+ 	monodll_textdlgg.o \
+ 	monodll_tipwin.o \
+ 	monodll_toolbkg.o \
+@@ -4263,6 +4274,7 @@
+ 	monodll_slider.o \
+ 	monodll_spinbutt.o \
+ 	monodll_spinctrl.o \
++	monodll_srchctrl.o \
+ 	monodll_statbmp.o \
+ 	monodll_statbox.o \
+ 	monodll_statbrma.o \
+@@ -5271,6 +5283,7 @@
+ 	monolib_rgncmn.o \
+ 	monolib_settcmn.o \
+ 	monolib_sizer.o \
++	monolib_srchcmn.o \
+ 	monolib_statbar.o \
+ 	monolib_stockitem.o \
+ 	monolib_tbarbase.o \
+@@ -5306,6 +5319,7 @@
+ 	monolib_selstore.o \
+ 	monolib_spinctlg.o \
+ 	monolib_splitter.o \
++	monolib_srchctlg.o \
+ 	monolib_textdlgg.o \
+ 	monolib_tipwin.o \
+ 	monolib_toolbkg.o \
+@@ -5444,6 +5458,7 @@
+ 	monolib_rgncmn.o \
+ 	monolib_settcmn.o \
+ 	monolib_sizer.o \
++	monolib_srchcmn.o \
+ 	monolib_statbar.o \
+ 	monolib_stockitem.o \
+ 	monolib_tbarbase.o \
+@@ -5479,6 +5494,7 @@
+ 	monolib_selstore.o \
+ 	monolib_spinctlg.o \
+ 	monolib_splitter.o \
++	monolib_srchctlg.o \
+ 	monolib_textdlgg.o \
+ 	monolib_tipwin.o \
+ 	monolib_toolbkg.o \
+@@ -6038,6 +6054,7 @@
+ 	monolib_slider.o \
+ 	monolib_spinbutt.o \
+ 	monolib_spinctrl.o \
++	monolib_srchctrl.o \
+ 	monolib_statbmp.o \
+ 	monolib_statbox.o \
+ 	monolib_statbrma.o \
+@@ -7275,6 +7292,7 @@
+ 	coredll_rgncmn.o \
+ 	coredll_settcmn.o \
+ 	coredll_sizer.o \
++	coredll_srchcmn.o \
+ 	coredll_statbar.o \
+ 	coredll_stockitem.o \
+ 	coredll_tbarbase.o \
+@@ -7310,6 +7328,7 @@
+ 	coredll_selstore.o \
+ 	coredll_spinctlg.o \
+ 	coredll_splitter.o \
++	coredll_srchctlg.o \
+ 	coredll_textdlgg.o \
+ 	coredll_tipwin.o \
+ 	coredll_toolbkg.o \
+@@ -7448,6 +7467,7 @@
+ 	coredll_rgncmn.o \
+ 	coredll_settcmn.o \
+ 	coredll_sizer.o \
++	coredll_srchcmn.o \
+ 	coredll_statbar.o \
+ 	coredll_stockitem.o \
+ 	coredll_tbarbase.o \
+@@ -7483,6 +7503,7 @@
+ 	coredll_selstore.o \
+ 	coredll_spinctlg.o \
+ 	coredll_splitter.o \
++	coredll_srchctlg.o \
+ 	coredll_textdlgg.o \
+ 	coredll_tipwin.o \
+ 	coredll_toolbkg.o \
+@@ -8042,6 +8063,7 @@
+ 	coredll_slider.o \
+ 	coredll_spinbutt.o \
+ 	coredll_spinctrl.o \
++	coredll_srchctrl.o \
+ 	coredll_statbmp.o \
+ 	coredll_statbox.o \
+ 	coredll_statbrma.o \
+@@ -8723,6 +8745,7 @@
+ 	corelib_rgncmn.o \
+ 	corelib_settcmn.o \
+ 	corelib_sizer.o \
++	corelib_srchcmn.o \
+ 	corelib_statbar.o \
+ 	corelib_stockitem.o \
+ 	corelib_tbarbase.o \
+@@ -8758,6 +8781,7 @@
+ 	corelib_selstore.o \
+ 	corelib_spinctlg.o \
+ 	corelib_splitter.o \
++	corelib_srchctlg.o \
+ 	corelib_textdlgg.o \
+ 	corelib_tipwin.o \
+ 	corelib_toolbkg.o \
+@@ -8896,6 +8920,7 @@
+ 	corelib_rgncmn.o \
+ 	corelib_settcmn.o \
+ 	corelib_sizer.o \
++	corelib_srchcmn.o \
+ 	corelib_statbar.o \
+ 	corelib_stockitem.o \
+ 	corelib_tbarbase.o \
+@@ -8931,6 +8956,7 @@
+ 	corelib_selstore.o \
+ 	corelib_spinctlg.o \
+ 	corelib_splitter.o \
++	corelib_srchctlg.o \
+ 	corelib_textdlgg.o \
+ 	corelib_tipwin.o \
+ 	corelib_toolbkg.o \
+@@ -9490,6 +9516,7 @@
+ 	corelib_slider.o \
+ 	corelib_spinbutt.o \
+ 	corelib_spinctrl.o \
++	corelib_srchctrl.o \
+ 	corelib_statbmp.o \
+ 	corelib_statbox.o \
+ 	corelib_statbrma.o \
+@@ -12852,6 +12879,9 @@
+ monodll_printmac.o: $(srcdir)/src/mac/carbon/printmac.cpp $(MONODLL_ODEP)
+ 	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/mac/carbon/printmac.cpp
+ 
++monodll_srchctrl.o: $(srcdir)/src/mac/carbon/srchctrl.cpp $(MONODLL_ODEP)
++	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/mac/carbon/srchctrl.cpp
++
+ monodll_statbrma.o: $(srcdir)/src/mac/carbon/statbrma.cpp $(MONODLL_ODEP)
+ 	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/mac/carbon/statbrma.cpp
+ 
+@@ -16224,6 +16254,9 @@
+ @COND_USE_GUI_1@monodll_sizer.o: $(srcdir)/src/common/sizer.cpp $(MONODLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/common/sizer.cpp
+ 
++@COND_USE_GUI_1@monodll_srchcmn.o: $(srcdir)/src/common/srchcmn.cpp $(MONODLL_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/common/srchcmn.cpp
++
+ @COND_USE_GUI_1@monodll_statbar.o: $(srcdir)/src/common/statbar.cpp $(MONODLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/common/statbar.cpp
+ 
+@@ -16329,6 +16362,9 @@
+ @COND_USE_GUI_1@monodll_splitter.o: $(srcdir)/src/generic/splitter.cpp $(MONODLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/generic/splitter.cpp
+ 
++@COND_USE_GUI_1@monodll_srchctlg.o: $(srcdir)/src/generic/srchctlg.cpp $(MONODLL_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/generic/srchctlg.cpp
++
+ @COND_USE_GUI_1@monodll_textdlgg.o: $(srcdir)/src/generic/textdlgg.cpp $(MONODLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONODLL_CXXFLAGS) $(srcdir)/src/generic/textdlgg.cpp
+ 
+@@ -16959,6 +16995,9 @@
+ monolib_printmac.o: $(srcdir)/src/mac/carbon/printmac.cpp $(MONOLIB_ODEP)
+ 	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/mac/carbon/printmac.cpp
+ 
++monolib_srchctrl.o: $(srcdir)/src/mac/carbon/srchctrl.cpp $(MONOLIB_ODEP)
++	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/mac/carbon/srchctrl.cpp
++
+ monolib_statbrma.o: $(srcdir)/src/mac/carbon/statbrma.cpp $(MONOLIB_ODEP)
+ 	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/mac/carbon/statbrma.cpp
+ 
+@@ -20331,6 +20370,9 @@
+ @COND_USE_GUI_1@monolib_sizer.o: $(srcdir)/src/common/sizer.cpp $(MONOLIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/common/sizer.cpp
+ 
++@COND_USE_GUI_1@monolib_srchcmn.o: $(srcdir)/src/common/srchcmn.cpp $(MONOLIB_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/common/srchcmn.cpp
++
+ @COND_USE_GUI_1@monolib_statbar.o: $(srcdir)/src/common/statbar.cpp $(MONOLIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/common/statbar.cpp
+ 
+@@ -20436,6 +20478,9 @@
+ @COND_USE_GUI_1@monolib_splitter.o: $(srcdir)/src/generic/splitter.cpp $(MONOLIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/generic/splitter.cpp
+ 
++@COND_USE_GUI_1@monolib_srchctlg.o: $(srcdir)/src/generic/srchctlg.cpp $(MONOLIB_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/generic/srchctlg.cpp
++
+ @COND_USE_GUI_1@monolib_textdlgg.o: $(srcdir)/src/generic/textdlgg.cpp $(MONOLIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(MONOLIB_CXXFLAGS) $(srcdir)/src/generic/textdlgg.cpp
+ 
+@@ -22065,6 +22110,9 @@
+ coredll_printmac.o: $(srcdir)/src/mac/carbon/printmac.cpp $(COREDLL_ODEP)
+ 	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/mac/carbon/printmac.cpp
+ 
++coredll_srchctrl.o: $(srcdir)/src/mac/carbon/srchctrl.cpp $(COREDLL_ODEP)
++	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/mac/carbon/srchctrl.cpp
++
+ coredll_statbrma.o: $(srcdir)/src/mac/carbon/statbrma.cpp $(COREDLL_ODEP)
+ 	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/mac/carbon/statbrma.cpp
+ 
+@@ -24783,6 +24831,9 @@
+ @COND_USE_GUI_1@coredll_sizer.o: $(srcdir)/src/common/sizer.cpp $(COREDLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/common/sizer.cpp
+ 
++@COND_USE_GUI_1@coredll_srchcmn.o: $(srcdir)/src/common/srchcmn.cpp $(COREDLL_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/common/srchcmn.cpp
++
+ @COND_USE_GUI_1@coredll_statbar.o: $(srcdir)/src/common/statbar.cpp $(COREDLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/common/statbar.cpp
+ 
+@@ -24888,6 +24939,9 @@
+ @COND_USE_GUI_1@coredll_splitter.o: $(srcdir)/src/generic/splitter.cpp $(COREDLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/generic/splitter.cpp
+ 
++@COND_USE_GUI_1@coredll_srchctlg.o: $(srcdir)/src/generic/srchctlg.cpp $(COREDLL_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/generic/srchctlg.cpp
++
+ @COND_USE_GUI_1@coredll_textdlgg.o: $(srcdir)/src/generic/textdlgg.cpp $(COREDLL_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(COREDLL_CXXFLAGS) $(srcdir)/src/generic/textdlgg.cpp
+ 
+@@ -25008,6 +25062,9 @@
+ corelib_printmac.o: $(srcdir)/src/mac/carbon/printmac.cpp $(CORELIB_ODEP)
+ 	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/mac/carbon/printmac.cpp
+ 
++corelib_srchctrl.o: $(srcdir)/src/mac/carbon/srchctrl.cpp $(CORELIB_ODEP)
++	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/mac/carbon/srchctrl.cpp
++
+ corelib_statbrma.o: $(srcdir)/src/mac/carbon/statbrma.cpp $(CORELIB_ODEP)
+ 	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/mac/carbon/statbrma.cpp
+ 
+@@ -27726,6 +27783,9 @@
+ @COND_USE_GUI_1@corelib_sizer.o: $(srcdir)/src/common/sizer.cpp $(CORELIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/common/sizer.cpp
+ 
++@COND_USE_GUI_1@corelib_srchcmn.o: $(srcdir)/src/common/srchcmn.cpp $(CORELIB_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/common/srchcmn.cpp
++
+ @COND_USE_GUI_1@corelib_statbar.o: $(srcdir)/src/common/statbar.cpp $(CORELIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/common/statbar.cpp
+ 
+@@ -27830,6 +27890,9 @@
+ 
+ @COND_USE_GUI_1@corelib_splitter.o: $(srcdir)/src/generic/splitter.cpp $(CORELIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/generic/splitter.cpp
++
++@COND_USE_GUI_1@corelib_srchctlg.o: $(srcdir)/src/generic/srchctlg.cpp $(CORELIB_ODEP)
++@COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/generic/srchctlg.cpp
+ 
+ @COND_USE_GUI_1@corelib_textdlgg.o: $(srcdir)/src/generic/textdlgg.cpp $(CORELIB_ODEP)
+ @COND_USE_GUI_1@	$(CXXC) -c -o $@ $(CORELIB_CXXFLAGS) $(srcdir)/src/generic/textdlgg.cpp
+Index: wxWidgets/configure.in
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/configure.in,v
+retrieving revision 1.1226
+retrieving revision 1.1228
+diff -u -r1.1226 -r1.1228
+--- wxWidgets/configure.in	2006/12/09 23:43:54	1.1226
++++ wxWidgets/configure.in	2006/12/12 01:52:43	1.1228
+@@ -1,5 +1,5 @@
+ dnl Process this file with autoconf to produce a configure script.
+-AC_REVISION($Id: configure.in,v 1.1226 2006/12/09 23:43:54 MW Exp $)dnl
++AC_REVISION($Id: configure.in,v 1.1228 2006/12/12 01:52:43 RD Exp $)dnl
+ 
+ AC_PREREQ(2.58)
+ 
+@@ -10,7 +10,7 @@
+ dnl
+ dnl This script is under the wxWidgets licence.
+ dnl
+-dnl Version: $Id: configure.in,v 1.1226 2006/12/09 23:43:54 MW Exp $
++dnl Version: $Id: configure.in,v 1.1228 2006/12/12 01:52:43 RD Exp $
+ dnl ---------------------------------------------------------------------------
+ 
+ dnl ---------------------------------------------------------------------------
+@@ -35,7 +35,7 @@
+ wx_major_version_number=2
+ wx_minor_version_number=8
+ wx_release_number=0
+-wx_subrelease_number=0
++wx_subrelease_number=1
+ 
+ WX_RELEASE=$wx_major_version_number.$wx_minor_version_number
+ WX_VERSION=$WX_RELEASE.$wx_release_number
+@@ -552,6 +552,7 @@
+   DEFAULT_wxUSE_RADIOBTN=no
+   DEFAULT_wxUSE_SASH=no
+   DEFAULT_wxUSE_SCROLLBAR=no
++  DEFAULT_wxUSE_SEARCHCTRL=no
+   DEFAULT_wxUSE_SLIDER=no
+   DEFAULT_wxUSE_SPINBTN=no
+   DEFAULT_wxUSE_SPINCTRL=no
+@@ -775,6 +776,7 @@
+   DEFAULT_wxUSE_RADIOBTN=yes
+   DEFAULT_wxUSE_SASH=yes
+   DEFAULT_wxUSE_SCROLLBAR=yes
++  DEFAULT_wxUSE_SEARCHCTRL=yes
+   DEFAULT_wxUSE_SLIDER=yes
+   DEFAULT_wxUSE_SPINBTN=yes
+   DEFAULT_wxUSE_SPINCTRL=yes
+@@ -1107,6 +1109,7 @@
+   DEFAULT_wxUSE_RADIOBTN=yes
+   DEFAULT_wxUSE_SASH=yes
+   DEFAULT_wxUSE_SCROLLBAR=yes
++  DEFAULT_wxUSE_SEARCHCTRL=yes
+   DEFAULT_wxUSE_SLIDER=yes
+   DEFAULT_wxUSE_SPINBTN=yes
+   DEFAULT_wxUSE_SPINCTRL=yes
+@@ -1159,6 +1162,7 @@
+   DEFAULT_wxUSE_RADIOBTN=no
+   DEFAULT_wxUSE_SASH=no
+   DEFAULT_wxUSE_SCROLLBAR=no
++  DEFAULT_wxUSE_SEARCHCTRL=no
+   DEFAULT_wxUSE_SLIDER=no
+   DEFAULT_wxUSE_SPINBTN=no
+   DEFAULT_wxUSE_SPINCTRL=no
+@@ -1214,6 +1218,7 @@
+ WX_ARG_ENABLE(radiobtn,    [  --enable-radiobtn       use wxRadioButton class], wxUSE_RADIOBTN)
+ WX_ARG_ENABLE(sash,        [  --enable-sash           use wxSashWindow class], wxUSE_SASH)
+ WX_ARG_ENABLE(scrollbar,   [  --enable-scrollbar      use wxScrollBar class and scrollable windows], wxUSE_SCROLLBAR)
++WX_ARG_ENABLE(searchctrl,  [  --enable-searchctrl     use wxSearchCtrl class], wxUSE_SEARCHCTRL)
+ WX_ARG_ENABLE(slider,      [  --enable-slider         use wxSlider class], wxUSE_SLIDER)
+ WX_ARG_ENABLE(spinbtn,     [  --enable-spinbtn        use wxSpinButton class], wxUSE_SPINBTN)
+ WX_ARG_ENABLE(spinctrl,    [  --enable-spinctrl       use wxSpinCtrl class], wxUSE_SPINCTRL)
+@@ -6880,6 +6885,11 @@
+     AC_DEFINE(wxUSE_SCROLLBAR)
+     USES_CONTROLS=1
+     SAMPLES_SUBDIRS="$SAMPLES_SUBDIRS scroll scrollsub"
++fi
++
++if test "$wxUSE_SEARCHCTRL" = "yes"; then
++    AC_DEFINE(wxUSE_SEARCHCTRL)
++    USES_CONTROLS=1
+ fi
+ 
+ if test "$wxUSE_SLIDER" = "yes"; then
+Index: wxWidgets/setup.h.in
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/setup.h.in,v
+retrieving revision 1.247
+retrieving revision 1.248
+diff -u -r1.247 -r1.248
+--- wxWidgets/setup.h.in	2006/12/03 21:59:40	1.247
++++ wxWidgets/setup.h.in	2006/12/11 06:19:16	1.248
+@@ -332,6 +332,7 @@
+ #define wxUSE_RADIOBOX      0
+ #define wxUSE_RADIOBTN      0
+ #define wxUSE_SCROLLBAR     0
++#define wxUSE_SEARCHCTRL    0
+ #define wxUSE_SLIDER        0
+ #define wxUSE_SPINBTN       0
+ #define wxUSE_SPINCTRL      0
+Index: wxWidgets/build/bakefiles/files.bkl
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/build/bakefiles/files.bkl,v
+retrieving revision 1.412
+retrieving revision 1.413
+diff -u -r1.412 -r1.413
+--- wxWidgets/build/bakefiles/files.bkl	2006/12/04 01:14:19	1.412
++++ wxWidgets/build/bakefiles/files.bkl	2006/12/11 06:19:13	1.413
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" ?>
+-<!-- $Id: files.bkl,v 1.412 2006/12/04 01:14:19 VZ Exp $ -->
++<!-- $Id: files.bkl,v 1.413 2006/12/11 06:19:13 RD Exp $ -->
+ <makefile>
+ 
+ <!--
+@@ -638,6 +638,7 @@
+     src/common/rgncmn.cpp
+     src/common/settcmn.cpp
+     src/common/sizer.cpp
++    src/common/srchcmn.cpp
+     src/common/statbar.cpp
+     src/common/stockitem.cpp
+     src/common/tbarbase.cpp
+@@ -673,6 +674,7 @@
+     src/generic/selstore.cpp
+     src/generic/spinctlg.cpp
+     src/generic/splitter.cpp
++    src/generic/srchctlg.cpp
+     src/generic/textdlgg.cpp
+     src/generic/tipwin.cpp
+     src/generic/toolbkg.cpp
+@@ -736,6 +738,7 @@
+     wx/generic/scrolwin.h
+     wx/generic/spinctlg.h
+     wx/generic/splitter.h
++    wx/generic/srchctlg.h
+     wx/generic/textdlgg.h
+     wx/generic/timer.h
+     wx/generic/treectlg.h
+@@ -854,6 +857,7 @@
+     wx/spinbutt.h
+     wx/spinctrl.h
+     wx/splitter.h
++    wx/srchctrl.h
+     wx/statline.h
+     wx/tab.h
+     wx/tabctrl.h
+@@ -2135,6 +2139,7 @@
+     src/mac/carbon/slider.cpp
+     src/mac/carbon/spinbutt.cpp
+     src/mac/carbon/spinctrl.cpp
++    src/mac/carbon/srchctrl.cpp
+     src/mac/carbon/statbmp.cpp
+     src/mac/carbon/statbox.cpp
+     src/mac/carbon/statbrma.cpp
+@@ -2227,6 +2232,7 @@
+     wx/mac/sound.h
+     wx/mac/spinbutt.h
+     wx/mac/spinctrl.h
++    wx/mac/srchctrl.h
+     wx/mac/statbmp.h
+     wx/mac/statbox.h
+     wx/mac/statline.h
+@@ -2303,6 +2309,9 @@
+     wx/mac/carbon/printdlg.h
+     wx/mac/carbon/printmac.h
+     wx/mac/carbon/private.h
++    wx/mac/carbon/private/mactext.h
++    wx/mac/carbon/private/overlay.h
++    wx/mac/carbon/private/print.h
+     wx/mac/carbon/radiobox.h
+     wx/mac/carbon/radiobut.h
+     wx/mac/carbon/region.h
+@@ -2310,6 +2319,7 @@
+     wx/mac/carbon/slider.h
+     wx/mac/carbon/spinbutt.h
+     wx/mac/carbon/spinctrl.h
++    wx/mac/carbon/srchctrl.h
+     wx/mac/carbon/statbmp.h
+     wx/mac/carbon/statbox.h
+     wx/mac/carbon/statline.h
+Index: wxWidgets/demos/dbbrowse/makefile.gtk
+===================================================================
+RCS file: makefile.gtk
+diff -N makefile.gtk
+--- /dev/null	Thu Dec 14 21:45:38 2006
++++ wxWidgets/demos/dbbrowse/makefile.gtk	Thu Dec 14 21:45:38 2006
+@@ -0,0 +1,15 @@
++
++# Top dir of wxWindows
++top_builddir = /gtm/bart/wxGTK
++
++PROGRAM=dbbrowser_gtk
++
++
++OBJECTS= dbbrowse.o doc.o pgmctrl.o tabpgwin.o\
++         browsedb.o dbtree.o dbgrid.o  dlguser.o
++	
++
++
++
++include $(top_builddir)/src/makeprog.env
++
+Index: wxWidgets/docs/changes.txt
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/docs/changes.txt,v
+retrieving revision 1.984
+retrieving revision 1.985
+diff -u -r1.984 -r1.985
+--- wxWidgets/docs/changes.txt	2006/12/09 16:20:26	1.984
++++ wxWidgets/docs/changes.txt	2006/12/11 13:48:56	1.985
+@@ -84,7 +84,7 @@
+ - Further functionality including wxAnimationCtrl (moved from contrib/src/anim
+   and enhanced), wxSimpleHtmlListBox, wxHyperlinkCtrl, wxColourPickerCtrl,
+   wxDirPickerCtrl, wxFilePickerCtrl, wxFontPickerCtrl, wxCollapsiblePane,
+-  wxAboutBox, wxTreebook, tar streams.
++  wxSearchCtrl, wxAboutBox, wxTreebook, tar streams.
+ 
+ 
+ 2.8.0
+@@ -92,6 +92,7 @@
+ 
+ All:
+ 
++- Added wxSearchCtrl (Vince Harron)
+ - wxCSConv("UTF-16/32") now behaves correctly, i.e. same as wxMBConvUTF16/32
+ - wxArrayString::Alloc() now works as reserve() and doesn't clear array contents
+ - Fixed long standing bug in wxFileConfig groups renaming (Antti Koivisto).
+Index: wxWidgets/include/wx/setup_inc.h
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/include/wx/setup_inc.h,v
+retrieving revision 1.58
+retrieving revision 1.59
+diff -u -r1.58 -r1.59
+--- wxWidgets/include/wx/setup_inc.h	2006/11/09 00:49:10	1.58
++++ wxWidgets/include/wx/setup_inc.h	2006/12/11 06:19:02	1.59
+@@ -4,7 +4,7 @@
+ // Author:      Vadim Zeitlin
+ // Modified by:
+ // Created:
+-// RCS-ID:      $Id: setup_inc.h,v 1.58 2006/11/09 00:49:10 VZ Exp $
++// RCS-ID:      $Id: setup_inc.h,v 1.59 2006/12/11 06:19:02 RD Exp $
+ // Copyright:   (c) Vadim Zeitlin
+ // Licence:     wxWindows licence
+ ///////////////////////////////////////////////////////////////////////////////
+@@ -634,6 +634,7 @@
+ #define wxUSE_RADIOBOX      1   // wxRadioBox
+ #define wxUSE_RADIOBTN      1   // wxRadioButton
+ #define wxUSE_SCROLLBAR     1   // wxScrollBar
++#define wxUSE_SEARCHCTRL    1   // wxSearchCtrl
+ #define wxUSE_SLIDER        1   // wxSlider
+ #define wxUSE_SPINBTN       1   // wxSpinButton
+ #define wxUSE_SPINCTRL      1   // wxSpinCtrl
+Index: wxWidgets/include/wx/srchctrl.h
+===================================================================
+RCS file: srchctrl.h
+diff -N srchctrl.h
+--- /dev/null	Thu Dec 14 21:45:56 2006
++++ wxWidgets/include/wx/srchctrl.h	Thu Dec 14 21:46:07 2006
+@@ -0,0 +1,89 @@
++/////////////////////////////////////////////////////////////////////////////
++// Name:        srchctrl.h
++// Purpose:     wxSearchCtrlBase class
++// Author:      Vince Harron
++// Created:     2006-02-18
++// RCS-ID:      $Id: srchctrl.h,v 1.5 2006/12/11 20:32:00 KO Exp $
++// Copyright:   (c) Vince Harron
++// Licence:     wxWindows licence
++/////////////////////////////////////////////////////////////////////////////
++
++#ifndef _WX_SEARCHCTRL_H_BASE_
++#define _WX_SEARCHCTRL_H_BASE_
++
++#include "wx/defs.h"
++
++#if wxUSE_SEARCHCTRL
++
++#include "wx/textctrl.h"
++
++#if !defined(__WXUNIVERSAL__) && defined(__WXMAC__) && defined(__WXMAC_OSX__) \
++        && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3)
++    // search control was introduced in Mac OS X 10.3 Panther
++    #define wxUSE_NATIVE_SEARCH_CONTROL 1
++
++    #define wxSearchCtrlBaseBaseClass wxTextCtrl
++#else
++    // no native version, use the generic one
++    #define wxUSE_NATIVE_SEARCH_CONTROL 0
++
++    #define wxSearchCtrlBaseBaseClass wxTextCtrlBase
++#endif
++
++// ----------------------------------------------------------------------------
++// constants
++// ----------------------------------------------------------------------------
++
++extern WXDLLEXPORT_DATA(const wxChar) wxSearchCtrlNameStr[];
++
++BEGIN_DECLARE_EVENT_TYPES()
++    DECLARE_EVENT_TYPE(wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN, 1119)
++    DECLARE_EVENT_TYPE(wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN, 1120)
++END_DECLARE_EVENT_TYPES()
++
++// ----------------------------------------------------------------------------
++// a search ctrl is a text control with a search button and a cancel button
++// it is based on the MacOSX 10.3 control HISearchFieldCreate
++// ----------------------------------------------------------------------------
++
++class WXDLLEXPORT wxSearchCtrlBase : public wxSearchCtrlBaseBaseClass
++{
++public:
++    wxSearchCtrlBase() { }
++    virtual ~wxSearchCtrlBase() { }
++
++    // search control 
++    virtual void SetMenu(wxMenu *menu) = 0;
++    virtual wxMenu *GetMenu() = 0;
++
++    // get/set options
++    virtual void ShowSearchButton( bool show ) = 0;
++    virtual bool IsSearchButtonVisible() const = 0;
++
++    virtual void ShowCancelButton( bool show ) = 0;
++    virtual bool IsCancelButtonVisible() const = 0;
++};
++
++
++// include the platform-dependent class implementation
++#if wxUSE_NATIVE_SEARCH_CONTROL
++    #if defined(__WXMAC__)
++        #include "wx/mac/srchctrl.h"
++    #endif
++#else
++    #include "wx/generic/srchctlg.h"
++#endif
++
++// ----------------------------------------------------------------------------
++// macros for handling search events
++// ----------------------------------------------------------------------------
++
++#define EVT_SEARCHCTRL_CANCEL_BTN(id, fn) \
++    wx__DECLARE_EVT1(wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN, id, wxCommandEventHandler(fn))
++
++#define EVT_SEARCHCTRL_SEARCH_BTN(id, fn) \
++    wx__DECLARE_EVT1(wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN, id, wxCommandEventHandler(fn))
++
++#endif // wxUSE_SEARCHCTRL
++
++#endif // _WX_SEARCHCTRL_H_BASE_
+Index: wxWidgets/include/wx/version.h
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/include/wx/version.h,v
+retrieving revision 1.82
+retrieving revision 1.83
+diff -u -r1.82 -r1.83
+--- wxWidgets/include/wx/version.h	2006/11/10 02:27:47	1.82
++++ wxWidgets/include/wx/version.h	2006/12/12 01:52:41	1.83
+@@ -4,7 +4,7 @@
+  *  Author:      Julian Smart
+  *  Modified by: Ryan Norton (Converted to C)
+  *  Created:     29/01/98
+- *  RCS-ID:      $Id: version.h,v 1.82 2006/11/10 02:27:47 RD Exp $
++ *  RCS-ID:      $Id: version.h,v 1.83 2006/12/12 01:52:41 RD Exp $
+  *  Copyright:   (c) 1998 Julian Smart
+  *  Licence:     wxWindows licence
+  */
+@@ -29,7 +29,7 @@
+ #define wxMAJOR_VERSION      2
+ #define wxMINOR_VERSION      8
+ #define wxRELEASE_NUMBER     0
+-#define wxSUBRELEASE_NUMBER  0
++#define wxSUBRELEASE_NUMBER  1
+ #define wxVERSION_STRING   _T("wxWidgets 2.8.0")
+ 
+ /*  nothing to update below this line when updating the version */
+Index: wxWidgets/include/wx/generic/srchctlg.h
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/include/wx/generic/srchctlg.h,v
+retrieving revision 1.2
+retrieving revision 1.5
+diff -u -r1.2 -r1.5
+--- wxWidgets/include/wx/generic/srchctlg.h	2006/12/11 07:48:02	1.2
++++ wxWidgets/include/wx/generic/srchctlg.h	2006/12/12 00:53:52	1.5
+@@ -2,9 +2,8 @@
+ // Name:        wx/generic/srchctlg.h
+ // Purpose:     generic wxSearchCtrl class
+ // Author:      Vince Harron
+-// Modified by:
+ // Created:     2006-02-19
+-// RCS-ID:      
++// RCS-ID:      $Id: srchctlg.h,v 1.5 2006/12/12 00:53:52 RD Exp $
+ // Copyright:   Vince Harron
+ // Licence:     wxWindows licence
+ /////////////////////////////////////////////////////////////////////////////
+@@ -14,37 +13,11 @@
+ 
+ #if wxUSE_SEARCHCTRL
+ 
+-#if defined(__GNUG__) && !defined(NO_GCC_PRAGMA)
+-    #pragma interface "srchctlg.h"
+-#endif
+-
+ #include "wx/bitmap.h"
+ 
+-// ----------------------------------------------------------------------------
+-
+ class WXDLLEXPORT wxSearchButton;
+ class WXDLLEXPORT wxSearchTextCtrl;
+ 
+-class WXDLLEXPORT wxSearchCtrlBase : public wxTextCtrlBase
+-{
+-public:
+-    wxSearchCtrlBase() {}
+-    virtual ~wxSearchCtrlBase() {}
+-
+-    // search control 
+-    virtual void SetMenu( wxMenu* menu ) = 0;
+-    virtual wxMenu* GetMenu() = 0;
+-
+-
+-    // get/set options
+-    virtual void SetSearchButtonVisible( bool show ) = 0;
+-    virtual bool GetSearchButtonVisible() const = 0;
+-
+-    virtual void SetCancelButtonVisible( bool show ) = 0;
+-    virtual bool GetCancelButtonVisible() const = 0;
+-protected:
+-};
+-
+ // ----------------------------------------------------------------------------
+ // wxSearchCtrl is a combination of wxTextCtrl and wxSearchButton
+ // ----------------------------------------------------------------------------
+@@ -64,7 +37,7 @@
+                const wxValidator& validator = wxDefaultValidator,
+                const wxString& name = wxSearchCtrlNameStr);
+ 
+-    ~wxSearchCtrl();
++    virtual ~wxSearchCtrl();
+ 
+     bool Create(wxWindow *parent, wxWindowID id,
+                 const wxString& value = wxEmptyString,
+@@ -78,14 +51,14 @@
+     // --------------------------
+     virtual void SetMenu( wxMenu* menu );
+     virtual wxMenu* GetMenu();
+-    
++
+     // get/set search options
+     // ----------------------
+-    virtual void SetSearchButtonVisible( bool show );
+-    virtual bool GetSearchButtonVisible() const;
++    virtual void ShowSearchButton( bool show );
++    virtual bool IsSearchButtonVisible() const;
+ 
+-    virtual void SetCancelButtonVisible( bool show );
+-    virtual bool GetCancelButtonVisible() const;
++    virtual void ShowCancelButton( bool show );
++    virtual bool IsCancelButtonVisible() const;
+ 
+     // accessors
+     // ---------
+@@ -239,7 +212,8 @@
+     virtual void OnSearchButton( wxCommandEvent& event );
+ 
+     void OnSetFocus( wxFocusEvent& event );
+-
++    void OnSize( wxSizeEvent& event );
++    
+ private:
+     friend class wxSearchButton;
+ 
+Index: wxWidgets/samples/minimal/minimal.cpp
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/minimal/minimal.cpp,v
+retrieving revision 1.74
+retrieving revision 1.76
+diff -u -r1.74 -r1.76
+--- wxWidgets/samples/minimal/minimal.cpp	2006/11/04 21:58:47	1.74
++++ wxWidgets/samples/minimal/minimal.cpp	2006/12/11 09:33:34	1.76
+@@ -4,7 +4,7 @@
+ // Author:      Julian Smart
+ // Modified by:
+ // Created:     04/01/98
+-// RCS-ID:      $Id: minimal.cpp,v 1.74 2006/11/04 21:58:47 VZ Exp $
++// RCS-ID:      $Id: minimal.cpp,v 1.76 2006/12/11 09:33:34 CE Exp $
+ // Copyright:   (c) Julian Smart
+ // Licence:     wxWindows licence
+ /////////////////////////////////////////////////////////////////////////////
+@@ -16,10 +16,10 @@
+ // ----------------------------------------------------------------------------
+ // headers
+ // ----------------------------------------------------------------------------
+-
++ 
+ // For compilers that support precompilation, includes "wx/wx.h".
+ #include "wx/wxprec.h"
+-
++ 
+ #ifdef __BORLANDC__
+     #pragma hdrstop
+ #endif
+Index: wxWidgets/samples/tab/Makefile.in
+===================================================================
+RCS file: Makefile.in
+diff -N Makefile.in
+--- /dev/null	Thu Dec 14 21:47:16 2006
++++ wxWidgets/samples/tab/Makefile.in	Thu Dec 14 21:47:23 2006
+@@ -0,0 +1,173 @@
++# =========================================================================
++#     This makefile was generated by
++#     Bakefile 0.1.6 (http://bakefile.sourceforge.net)
++#     Do not modify, all changes will be overwritten!
++# =========================================================================
++
++
++@MAKE_SET@
++
++prefix = @prefix@
++exec_prefix = @exec_prefix@
++INSTALL = @INSTALL@
++EXEEXT = @EXEEXT@
++RESCOMP = @RESCOMP@
++SETFILE = @SETFILE@
++NM = @NM@
++srcdir = @srcdir@
++top_srcdir = @top_srcdir@
++top_builddir = @top_builddir@
++LDFLAGS_GUI = @LDFLAGS_GUI@
++CXX = @CXX@
++CXXFLAGS = @CXXFLAGS@
++CPPFLAGS = @CPPFLAGS@
++LDFLAGS = @LDFLAGS@
++WX_LIB_FLAVOUR = @WX_LIB_FLAVOUR@
++TOOLKIT = @TOOLKIT@
++TOOLKIT_LOWERCASE = @TOOLKIT_LOWERCASE@
++TOOLKIT_VERSION = @TOOLKIT_VERSION@
++TOOLCHAIN_NAME = @TOOLCHAIN_NAME@
++EXTRALIBS = @EXTRALIBS@
++EXTRALIBS_GUI = @EXTRALIBS_GUI@
++HOST_SUFFIX = @HOST_SUFFIX@
++SAMPLES_RPATH_FLAG = @SAMPLES_RPATH_FLAG@
++SAMPLES_RPATH_POSTLINK = @SAMPLES_RPATH_POSTLINK@
++
++### Variables: ###
++
++DESTDIR = 
++WX_RELEASE = 2.5
++WX_VERSION = $(WX_RELEASE).4
++LIBDIRNAME = $(top_builddir)lib
++TAB_CXXFLAGS = -D__WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p) -I$(srcdir) \
++	$(__DLLFLAG_p) -I$(srcdir)/../../samples $(CPPFLAGS) $(CXXFLAGS)
++TAB_OBJECTS =  \
++	$(__tab_os2_lib_res) \
++	tab_tab.o \
++	$(__tab___win32rc)
++
++### Conditionally set variables: ###
++
++@COND_DEPS_TRACKING_0@CXXC = $(CXX)
++@COND_DEPS_TRACKING_1@CXXC = $(top_builddir)./bk-deps $(CXX)
++@COND_USE_GUI_0@PORTNAME = base
++@COND_USE_GUI_1@PORTNAME = $(TOOLKIT_LOWERCASE)$(TOOLKIT_VERSION)
++@COND_TOOLKIT_MAC@WXBASEPORT = _carbon
++@COND_BUILD_DEBUG_DEBUG_FLAG_DEFAULT@WXDEBUGFLAG = d
++@COND_DEBUG_FLAG_1@WXDEBUGFLAG = d
++@COND_UNICODE_1@WXUNICODEFLAG = u
++@COND_WXUNIV_1@WXUNIVNAME = univ
++@COND_MONOLITHIC_0@EXTRALIBS_FOR_BASE = $(EXTRALIBS)
++@COND_MONOLITHIC_1@EXTRALIBS_FOR_BASE = $(EXTRALIBS) $(EXTRALIBS_GUI)
++@COND_MONOLITHIC_0@EXTRALIBS_FOR_GUI = $(EXTRALIBS_GUI)
++@COND_MONOLITHIC_1@EXTRALIBS_FOR_GUI = 
++@COND_PLATFORM_MAC_1@__tab___mac_setfilecmd = $(SETFILE) -a C tab$(EXEEXT)
++@COND_PLATFORM_MAC_1@__tab___mac_rezcmd = $(__MACOSX_RESOURCES_p_1)
++@COND_WXUNIV_1@__WXUNIV_DEFINE_p = -D__WXUNIVERSAL__
++@COND_WXUNIV_1@__WXUNIV_DEFINE_p_1 = -d __WXUNIVERSAL__
++@COND_WXUNIV_1@__WXUNIV_DEFINE_p_2 = --define __WXUNIVERSAL__
++@COND_SHARED_1@__DLLFLAG_p = -DWXUSINGDLL
++@COND_SHARED_1@__DLLFLAG_p_1 = -d WXUSINGDLL
++@COND_SHARED_1@__DLLFLAG_p_2 = --define WXUSINGDLL
++COND_PLATFORM_OS2_1___tab___os2_emxbindcmd = $(NM) tab$(EXEEXT) | if grep -q \
++	pmwin.763 ; then emxbind -ep tab$(EXEEXT) ; fi
++@COND_PLATFORM_OS2_1@__tab___os2_emxbindcmd = $(COND_PLATFORM_OS2_1___tab___os2_emxbindcmd)
++@COND_PLATFORM_OS2_1@__tab_os2_lib_res = \
++@COND_PLATFORM_OS2_1@	$(top_srcdir)/include/wx/os2/wx.res
++@COND_PLATFORM_MACOSX_1@__tab_bundle___depname = tab_bundle
++@COND_TOOLKIT_COCOA@____tab_BUNDLE_TGT_REF_DEP = tab.app/Contents/PkgInfo
++@COND_TOOLKIT_MAC@____tab_BUNDLE_TGT_REF_DEP = tab.app/Contents/PkgInfo
++COND_MONOLITHIC_0___WXLIB_CORE_p = \
++	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)_core-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_MONOLITHIC_0@__WXLIB_CORE_p = $(COND_MONOLITHIC_0___WXLIB_CORE_p)
++COND_MONOLITHIC_0___WXLIB_BASE_p = \
++	-lwx_base$(WXBASEPORT)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_MONOLITHIC_0@__WXLIB_BASE_p = $(COND_MONOLITHIC_0___WXLIB_BASE_p)
++@COND_PLATFORM_WIN32_1@__tab___win32rc = tab_tab_rc.o
++COND_MONOLITHIC_1___WXLIB_MONO_p = \
++	-lwx_$(PORTNAME)$(WXUNIVNAME)$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_MONOLITHIC_1@__WXLIB_MONO_p = $(COND_MONOLITHIC_1___WXLIB_MONO_p)
++@COND_USE_GUI_1_WXUSE_LIBTIFF_BUILTIN@__LIB_TIFF_p \
++@COND_USE_GUI_1_WXUSE_LIBTIFF_BUILTIN@	= \
++@COND_USE_GUI_1_WXUSE_LIBTIFF_BUILTIN@	-lwxtiff$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_USE_GUI_1_WXUSE_LIBJPEG_BUILTIN@__LIB_JPEG_p \
++@COND_USE_GUI_1_WXUSE_LIBJPEG_BUILTIN@	= \
++@COND_USE_GUI_1_WXUSE_LIBJPEG_BUILTIN@	-lwxjpeg$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_USE_GUI_1_WXUSE_LIBPNG_BUILTIN@__LIB_PNG_p \
++@COND_USE_GUI_1_WXUSE_LIBPNG_BUILTIN@	= \
++@COND_USE_GUI_1_WXUSE_LIBPNG_BUILTIN@	-lwxpng$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_WXUSE_ZLIB_BUILTIN@__LIB_ZLIB_p = \
++@COND_WXUSE_ZLIB_BUILTIN@	-lwxzlib$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_WXUSE_ODBC_BUILTIN@__LIB_ODBC_p = \
++@COND_WXUSE_ODBC_BUILTIN@	-lwxodbc$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++COND_WXUSE_REGEX_BUILTIN___LIB_REGEX_p = \
++	-lwxregex$(WXUNICODEFLAG)$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++@COND_WXUSE_REGEX_BUILTIN@__LIB_REGEX_p = $(COND_WXUSE_REGEX_BUILTIN___LIB_REGEX_p)
++@COND_WXUSE_EXPAT_BUILTIN@__LIB_EXPAT_p = \
++@COND_WXUSE_EXPAT_BUILTIN@	-lwxexpat$(WXDEBUGFLAG)$(WX_LIB_FLAVOUR)-$(WX_RELEASE)$(HOST_SUFFIX)
++COND_TOOLKIT_MAC___MACOSX_RESOURCES_p_1 = $(RESCOMP) -d __DARWIN__ -t APPL -d \
++	__WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_1) -i $(srcdir) $(__DLLFLAG_p_1) -i \
++	$(srcdir)/../../samples -i $(top_srcdir)/include -o tab$(EXEEXT) Carbon.r \
++	$(LIBDIRNAME)/libwx_$(TOOLCHAIN_NAME).4.r sample.r
++@COND_TOOLKIT_MAC@__MACOSX_RESOURCES_p_1 = $(COND_TOOLKIT_MAC___MACOSX_RESOURCES_p_1)
++
++### Targets: ###
++
++all: tab$(EXEEXT) $(__tab_bundle___depname)
++
++install: all
++
++uninstall: 
++
++install-strip: install
++
++clean: 
++	rm -rf ./.deps ./.pch
++	rm -f ./*.o
++	rm -f tab$(EXEEXT)
++	rm -rf tab.app
++
++distclean: clean
++	rm -f config.cache config.log config.status bk-deps bk-make-pch shared-ld-sh Makefile
++
++tab$(EXEEXT): $(TAB_OBJECTS) $(__tab___win32rc)
++	$(CXX) -o $@ $(TAB_OBJECTS) $(LDFLAGS)   -L$(LIBDIRNAME) $(LDFLAGS_GUI) $(SAMPLES_RPATH_FLAG)  $(__WXLIB_CORE_p)  $(__WXLIB_BASE_p)  $(__WXLIB_MONO_p) $(__LIB_TIFF_p) $(__LIB_JPEG_p) $(__LIB_PNG_p) $(__LIB_ZLIB_p) $(__LIB_ODBC_p) $(__LIB_REGEX_p) $(__LIB_EXPAT_p) $(EXTRALIBS_FOR_BASE) $(EXTRALIBS_FOR_GUI)
++	$(__tab___mac_rezcmd)
++	$(__tab___mac_setfilecmd)
++	$(__tab___os2_emxbindcmd)
++	$(SAMPLES_RPATH_POSTLINK)
++
++tab.app/Contents/PkgInfo: tab$(EXEEXT) $(top_srcdir)/src/mac/carbon/Info.plist.in $(LIBDIRNAME)/libwx_$(TOOLCHAIN_NAME).4.rsrc $(top_srcdir)/src/mac/carbon/wxmac.icns
++	mkdir -p tab.app/Contents
++	mkdir -p tab.app/Contents/MacOS
++	mkdir -p tab.app/Contents/Resources
++	
++	
++	sed -e "s/IDENTIFIER/`echo $(srcdir) | sed -e 's,\.\./,,g' | sed -e 's,/,.,g'`/" \
++	-e "s/EXECUTABLE/tab/" \
++	-e "s/VERSION/$(WX_VERSION)/" \
++	$(top_srcdir)/src/mac/carbon/Info.plist.in >tab.app/Contents/Info.plist
++	
++	
++	echo -n "APPL????" >tab.app/Contents/PkgInfo
++	
++	
++	ln -f tab$(EXEEXT) tab.app/Contents/MacOS/tab
++	
++	
++	cp -f $(LIBDIRNAME)/libwx_$(TOOLCHAIN_NAME).4.rsrc tab.app/Contents/Resources/tab.rsrc
++	cp -f $(top_srcdir)/src/mac/carbon/wxmac.icns tab.app/Contents/Resources/wxmac.icns
++
++@COND_PLATFORM_MACOSX_1@tab_bundle: $(____tab_BUNDLE_TGT_REF_DEP)
++
++tab_tab.o: $(srcdir)/tab.cpp
++	$(CXXC) -c -o $@ $(TAB_CXXFLAGS) $(srcdir)/tab.cpp
++
++tab_tab_rc.o: $(srcdir)/tab.rc
++	$(RESCOMP) -i$< -o$@   --define __WX$(TOOLKIT)__ $(__WXUNIV_DEFINE_p_2)   --include-dir $(srcdir) $(__DLLFLAG_p_2) --include-dir $(srcdir)/../../samples --include-dir $(top_srcdir)/include
++
++
++# Include dependency info, if present:
++@IF_GNU_MAKE@-include .deps/*.d
++
++.PHONY: all install uninstall clean distclean tab_bundle
+Index: wxWidgets/samples/widgets/Makefile.in
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/Makefile.in,v
+retrieving revision 1.65
+retrieving revision 1.66
+diff -u -r1.65 -r1.66
+--- wxWidgets/samples/widgets/Makefile.in	2006/11/10 02:19:10	1.65
++++ wxWidgets/samples/widgets/Makefile.in	2006/12/11 06:18:31	1.66
+@@ -66,6 +66,7 @@
+ 	widgets_notebook.o \
+ 	widgets_odcombobox.o \
+ 	widgets_radiobox.o \
++	widgets_searchctrl.o \
+ 	widgets_slider.o \
+ 	widgets_spinbtn.o \
+ 	widgets_static.o \
+@@ -261,6 +262,9 @@
+ 
+ widgets_radiobox.o: $(srcdir)/radiobox.cpp
+ 	$(CXXC) -c -o $@ $(WIDGETS_CXXFLAGS) $(srcdir)/radiobox.cpp
++
++widgets_searchctrl.o: $(srcdir)/searchctrl.cpp
++	$(CXXC) -c -o $@ $(WIDGETS_CXXFLAGS) $(srcdir)/searchctrl.cpp
+ 
+ widgets_slider.o: $(srcdir)/slider.cpp
+ 	$(CXXC) -c -o $@ $(WIDGETS_CXXFLAGS) $(srcdir)/slider.cpp
+Index: wxWidgets/samples/widgets/datepick.cpp
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/datepick.cpp,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -u -r1.9 -r1.10
+--- wxWidgets/samples/widgets/datepick.cpp	2006/12/10 13:46:12	1.9
++++ wxWidgets/samples/widgets/datepick.cpp	2006/12/11 13:30:27	1.10
+@@ -4,7 +4,7 @@
+ // Purpose:     Part of the widgets sample showing date picker
+ // Author:      Dimitri Schoolwerth, Vadim Zeitlin
+ // Created:     27 Sep 2003
+-// Id:          $Id: datepick.cpp,v 1.9 2006/12/10 13:46:12 VZ Exp $
++// Id:          $Id: datepick.cpp,v 1.10 2006/12/11 13:30:27 VZ Exp $
+ // Copyright:   (c) 2003 wxWindows team
+ // License:     wxWindows license
+ /////////////////////////////////////////////////////////////////////////////
+@@ -223,7 +223,9 @@
+ 
+ void DatePickerWidgetsPage::OnButtonSet(wxCommandEvent& WXUNUSED(event))
+ {
+-    long day, month, year;
++    long day = 0,
++         month = 0,
++         year = 0;
+     if ( m_day->GetValue().ToLong(&day) &&
+          m_month->GetValue().ToLong(&month) &&
+          m_year->GetValue().ToLong(&year) )
+Index: wxWidgets/samples/widgets/makefile.bcc
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/makefile.bcc,v
+retrieving revision 1.38
+retrieving revision 1.39
+diff -u -r1.38 -r1.39
+--- wxWidgets/samples/widgets/makefile.bcc	2006/11/10 02:19:10	1.38
++++ wxWidgets/samples/widgets/makefile.bcc	2006/12/11 06:18:30	1.39
+@@ -50,6 +50,7 @@
+ 	$(OBJS)\widgets_notebook.obj \
+ 	$(OBJS)\widgets_odcombobox.obj \
+ 	$(OBJS)\widgets_radiobox.obj \
++	$(OBJS)\widgets_searchctrl.obj \
+ 	$(OBJS)\widgets_slider.obj \
+ 	$(OBJS)\widgets_spinbtn.obj \
+ 	$(OBJS)\widgets_static.obj \
+@@ -305,6 +306,9 @@
+ 	$(CXX) -q -c -P -o$@ $(WIDGETS_CXXFLAGS) $**
+ 
+ $(OBJS)\widgets_radiobox.obj: .\radiobox.cpp
++	$(CXX) -q -c -P -o$@ $(WIDGETS_CXXFLAGS) $**
++
++$(OBJS)\widgets_searchctrl.obj: .\searchctrl.cpp
+ 	$(CXX) -q -c -P -o$@ $(WIDGETS_CXXFLAGS) $**
+ 
+ $(OBJS)\widgets_slider.obj: .\slider.cpp
+Index: wxWidgets/samples/widgets/makefile.gcc
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/makefile.gcc,v
+retrieving revision 1.37
+retrieving revision 1.38
+diff -u -r1.37 -r1.38
+--- wxWidgets/samples/widgets/makefile.gcc	2006/11/10 02:19:10	1.37
++++ wxWidgets/samples/widgets/makefile.gcc	2006/12/11 06:18:30	1.38
+@@ -43,6 +43,7 @@
+ 	$(OBJS)\widgets_notebook.o \
+ 	$(OBJS)\widgets_odcombobox.o \
+ 	$(OBJS)\widgets_radiobox.o \
++	$(OBJS)\widgets_searchctrl.o \
+ 	$(OBJS)\widgets_slider.o \
+ 	$(OBJS)\widgets_spinbtn.o \
+ 	$(OBJS)\widgets_static.o \
+@@ -298,6 +299,9 @@
+ 	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
+ 
+ $(OBJS)\widgets_radiobox.o: ./radiobox.cpp
++	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
++
++$(OBJS)\widgets_searchctrl.o: ./searchctrl.cpp
+ 	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
+ 
+ $(OBJS)\widgets_slider.o: ./slider.cpp
+Index: wxWidgets/samples/widgets/makefile.unx
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/makefile.unx,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -u -r1.4 -r1.5
+--- wxWidgets/samples/widgets/makefile.unx	2006/11/10 02:19:10	1.4
++++ wxWidgets/samples/widgets/makefile.unx	2006/12/11 06:18:30	1.5
+@@ -55,6 +55,7 @@
+ 	widgets_notebook.o \
+ 	widgets_odcombobox.o \
+ 	widgets_radiobox.o \
++	widgets_searchctrl.o \
+ 	widgets_slider.o \
+ 	widgets_spinbtn.o \
+ 	widgets_static.o \
+@@ -128,6 +129,9 @@
+ 	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
+ 
+ widgets_radiobox.o: ./radiobox.cpp
++	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
++
++widgets_searchctrl.o: ./searchctrl.cpp
+ 	$(CXX) -c -o $@ $(WIDGETS_CXXFLAGS) $(CPPDEPS) $<
+ 
+ widgets_slider.o: ./slider.cpp
+Index: wxWidgets/samples/widgets/makefile.vc
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/makefile.vc,v
+retrieving revision 1.43
+retrieving revision 1.44
+diff -u -r1.43 -r1.44
+--- wxWidgets/samples/widgets/makefile.vc	2006/11/10 02:19:09	1.43
++++ wxWidgets/samples/widgets/makefile.vc	2006/12/11 06:18:30	1.44
+@@ -43,6 +43,7 @@
+ 	$(OBJS)\widgets_notebook.obj \
+ 	$(OBJS)\widgets_odcombobox.obj \
+ 	$(OBJS)\widgets_radiobox.obj \
++	$(OBJS)\widgets_searchctrl.obj \
+ 	$(OBJS)\widgets_slider.obj \
+ 	$(OBJS)\widgets_spinbtn.obj \
+ 	$(OBJS)\widgets_static.obj \
+@@ -380,6 +381,9 @@
+ 	$(CXX) /c /nologo /TP /Fo$@ $(WIDGETS_CXXFLAGS) $**
+ 
+ $(OBJS)\widgets_radiobox.obj: .\radiobox.cpp
++	$(CXX) /c /nologo /TP /Fo$@ $(WIDGETS_CXXFLAGS) $**
++
++$(OBJS)\widgets_searchctrl.obj: .\searchctrl.cpp
+ 	$(CXX) /c /nologo /TP /Fo$@ $(WIDGETS_CXXFLAGS) $**
+ 
+ $(OBJS)\widgets_slider.obj: .\slider.cpp
+Index: wxWidgets/samples/widgets/makefile.wat
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/makefile.wat,v
+retrieving revision 1.37
+retrieving revision 1.38
+diff -u -r1.37 -r1.38
+--- wxWidgets/samples/widgets/makefile.wat	2006/11/10 02:19:09	1.37
++++ wxWidgets/samples/widgets/makefile.wat	2006/12/11 06:18:29	1.38
+@@ -254,6 +254,7 @@
+ 	$(OBJS)\widgets_notebook.obj &
+ 	$(OBJS)\widgets_odcombobox.obj &
+ 	$(OBJS)\widgets_radiobox.obj &
++	$(OBJS)\widgets_searchctrl.obj &
+ 	$(OBJS)\widgets_slider.obj &
+ 	$(OBJS)\widgets_spinbtn.obj &
+ 	$(OBJS)\widgets_static.obj &
+@@ -336,6 +337,9 @@
+ 	$(CXX) -bt=nt -zq -fo=$^@ $(WIDGETS_CXXFLAGS) $<
+ 
+ $(OBJS)\widgets_radiobox.obj :  .AUTODEPEND .\radiobox.cpp
++	$(CXX) -bt=nt -zq -fo=$^@ $(WIDGETS_CXXFLAGS) $<
++
++$(OBJS)\widgets_searchctrl.obj :  .AUTODEPEND .\searchctrl.cpp
+ 	$(CXX) -bt=nt -zq -fo=$^@ $(WIDGETS_CXXFLAGS) $<
+ 
+ $(OBJS)\widgets_slider.obj :  .AUTODEPEND .\slider.cpp
+Index: wxWidgets/samples/widgets/searchctrl.cpp
+===================================================================
+RCS file: searchctrl.cpp
+diff -N searchctrl.cpp
+--- /dev/null	Thu Dec 14 21:47:28 2006
++++ wxWidgets/samples/widgets/searchctrl.cpp	Thu Dec 14 21:47:29 2006
+@@ -0,0 +1,225 @@
++/////////////////////////////////////////////////////////////////////////////
++// Program:     wxWidgets Widgets Sample
++// Name:        searchctrl.cpp
++// Purpose:     Shows wxSearchCtrl
++// Author:      Robin Dunn
++// Created:     9-Dec-2006
++// Id:          $Id: searchctrl.cpp,v 1.4 2006/12/11 13:48:18 VZ Exp $
++// Copyright:   (c) 2006 
++// License:     wxWindows license
++/////////////////////////////////////////////////////////////////////////////
++
++// ============================================================================
++// declarations
++// ============================================================================
++
++// ----------------------------------------------------------------------------
++// headers
++// ----------------------------------------------------------------------------
++
++// for compilers that support precompilation, includes "wx/wx.h".
++#include "wx/wxprec.h"
++
++#ifdef __BORLANDC__
++    #pragma hdrstop
++#endif
++
++#if wxUSE_SEARCHCTRL
++
++// for all others, include the necessary headers
++#ifndef WX_PRECOMP
++    #include "wx/app.h"
++    #include "wx/log.h"
++    #include "wx/radiobox.h"
++    #include "wx/statbox.h"
++#endif
++
++#include "wx/artprov.h"
++#include "wx/sizer.h"
++#include "wx/stattext.h"
++#include "wx/checkbox.h"
++#include "wx/menu.h"
++
++#include "wx/srchctrl.h"
++
++#include "widgets.h"
++
++#include "icons/text.xpm"
++
++// ----------------------------------------------------------------------------
++// constants
++// ----------------------------------------------------------------------------
++
++// control ids
++enum
++{
++     ID_SEARCH_CB = wxID_HIGHEST,
++     ID_CANCEL_CB,
++     ID_MENU_CB,
++
++     ID_SEARCHMENU
++};
++
++
++// ----------------------------------------------------------------------------
++// ColourPickerWidgetsPage
++// ----------------------------------------------------------------------------
++
++class SearchCtrlWidgetsPage : public WidgetsPage
++{
++public:
++    SearchCtrlWidgetsPage(WidgetsBookCtrl *book, wxImageList *imaglist);
++    virtual ~SearchCtrlWidgetsPage(){};
++
++    virtual wxControl *GetWidget() const { return m_srchCtrl; }
++    virtual void RecreateWidget() { CreateControl(); }
++
++    // lazy creation of the content
++    virtual void CreateContent();
++
++protected:
++
++    void OnToggleSearchButton(wxCommandEvent&);
++    void OnToggleCancelButton(wxCommandEvent&);
++    void OnToggleSearchMenu(wxCommandEvent&);
++
++    wxMenu* CreateTestMenu();
++    
++    // (re)create the control
++    void CreateControl();
++
++    // reset the control parameters
++    void Reset();
++    
++    
++    wxSearchCtrl*       m_srchCtrl;
++    wxCheckBox*         m_searchBtnCheck;
++    wxCheckBox*         m_cancelBtnCheck;
++    wxCheckBox*         m_menuBtnCheck;
++
++private:
++    DECLARE_EVENT_TABLE()
++    DECLARE_WIDGETS_PAGE(SearchCtrlWidgetsPage)
++};
++
++// ----------------------------------------------------------------------------
++// event tables
++// ----------------------------------------------------------------------------
++
++BEGIN_EVENT_TABLE(SearchCtrlWidgetsPage, WidgetsPage)
++    EVT_CHECKBOX(ID_SEARCH_CB, SearchCtrlWidgetsPage::OnToggleSearchButton)
++    EVT_CHECKBOX(ID_CANCEL_CB, SearchCtrlWidgetsPage::OnToggleCancelButton)
++    EVT_CHECKBOX(ID_MENU_CB, SearchCtrlWidgetsPage::OnToggleSearchMenu)
++END_EVENT_TABLE()
++
++// ============================================================================
++// implementation
++// ============================================================================
++
++#if defined(__WXMAC__)
++    #define FAMILY_CTRLS NATIVE_CTRLS
++#else
++    #define FAMILY_CTRLS GENERIC_CTRLS
++#endif
++
++IMPLEMENT_WIDGETS_PAGE(SearchCtrlWidgetsPage, _T("SearchCtrl"),
++                       FAMILY_CTRLS | EDITABLE_CTRLS | ALL_CTRLS);
++
++SearchCtrlWidgetsPage::SearchCtrlWidgetsPage(WidgetsBookCtrl *book,
++                                     wxImageList *imaglist)
++                  : WidgetsPage(book, imaglist, text_xpm)
++{
++}
++
++void SearchCtrlWidgetsPage::CreateContent()
++{
++    m_srchCtrl = NULL;
++
++    Reset();
++    CreateControl();
++
++
++    wxSizer* box = new wxStaticBoxSizer(
++        new wxStaticBox(this, -1, wxT("Options")),
++        wxVERTICAL);
++
++    m_searchBtnCheck = new wxCheckBox(this, ID_SEARCH_CB, wxT("Search button"));
++    m_cancelBtnCheck = new wxCheckBox(this, ID_CANCEL_CB, wxT("Cancel button"));
++    m_menuBtnCheck   = new wxCheckBox(this, ID_MENU_CB,   wxT("Search menu"));
++
++    m_searchBtnCheck->SetValue(true);
++    
++    box->Add(m_searchBtnCheck, 0, wxALL, 5);
++    box->Add(m_cancelBtnCheck, 0, wxALL, 5);
++    box->Add(m_menuBtnCheck,   0, wxALL, 5);
++
++    wxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
++    sizer->Add(box, 0,  wxALL|wxEXPAND, 15);
++    sizer->Add(m_srchCtrl, 0, wxALL|wxALIGN_CENTER, 15);
++
++    SetSizer(sizer);
++}
++
++void SearchCtrlWidgetsPage::CreateControl()
++{
++    if (m_srchCtrl)
++        m_srchCtrl->Destroy();
++
++    int style = 0;
++    
++    m_srchCtrl = new wxSearchCtrl(this, -1, wxEmptyString, wxDefaultPosition,
++                                  wxSize(150, -1), style);
++}
++
++void SearchCtrlWidgetsPage::Reset()
++{    
++}
++
++
++wxMenu* SearchCtrlWidgetsPage::CreateTestMenu()
++{
++    wxMenu* menu = new wxMenu;
++    const int SEARCH_MENU_SIZE = 5;
++    wxMenuItem* menuItem = menu->Append(wxID_ANY, _T("Recent Searches"), wxT(""), wxITEM_NORMAL);
++    menuItem->Enable(false);
++    for ( int i = 0; i < SEARCH_MENU_SIZE; i++ )
++    {
++        wxString itemText = wxString::Format(wxT("item %i"),i);
++        wxString tipText = wxString::Format(wxT("tip %i"),i);
++        menu->Append(ID_SEARCHMENU+i, itemText, tipText, wxITEM_NORMAL);
++    }
++//     target->Connect( 
++//         ID_SEARCHMENU,
++//         ID_SEARCHMENU+SEARCH_MENU_SIZE,
++//         wxEVT_COMMAND_MENU_SELECTED,
++//         wxCommandEventHandler(MySearchCtrl::OnSearchMenu)
++//         );
++    return menu;
++}
++
++
++// ----------------------------------------------------------------------------
++// event handlers
++// ----------------------------------------------------------------------------
++
++void SearchCtrlWidgetsPage::OnToggleSearchButton(wxCommandEvent&)
++{
++    m_srchCtrl->ShowSearchButton( m_searchBtnCheck->GetValue() );
++}
++
++void SearchCtrlWidgetsPage::OnToggleCancelButton(wxCommandEvent&)
++{
++    m_srchCtrl->ShowCancelButton( m_cancelBtnCheck->GetValue() );
++        
++}
++
++void SearchCtrlWidgetsPage::OnToggleSearchMenu(wxCommandEvent&)
++{
++    if ( m_menuBtnCheck->GetValue() )
++        m_srchCtrl->SetMenu( CreateTestMenu() );
++    else
++        m_srchCtrl->SetMenu(NULL);
++}
++
++
++#endif  //  wxUSE_SEARCHCTRL
+Index: wxWidgets/samples/widgets/widgets.bkl
+===================================================================
+RCS file: /pack/cvsroots/wxwidgets/wxWidgets/samples/widgets/widgets.bkl,v
+retrieving revision 1.14
+retrieving revision 1.16
+diff -u -r1.14 -r1.16
+--- wxWidgets/samples/widgets/widgets.bkl	2006/10/05 10:20:22	1.14
++++ wxWidgets/samples/widgets/widgets.bkl	2006/12/11 13:31:53	1.16
+@@ -1,5 +1,5 @@
+ <?xml version="1.0" ?>
+-<!-- $Id: widgets.bkl,v 1.14 2006/10/05 10:20:22 ABX Exp $ -->
++<!-- $Id: widgets.bkl,v 1.16 2006/12/11 13:31:53 VZ Exp $ -->
+ <makefile>
+ 
+     <include file="../../build/bakefiles/common_samples.bkl"/>
+@@ -22,6 +22,7 @@
+             notebook.cpp
+             odcombobox.cpp
+             radiobox.cpp
++            searchctrl.cpp
+             slider.cpp
+             spinbtn.cpp
+             static.cpp
+Index: wxWidgets/src/common/srchcmn.cpp
+===================================================================
+RCS file: srchcmn.cpp
+diff -N srchcmn.cpp
+--- /dev/null	Thu Dec 14 21:47:38 2006
++++ wxWidgets/src/common/srchcmn.cpp	Thu Dec 14 21:47:38 2006
+@@ -0,0 +1,42 @@
++/////////////////////////////////////////////////////////////////////////////
++// Name:        src/common/srchcmn.cpp
++// Purpose:     common (to all ports) bits of wxSearchCtrl
++// Author:      Robin Dunn
++// Modified by:
++// Created:     19-Dec-2006
++// RCS-ID:      $Id: srchcmn.cpp,v 1.2 2006/12/11 20:32:03 KO Exp $
++// Copyright:   (c) wxWidgets team
++// Licence:     wxWindows licence
++/////////////////////////////////////////////////////////////////////////////
++
++// ============================================================================
++// declarations
++// ============================================================================
++
++// ----------------------------------------------------------------------------
++// headers
++// ----------------------------------------------------------------------------
++
++// For compilers that support precompilation, includes "wx.h".
++#include "wx/wxprec.h"
++
++#ifdef __BORLANDC__
++    #pragma hdrstop
++#endif
++
++#if wxUSE_SEARCHCTRL
++
++#include "wx/srchctrl.h"
++
++#ifndef WX_PRECOMP
++#endif
++
++// ----------------------------------------------------------------------------
++
++const wxChar wxSearchCtrlNameStr[] = wxT("searchCtrl");
++
++DEFINE_EVENT_TYPE(wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN)
++DEFINE_EVENT_TYPE(wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN)
++
++
++#endif // wxUSE_SEARCHCTRL
+Index: wxWidgets/src/generic/srchctlg.cpp
+===================================================================
+RCS file: srchctlg.cpp
+diff -N srchctlg.cpp
+--- /dev/null	Thu Dec 14 21:47:42 2006
++++ wxWidgets/src/generic/srchctlg.cpp	Thu Dec 14 21:47:44 2006
+@@ -0,0 +1,1079 @@
++///////////////////////////////////////////////////////////////////////////////
++// Name:        src/generic/srchctlg.cpp
++// Purpose:     implements wxSearchCtrl as a composite control
++// Author:      Vince Harron
++// Created:     2006-02-19
++// RCS-ID:      $Id: srchctlg.cpp,v 1.10 2006/12/12 00:53:47 RD Exp $
++// Copyright:   Vince Harron
++// License:     wxWindows licence
++///////////////////////////////////////////////////////////////////////////////
++
++// For compilers that support precompilation, includes "wx.h".
++#include "wx/wxprec.h"
++
++#ifdef __BORLANDC__
++    #pragma hdrstop
++#endif
++
++#if wxUSE_SEARCHCTRL
++
++#include "wx/srchctrl.h"
++
++#ifndef WX_PRECOMP
++    #include "wx/button.h"
++    #include "wx/dcclient.h"
++    #include "wx/menu.h"
++    #include "wx/dcmemory.h"
++#endif //WX_PRECOMP
++
++#if !wxUSE_NATIVE_SEARCH_CONTROL
++
++#include "wx/image.h"
++
++#define WXMAX(a,b) ((a)>(b)?(a):(b))
++
++// ----------------------------------------------------------------------------
++// constants
++// ----------------------------------------------------------------------------
++
++// the margin between the text control and the search/cancel buttons
++static const wxCoord MARGIN = 2;
++
++// border around all controls to compensate for wxSIMPLE_BORDER
++#if defined(__WXMSW__)
++static const wxCoord BORDER = 0;
++static const wxCoord ICON_MARGIN = 2;
++static const wxCoord ICON_OFFSET = 2;
++#else
++static const wxCoord BORDER = 2;
++static const wxCoord ICON_MARGIN = 0;
++static const wxCoord ICON_OFFSET = 0;
++#endif
++
++// ----------------------------------------------------------------------------
++// wxSearchTextCtrl: text control used by search control
++// ----------------------------------------------------------------------------
++
++class wxSearchTextCtrl : public wxTextCtrl
++{
++public:
++    wxSearchTextCtrl(wxSearchCtrl *search, const wxString& value, int style)
++        : wxTextCtrl(search, wxID_ANY, value, wxDefaultPosition, wxDefaultSize,
++                     style | wxNO_BORDER)
++    {
++        m_search = search;
++
++        // remove the default minsize, the searchctrl will have one instead
++        SetSizeHints(wxDefaultCoord,wxDefaultCoord);
++    }
++
++protected:
++    void OnText(wxCommandEvent& eventText)
++    {
++        wxCommandEvent event(eventText);
++        event.SetEventObject(m_search);
++        event.SetId(m_search->GetId());
++
++        m_search->GetEventHandler()->ProcessEvent(event);
++    }
++
++    void OnTextUrl(wxTextUrlEvent& eventText)
++    {
++        // copy constructor is disabled for some reason?
++        //wxTextUrlEvent event(eventText);
++        wxTextUrlEvent event(
++            m_search->GetId(),
++            eventText.GetMouseEvent(),
++            eventText.GetURLStart(),
++            eventText.GetURLEnd()
++            );
++        event.SetEventObject(m_search);
++
++        m_search->GetEventHandler()->ProcessEvent(event);
++    }
++
++private:
++    wxSearchCtrl* m_search;
++
++    DECLARE_EVENT_TABLE()
++};
++
++BEGIN_EVENT_TABLE(wxSearchTextCtrl, wxTextCtrl)
++    EVT_TEXT(wxID_ANY, wxSearchTextCtrl::OnText)
++    EVT_TEXT_ENTER(wxID_ANY, wxSearchTextCtrl::OnText)
++    EVT_TEXT_URL(wxID_ANY, wxSearchTextCtrl::OnTextUrl)
++    EVT_TEXT_MAXLEN(wxID_ANY, wxSearchTextCtrl::OnText)
++END_EVENT_TABLE()
++
++// ----------------------------------------------------------------------------
++// wxSearchButton: search button used by search control
++// ----------------------------------------------------------------------------
++
++class wxSearchButton : public wxControl
++{
++public:
++    wxSearchButton(wxSearchCtrl *search, int eventType, const wxBitmap& bmp)
++        : wxControl(search, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxNO_BORDER),
++          m_search(search),
++          m_eventType(eventType),
++          m_bmp(bmp)
++    { }
++
++    void SetBitmapLabel(const wxBitmap& label) { m_bmp = label; }
++
++
++protected:
++    wxSize DoGetBestSize() const
++    {
++        return wxSize(m_bmp.GetWidth(), m_bmp.GetHeight());
++    }
++
++    void OnLeftUp(wxMouseEvent&)
++    {
++        wxCommandEvent event(m_eventType, m_search->GetId());
++        event.SetEventObject(m_search);
++
++        GetEventHandler()->ProcessEvent(event);
++
++        m_search->SetFocus();
++
++        if ( m_eventType == wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN )
++        {
++            // this happens automatically, just like on Mac OS X
++            m_search->PopupSearchMenu();
++        }
++    }
++
++    void OnPaint(wxPaintEvent&)
++    {
++        wxPaintDC dc(this);
++        dc.DrawBitmap(m_bmp, 0,0, true);
++    }
++
++
++private:
++    wxSearchCtrl *m_search;
++    wxEventType   m_eventType;
++    wxBitmap      m_bmp;
++
++    DECLARE_EVENT_TABLE()
++};
++
++BEGIN_EVENT_TABLE(wxSearchButton, wxControl)
++    EVT_LEFT_UP(wxSearchButton::OnLeftUp)
++    EVT_PAINT(wxSearchButton::OnPaint)
++END_EVENT_TABLE()
++
++BEGIN_EVENT_TABLE(wxSearchCtrl, wxSearchCtrlBase)
++    EVT_SEARCHCTRL_SEARCH_BTN(wxID_ANY, wxSearchCtrl::OnSearchButton)
++    EVT_SET_FOCUS(wxSearchCtrl::OnSetFocus)
++    EVT_SIZE(wxSearchCtrl::OnSize)
++END_EVENT_TABLE()
++
++IMPLEMENT_DYNAMIC_CLASS(wxSearchCtrl, wxSearchCtrlBase)
++
++// ============================================================================
++// implementation
++// ============================================================================
++
++// ----------------------------------------------------------------------------
++// wxSearchCtrl creation
++// ----------------------------------------------------------------------------
++
++// creation
++// --------
++
++wxSearchCtrl::wxSearchCtrl()
++{
++    Init();
++}
++
++wxSearchCtrl::wxSearchCtrl(wxWindow *parent, wxWindowID id,
++           const wxString& value,
++           const wxPoint& pos,
++           const wxSize& size,
++           long style,
++           const wxValidator& validator,
++           const wxString& name)
++{
++    Init();
++
++    Create(parent, id, value, pos, size, style, validator, name);
++}
++
++void wxSearchCtrl::Init()
++{
++    m_text = 0;
++    m_searchButton = 0;
++    m_cancelButton = 0;
++    m_menu = 0;
++
++    m_searchButtonVisible = true;
++    m_cancelButtonVisible = false;
++
++    m_searchMenuBitmapUser = false;
++    m_searchBitmapUser = false;
++    m_cancelBitmapUser = false;
++}
++
++bool wxSearchCtrl::Create(wxWindow *parent, wxWindowID id,
++            const wxString& value,
++            const wxPoint& pos,
++            const wxSize& size,
++            long style,
++            const wxValidator& validator,
++            const wxString& name)
++{
++    if ( !wxTextCtrlBase::Create(parent, id, pos, size, wxSIMPLE_BORDER | style, validator, name) )
++    {
++        return false;
++    }
++
++    m_text = new wxSearchTextCtrl(this, value, style & ~wxBORDER_MASK);
++
++    wxSize sizeText = m_text->GetBestSize();
++
++    m_searchButton = new wxSearchButton(this,wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN,m_searchBitmap);
++    m_cancelButton = new wxSearchButton(this,wxEVT_COMMAND_SEARCHCTRL_CANCEL_BTN,m_cancelBitmap);
++
++    SetForegroundColour( m_text->GetForegroundColour() );
++    m_searchButton->SetForegroundColour( m_text->GetForegroundColour() );
++    m_cancelButton->SetForegroundColour( m_text->GetForegroundColour() );
++
++    SetBackgroundColour( m_text->GetBackgroundColour() );
++    m_searchButton->SetBackgroundColour( m_text->GetBackgroundColour() );
++    m_cancelButton->SetBackgroundColour( m_text->GetBackgroundColour() );
++
++    RecalcBitmaps();
++
++    SetInitialSize(size);
++    Move(pos);
++    return true;
++}
++
++wxSearchCtrl::~wxSearchCtrl()
++{
++    delete m_text;
++    delete m_searchButton;
++    delete m_cancelButton;
++    delete m_menu;
++}
++
++
++// search control specific interfaces
++void wxSearchCtrl::SetMenu( wxMenu* menu )
++{
++    if ( menu == m_menu )
++    {
++        // no change
++        return;
++    }
++    bool hadMenu = (m_menu != NULL);
++    delete m_menu;
++    m_menu = menu;
++
++    if ( m_menu && !hadMenu )
++    {
++        m_searchButton->SetBitmapLabel(m_searchMenuBitmap);
++        m_searchButton->Refresh();
++        if ( !m_searchButtonVisible )
++        {
++            // adding the menu will force the search button to be visible
++            wxRect rect = GetRect();
++            LayoutControls(0, 0, rect.GetWidth(), rect.GetHeight());
++        }
++    }
++    else if ( !m_menu && hadMenu )
++    {
++        m_searchButton->SetBitmapLabel(m_searchBitmap);
++        if ( m_searchButtonVisible )
++        {
++            m_searchButton->Refresh();
++        }
++        else
++        {
++            wxRect rect = GetRect();
++            LayoutControls(0, 0, rect.GetWidth(), rect.GetHeight());
++        }
++    }
++}
++
++wxMenu* wxSearchCtrl::GetMenu()
++{
++    return m_menu;
++}
++
++void wxSearchCtrl::ShowSearchButton( bool show )
++{
++    if ( m_searchButtonVisible == show )
++    {
++        // no change
++        return;
++    }
++    m_searchButtonVisible = show;
++    if ( m_searchButtonVisible )
++    {
++        RecalcBitmaps();
++    }
++
++    wxRect rect = GetRect();
++    LayoutControls(0, 0, rect.GetWidth(), rect.GetHeight());
++}
++
++bool wxSearchCtrl::IsSearchButtonVisible() const
++{
++    return m_searchButtonVisible;
++}
++
++
++void wxSearchCtrl::ShowCancelButton( bool show )
++{
++    if ( m_cancelButtonVisible == show )
++    {
++        // no change
++        return;
++    }
++    m_cancelButtonVisible = show;
++
++    wxRect rect = GetRect();
++    LayoutControls(0, 0, rect.GetWidth(), rect.GetHeight());
++}
++
++bool wxSearchCtrl::IsCancelButtonVisible() const
++{
++    return m_cancelButtonVisible;
++}
++
++
++// ----------------------------------------------------------------------------
++// geometry
++// ----------------------------------------------------------------------------
++
++wxSize wxSearchCtrl::DoGetBestSize() const
++{
++    wxSize sizeText = m_text->GetBestSize();
++    wxSize sizeSearch(0,0);
++    wxSize sizeCancel(0,0);
++    int searchMargin = 0;
++    int cancelMargin = 0;
++    if ( m_searchButtonVisible || m_menu )
++    {
++        sizeSearch = m_searchButton->GetBestSize();
++        searchMargin = MARGIN;
++    }
++    if ( m_cancelButtonVisible )
++    {
++        sizeCancel = m_cancelButton->GetBestSize();
++        cancelMargin = MARGIN;
++    }
++
++    int horizontalBorder = 1 + ( sizeText.y - sizeText.y * 14 / 21 ) / 2;
++
++    // buttons are square and equal to the height of the text control
++    int height = sizeText.y;
++    return wxSize(sizeSearch.x + searchMargin + sizeText.x + cancelMargin + sizeCancel.x + 2*horizontalBorder,
++                  height + 2*BORDER);
++}
++
++void wxSearchCtrl::DoMoveWindow(int x, int y, int width, int height)
++{
++    wxSearchCtrlBase::DoMoveWindow(x, y, width, height);
++
++    LayoutControls(0, 0, width, height);
++}
++
++void wxSearchCtrl::LayoutControls(int x, int y, int width, int height)
++{
++    if ( !m_text )
++        return;
++    
++    wxSize sizeText = m_text->GetBestSize();
++    // make room for the search menu & clear button
++    int horizontalBorder = 1 + ( sizeText.y - sizeText.y * 14 / 21 ) / 2;
++    x += horizontalBorder;
++    y += BORDER;
++    width -= horizontalBorder*2;
++    height -= BORDER*2;
++
++    wxSize sizeSearch(0,0);
++    wxSize sizeCancel(0,0);
++    int searchMargin = 0;
++    int cancelMargin = 0;
++    if ( m_searchButtonVisible || m_menu )
++    {
++        sizeSearch = m_searchButton->GetBestSize();
++        searchMargin = MARGIN;
++    }
++    if ( m_cancelButtonVisible )
++    {
++        sizeCancel = m_cancelButton->GetBestSize();
++        cancelMargin = MARGIN;
++    }
++    m_searchButton->Show( m_searchButtonVisible || m_menu );
++    m_cancelButton->Show( m_cancelButtonVisible );
++
++    if ( sizeSearch.x + sizeCancel.x > width )
++    {
++        sizeSearch.x = width/2;
++        sizeCancel.x = width/2;
++        searchMargin = 0;
++        cancelMargin = 0;
++    }
++    wxCoord textWidth = width - sizeSearch.x - sizeCancel.x - searchMargin - cancelMargin;
++
++    // position the subcontrols inside the client area
++
++    m_searchButton->SetSize(x, y + ICON_OFFSET, sizeSearch.x, height);
++    m_text->SetSize(x + sizeSearch.x + searchMargin, y + ICON_OFFSET, textWidth, height);
++    m_cancelButton->SetSize(x + sizeSearch.x + searchMargin + textWidth + cancelMargin,
++                            y + ICON_OFFSET, sizeCancel.x, height);
++}
++
++
++// accessors
++// ---------
++
++wxString wxSearchCtrl::GetValue() const
++{
++    return m_text->GetValue();
++}
++void wxSearchCtrl::SetValue(const wxString& value)
++{
++    m_text->SetValue(value);
++}
++
++wxString wxSearchCtrl::GetRange(long from, long to) const
++{
++    return m_text->GetRange(from, to);
++}
++
++int wxSearchCtrl::GetLineLength(long lineNo) const
++{
++    return m_text->GetLineLength(lineNo);
++}
++wxString wxSearchCtrl::GetLineText(long lineNo) const
++{
++    return m_text->GetLineText(lineNo);
++}
++int wxSearchCtrl::GetNumberOfLines() const
++{
++    return m_text->GetNumberOfLines();
++}
++
++bool wxSearchCtrl::IsModified() const
++{
++    return m_text->IsModified();
++}
++bool wxSearchCtrl::IsEditable() const
++{
++    return m_text->IsEditable();
++}
++
++// more readable flag testing methods
++bool wxSearchCtrl::IsSingleLine() const
++{
++    return m_text->IsSingleLine();
++}
++bool wxSearchCtrl::IsMultiLine() const
++{
++    return m_text->IsMultiLine();
++}
++
++// If the return values from and to are the same, there is no selection.
++void wxSearchCtrl::GetSelection(long* from, long* to) const
++{
++    m_text->GetSelection(from, to);
++}
++
++wxString wxSearchCtrl::GetStringSelection() const
++{
++    return m_text->GetStringSelection();
++}
++
++// operations
++// ----------
++
++// editing
++void wxSearchCtrl::Clear()
++{
++    m_text->Clear();
++}
++void wxSearchCtrl::Replace(long from, long to, const wxString& value)
++{
++    m_text->Replace(from, to, value);
++}
++void wxSearchCtrl::Remove(long from, long to)
++{
++    m_text->Remove(from, to);
++}
++
++// load/save the controls contents from/to the file
++bool wxSearchCtrl::LoadFile(const wxString& file)
++{
++    return m_text->LoadFile(file);
++}
++bool wxSearchCtrl::SaveFile(const wxString& file)
++{
++    return m_text->SaveFile(file);
++}
++
++// sets/clears the dirty flag
++void wxSearchCtrl::MarkDirty()
++{
++    m_text->MarkDirty();
++}
++void wxSearchCtrl::DiscardEdits()
++{
++    m_text->DiscardEdits();
++}
++
++// set the max number of characters which may be entered in a single line
++// text control
++void wxSearchCtrl::SetMaxLength(unsigned long len)
++{
++    m_text->SetMaxLength(len);
++}
++
++// writing text inserts it at the current position, appending always
++// inserts it at the end
++void wxSearchCtrl::WriteText(const wxString& text)
++{
++    m_text->WriteText(text);
++}
++void wxSearchCtrl::AppendText(const wxString& text)
++{
++    m_text->AppendText(text);
++}
++
++// insert the character which would have resulted from this key event,
++// return true if anything has been inserted
++bool wxSearchCtrl::EmulateKeyPress(const wxKeyEvent& event)
++{
++    return m_text->EmulateKeyPress(event);
++}
++
++// text control under some platforms supports the text styles: these
++// methods allow to apply the given text style to the given selection or to
++// set/get the style which will be used for all appended text
++bool wxSearchCtrl::SetStyle(long start, long end, const wxTextAttr& style)
++{
++    return m_text->SetStyle(start, end, style);
++}
++bool wxSearchCtrl::GetStyle(long position, wxTextAttr& style)
++{
++    return m_text->GetStyle(position, style);
++}
++bool wxSearchCtrl::SetDefaultStyle(const wxTextAttr& style)
++{
++    return m_text->SetDefaultStyle(style);
++}
++const wxTextAttr& wxSearchCtrl::GetDefaultStyle() const
++{
++    return m_text->GetDefaultStyle();
++}
++
++// translate between the position (which is just an index in the text ctrl
++// considering all its contents as a single strings) and (x, y) coordinates
++// which represent column and line.
++long wxSearchCtrl::XYToPosition(long x, long y) const
++{
++    return m_text->XYToPosition(x, y);
++}
++bool wxSearchCtrl::PositionToXY(long pos, long *x, long *y) const
++{
++    return m_text->PositionToXY(pos, x, y);
++}
++
++void wxSearchCtrl::ShowPosition(long pos)
++{
++    m_text->ShowPosition(pos);
++}
++
++// find the character at position given in pixels
++//
++// NB: pt is in device coords (not adjusted for the client area origin nor
++//     scrolling)
++wxTextCtrlHitTestResult wxSearchCtrl::HitTest(const wxPoint& pt, long *pos) const
++{
++    return m_text->HitTest(pt, pos);
++}
++wxTextCtrlHitTestResult wxSearchCtrl::HitTest(const wxPoint& pt,
++                                        wxTextCoord *col,
++                                        wxTextCoord *row) const
++{
++    return m_text->HitTest(pt, col, row);
++}
++
++// Clipboard operations
++void wxSearchCtrl::Copy()
++{
++    m_text->Copy();
++}
++void wxSearchCtrl::Cut()
++{
++    m_text->Cut();
++}
++void wxSearchCtrl::Paste()
++{
++    m_text->Paste();
++}
++
++bool wxSearchCtrl::CanCopy() const
++{
++    return m_text->CanCopy();
++}
++bool wxSearchCtrl::CanCut() const
++{
++    return m_text->CanCut();
++}
++bool wxSearchCtrl::CanPaste() const
++{
++    return m_text->CanPaste();
++}
++
++// Undo/redo
++void wxSearchCtrl::Undo()
++{
++    m_text->Undo();
++}
++void wxSearchCtrl::Redo()
++{
++    m_text->Redo();
++}
++
++bool wxSearchCtrl::CanUndo() const
++{
++    return m_text->CanUndo();
++}
++bool wxSearchCtrl::CanRedo() const
++{
++    return m_text->CanRedo();
++}
++
++// Insertion point
++void wxSearchCtrl::SetInsertionPoint(long pos)
++{
++    m_text->SetInsertionPoint(pos);
++}
++void wxSearchCtrl::SetInsertionPointEnd()
++{
++    m_text->SetInsertionPointEnd();
++}
++long wxSearchCtrl::GetInsertionPoint() const
++{
++    return m_text->GetInsertionPoint();
++}
++wxTextPos wxSearchCtrl::GetLastPosition() const
++{
++    return m_text->GetLastPosition();
++}
++
++void wxSearchCtrl::SetSelection(long from, long to)
++{
++    m_text->SetSelection(from, to);
++}
++void wxSearchCtrl::SelectAll()
++{
++    m_text->SelectAll();
++}
++
++void wxSearchCtrl::SetEditable(bool editable)
++{
++    m_text->SetEditable(editable);
++}
++
++bool wxSearchCtrl::SetFont(const wxFont& font)
++{
++    bool result = wxSearchCtrlBase::SetFont(font);
++    if ( result && m_text )
++    {
++        result = m_text->SetFont(font);
++    }
++    RecalcBitmaps();
++    return result;
++}
++
++// search control generic only
++void wxSearchCtrl::SetSearchBitmap( const wxBitmap& bitmap )
++{
++    m_searchBitmap = bitmap;
++    m_searchBitmapUser = bitmap.Ok();
++    if ( m_searchBitmapUser )
++    {
++        if ( m_searchButton && !m_menu )
++        {
++            m_searchButton->SetBitmapLabel( m_searchBitmap );
++        }
++    }
++    else
++    {
++        // the user bitmap was just cleared, generate one
++        RecalcBitmaps();
++    }
++}
++
++void wxSearchCtrl::SetSearchMenuBitmap( const wxBitmap& bitmap )
++{
++    m_searchMenuBitmap = bitmap;
++    m_searchMenuBitmapUser = bitmap.Ok();
++    if ( m_searchMenuBitmapUser )
++    {
++        if ( m_searchButton && m_menu )
++        {
++            m_searchButton->SetBitmapLabel( m_searchMenuBitmap );
++        }
++    }
++    else
++    {
++        // the user bitmap was just cleared, generate one
++        RecalcBitmaps();
++    }
++}
++
++void wxSearchCtrl::SetCancelBitmap( const wxBitmap& bitmap )
++{
++    m_cancelBitmap = bitmap;
++    m_cancelBitmapUser = bitmap.Ok();
++    if ( m_cancelBitmapUser )
++    {
++        if ( m_cancelButton )
++        {
++            m_cancelButton->SetBitmapLabel( m_cancelBitmap );
++        }
++    }
++    else
++    {
++        // the user bitmap was just cleared, generate one
++        RecalcBitmaps();
++    }
++}
++
++#if 0
++
++// override streambuf method
++#if wxHAS_TEXT_WINDOW_STREAM
++int overflow(int i);
++#endif // wxHAS_TEXT_WINDOW_STREAM
++
++// stream-like insertion operators: these are always available, whether we
++// were, or not, compiled with streambuf support
++wxTextCtrl& operator<<(const wxString& s);
++wxTextCtrl& operator<<(int i);
++wxTextCtrl& operator<<(long i);
++wxTextCtrl& operator<<(float f);
++wxTextCtrl& operator<<(double d);
++wxTextCtrl& operator<<(const wxChar c);
++#endif
++
++void wxSearchCtrl::DoSetValue(const wxString& value, int flags)
++{
++    m_text->ChangeValue( value );
++    if ( flags & SetValue_SendEvent )
++        SendTextUpdatedEvent();
++}
++
++// do the window-specific processing after processing the update event
++void wxSearchCtrl::DoUpdateWindowUI(wxUpdateUIEvent& event)
++{
++    wxSearchCtrlBase::DoUpdateWindowUI(event);
++}
++
++bool wxSearchCtrl::ShouldInheritColours() const
++{
++    return true;
++}
++
++// icons are rendered at 3-8 times larger than necessary and downscaled for
++// antialiasing
++static int GetMultiplier()
++{
++#ifdef __WXWINCE__
++    // speed up bitmap generation by using a small bitmap
++    return 3;
++#else
++    int depth = ::wxDisplayDepth();
++
++    if  ( depth >= 24 )
++    {
++        return 8;
++    }
++    return 6;
++#endif
++}
++
++wxBitmap wxSearchCtrl::RenderSearchBitmap( int x, int y, bool renderDrop )
++{
++    wxColour bg = GetBackgroundColour();
++    wxColour fg = GetForegroundColour();
++
++    //===============================================================================
++    // begin drawing code
++    //===============================================================================
++    // image stats
++
++    // force width:height ratio
++    if ( 14*x > y*20 )
++    {
++        // x is too big
++        x = y*20/14;
++    }
++    else
++    {
++        // y is too big
++        y = x*14/20;
++    }
++
++    // glass 11x11, top left corner
++    // handle (9,9)-(13,13)
++    // drop (13,16)-(19,6)-(16,9)
++
++    int multiplier = GetMultiplier();
++    int penWidth = multiplier * 2;
++
++    penWidth = penWidth * x / 20;
++
++    wxBitmap bitmap( multiplier*x, multiplier*y );
++    wxMemoryDC mem;
++    mem.SelectObject(bitmap);
++
++    // clear background
++    mem.SetBrush( wxBrush(bg) );
++    mem.SetPen( wxPen(bg) );
++    mem.DrawRectangle(0,0,bitmap.GetWidth(),bitmap.GetHeight());
++
++    // draw drop glass
++    mem.SetBrush( wxBrush(fg) );
++    mem.SetPen( wxPen(fg) );
++    int glassBase = 5 * x / 20;
++    int glassFactor = 2*glassBase + 1;
++    int radius = multiplier*glassFactor/2;
++    mem.DrawCircle(radius,radius,radius);
++    mem.SetBrush( wxBrush(bg) );
++    mem.SetPen( wxPen(bg) );
++    mem.DrawCircle(radius,radius,radius-penWidth);
++
++    // draw handle
++    int lineStart = radius + (radius-penWidth/2) * 707 / 1000; // 707 / 1000 = 0.707 = 1/sqrt(2);
++
++    mem.SetPen( wxPen(fg) );
++    mem.SetBrush( wxBrush(fg) );
++    int handleCornerShift = penWidth * 707 / 1000 / 2; // 707 / 1000 = 0.707 = 1/sqrt(2);
++    handleCornerShift = WXMAX( handleCornerShift, 1 );
++    int handleBase = 4 * x / 20;
++    int handleLength = 2*handleBase+1;
++    wxPoint handlePolygon[] =
++    {
++        wxPoint(-handleCornerShift,+handleCornerShift),
++        wxPoint(+handleCornerShift,-handleCornerShift),
++        wxPoint(multiplier*handleLength/2+handleCornerShift,multiplier*handleLength/2-handleCornerShift),
++        wxPoint(multiplier*handleLength/2-handleCornerShift,multiplier*handleLength/2+handleCornerShift),
++    };
++    mem.DrawPolygon(WXSIZEOF(handlePolygon),handlePolygon,lineStart,lineStart);
++
++    // draw drop triangle
++    int triangleX = 13 * x / 20;
++    int triangleY = 5 * x / 20;
++    int triangleBase = 3 * x / 20;
++    int triangleFactor = triangleBase*2+1;
++    if ( renderDrop )
++    {
++        wxPoint dropPolygon[] =
++        {
++            wxPoint(multiplier*0,multiplier*0), // triangle left
++            wxPoint(multiplier*triangleFactor-1,multiplier*0), // triangle right
++            wxPoint(multiplier*triangleFactor/2,multiplier*triangleFactor/2), // triangle bottom
++        };
++        mem.DrawPolygon(WXSIZEOF(dropPolygon),dropPolygon,multiplier*triangleX,multiplier*triangleY);
++    }
++
++    //===============================================================================
++    // end drawing code
++    //===============================================================================
++
++    if ( multiplier != 1 )
++    {
++        wxImage image = bitmap.ConvertToImage();
++        image.Rescale(x,y);
++        bitmap = wxBitmap( image );
++    }
++
++    return bitmap;
++}
++
++wxBitmap wxSearchCtrl::RenderCancelBitmap( int x, int y )
++{
++    wxColour bg = GetBackgroundColour();
++    wxColour fg = GetForegroundColour();
++
++    //===============================================================================
++    // begin drawing code
++    //===============================================================================
++    // image stats
++
++    // total size 14x14
++    // force 1:1 ratio
++    if ( x > y )
++    {
++        // x is too big
++        x = y;
++    }
++    else
++    {
++        // y is too big
++        y = x;
++    }
++
++    // 14x14 circle
++    // cross line starts (4,4)-(10,10)
++    // drop (13,16)-(19,6)-(16,9)
++
++    int multiplier = GetMultiplier();
++
++    int penWidth = multiplier * x / 14;
++
++    wxBitmap bitmap( multiplier*x, multiplier*y );
++    wxMemoryDC mem;
++    mem.SelectObject(bitmap);
++
++    // clear background
++    mem.SetBrush( wxBrush(bg) );
++    mem.SetPen( wxPen(bg) );
++    mem.DrawRectangle(0,0,bitmap.GetWidth(),bitmap.GetHeight());
++
++    // draw drop glass
++    mem.SetBrush( wxBrush(fg) );
++    mem.SetPen( wxPen(fg) );
++    int radius = multiplier*x/2;
++    mem.DrawCircle(radius,radius,radius);
++
++    // draw cross
++    int lineStartBase = 4 * x / 14;
++    int lineLength = x - 2*lineStartBase;
++
++    mem.SetPen( wxPen(bg) );
++    mem.SetBrush( wxBrush(bg) );
++    int handleCornerShift = penWidth/2;
++    handleCornerShift = WXMAX( handleCornerShift, 1 );
++    wxPoint handlePolygon[] =
++    {
++        wxPoint(-handleCornerShift,+handleCornerShift),
++        wxPoint(+handleCornerShift,-handleCornerShift),
++        wxPoint(multiplier*lineLength+handleCornerShift,multiplier*lineLength-handleCornerShift),
++        wxPoint(multiplier*lineLength-handleCornerShift,multiplier*lineLength+handleCornerShift),
++    };
++    mem.DrawPolygon(WXSIZEOF(handlePolygon),handlePolygon,multiplier*lineStartBase,multiplier*lineStartBase);
++    wxPoint handlePolygon2[] =
++    {
++        wxPoint(+handleCornerShift,+handleCornerShift),
++        wxPoint(-handleCornerShift,-handleCornerShift),
++        wxPoint(multiplier*lineLength-handleCornerShift,-multiplier*lineLength-handleCornerShift),
++        wxPoint(multiplier*lineLength+handleCornerShift,-multiplier*lineLength+handleCornerShift),
++    };
++    mem.DrawPolygon(WXSIZEOF(handlePolygon2),handlePolygon2,multiplier*lineStartBase,multiplier*(x-lineStartBase));
++
++    //===============================================================================
++    // end drawing code
++    //===============================================================================
++
++    if ( multiplier != 1 )
++    {
++        wxImage image = bitmap.ConvertToImage();
++        image.Rescale(x,y);
++        bitmap = wxBitmap( image );
++    }
++
++    return bitmap;
++}
++
++void wxSearchCtrl::RecalcBitmaps()
++{
++    if ( !m_text )
++    {
++        return;
++    }
++    wxSize sizeText = m_text->GetBestSize();
++
++    int bitmapHeight = sizeText.y - 2 * ICON_MARGIN;
++    int bitmapWidth  = sizeText.y * 20 / 14;
++
++    if ( !m_searchBitmapUser )
++    {
++        if (
++            !m_searchBitmap.Ok() ||
++            m_searchBitmap.GetHeight() != bitmapHeight ||
++            m_searchBitmap.GetWidth() != bitmapWidth
++            )
++        {
++            m_searchBitmap = RenderSearchBitmap(bitmapWidth,bitmapHeight,false);
++            if ( !m_menu )
++            {
++                m_searchButton->SetBitmapLabel(m_searchBitmap);
++            }
++        }
++        // else this bitmap was set by user, don't alter
++    }
++
++    if ( !m_searchMenuBitmapUser )
++    {
++        if (
++            !m_searchMenuBitmap.Ok() ||
++            m_searchMenuBitmap.GetHeight() != bitmapHeight ||
++            m_searchMenuBitmap.GetWidth() != bitmapWidth
++            )
++        {
++            m_searchMenuBitmap = RenderSearchBitmap(bitmapWidth,bitmapHeight,true);
++            if ( m_menu )
++            {
++                m_searchButton->SetBitmapLabel(m_searchMenuBitmap);
++            }
++        }
++        // else this bitmap was set by user, don't alter
++    }
++
++    if ( !m_cancelBitmapUser )
++    {
++        if (
++            !m_cancelBitmap.Ok() ||
++            m_cancelBitmap.GetHeight() != bitmapHeight ||
++            m_cancelBitmap.GetWidth() != bitmapHeight
++            )
++        {
++            m_cancelBitmap = RenderCancelBitmap(bitmapHeight-BORDER,bitmapHeight-BORDER); // square
++            m_cancelButton->SetBitmapLabel(m_cancelBitmap);
++        }
++        // else this bitmap was set by user, don't alter
++    }
++}
++
++void wxSearchCtrl::OnSearchButton( wxCommandEvent& event )
++{
++    event.Skip();
++}
++
++void wxSearchCtrl::OnSetFocus( wxFocusEvent& /*event*/ )
++{
++    if ( m_text )
++    {
++        m_text->SetFocus();
++    }
++}
++
++void wxSearchCtrl::OnSize( wxSizeEvent& event )
++{
++    int width, height;
++    GetSize(&width, &height);
++    LayoutControls(0, 0, width, height);
++}
++
++void wxSearchCtrl::PopupSearchMenu()
++{
++    if ( m_menu )
++    {
++        wxSize size = GetSize();
++        PopupMenu( m_menu, 0, size.y );
++    }
++}
++
++#endif // !wxUSE_NATIVE_SEARCH_CONTROL
++
++#endif // wxUSE_SEARCHCTRL
+Index: wxWidgets/src/html/htmlfilter.cpp
+===================================================================
+RCS file: htmlfilter.cpp
+diff -N htmlfilter.cpp
+--- /dev/null	Thu Dec 14 21:47:46 2006
++++ wxWidgets/src/html/htmlfilter.cpp	Thu Dec 14 21:47:50 2006
+@@ -0,0 +1,172 @@
++/////////////////////////////////////////////////////////////////////////////
++// Name:        filter.cpp
++// Purpose:     wxHtmlFilter - input filter for translating into HTML format
++// Author:      Vaclav Slavik
++// Copyright:   (c) 1999 Vaclav Slavik
++// Licence:     wxWindows Licence
++/////////////////////////////////////////////////////////////////////////////
++
++
++#ifdef __GNUG__
++#pragma implementation "htmlfilter.h"
++#endif
++
++#include "wx/wxprec.h"
++
++#if wxUSE_HTML
++
++#ifdef __BORDLANDC__
++#pragma hdrstop
++#endif
++
++#ifndef WXPRECOMP
++#endif
++
++#include "wx/html/htmlfilter.h"
++#include "wx/html/htmlwin.h"
++
++
++/*
++
++There is code for several default filters:
++
++*/
++
++IMPLEMENT_ABSTRACT_CLASS(wxHtmlFilter, wxObject)
++
++//--------------------------------------------------------------------------------
++// wxHtmlFilterPlainText
++//          filter for text/plain or uknown
++//--------------------------------------------------------------------------------
++
++IMPLEMENT_DYNAMIC_CLASS(wxHtmlFilterPlainText, wxHtmlFilter)
++
++bool wxHtmlFilterPlainText::CanRead(const wxFSFile& WXUNUSED(file)) const
++{
++    return TRUE;
++}
++
++
++
++wxString wxHtmlFilterPlainText::ReadFile(const wxFSFile& file) const
++{
++    wxInputStream *s = file.GetStream();
++    char *src;
++    wxString doc, doc2;
++
++    if (s == NULL) return wxEmptyString;
++    src = new char[s -> GetSize()+1];
++    src[s -> GetSize()] = 0;
++    s -> Read(src, s -> GetSize());
++    doc = src;
++    delete [] src;
++
++    doc.Replace(_T("<"), _T("&lt;"), TRUE);
++    doc.Replace(_T(">"), _T("&gt;"), TRUE);
++    doc2 = _T("<HTML><BODY><PRE>\n") + doc + _T("\n</PRE></BODY></HTML>");
++    return doc2;
++}
++
++
++
++
++
++//--------------------------------------------------------------------------------
++// wxHtmlFilterImage
++//          filter for image/*
++//--------------------------------------------------------------------------------
++
++class wxHtmlFilterImage : public wxHtmlFilter
++{
++    DECLARE_DYNAMIC_CLASS(wxHtmlFilterImage)
++
++    public:
++        virtual bool CanRead(const wxFSFile& file) const;
++        virtual wxString ReadFile(const wxFSFile& file) const;
++};
++
++IMPLEMENT_DYNAMIC_CLASS(wxHtmlFilterImage, wxHtmlFilter)
++
++
++
++bool wxHtmlFilterImage::CanRead(const wxFSFile& file) const
++{
++    return (file.GetMimeType().Left(6) == "image/");
++}
++
++
++
++wxString wxHtmlFilterImage::ReadFile(const wxFSFile& file) const
++{
++    return ("<HTML><BODY><IMG SRC=\"" + file.GetLocation() + "\"></BODY></HTML>");
++}
++
++
++
++
++//--------------------------------------------------------------------------------
++// wxHtmlFilterPlainText
++//          filter for text/plain or uknown
++//--------------------------------------------------------------------------------
++
++class wxHtmlFilterHTML : public wxHtmlFilter
++{
++    DECLARE_DYNAMIC_CLASS(wxHtmlFilterHTML)
++
++    public:
++        virtual bool CanRead(const wxFSFile& file) const;
++        virtual wxString ReadFile(const wxFSFile& file) const;
++};
++
++
++IMPLEMENT_DYNAMIC_CLASS(wxHtmlFilterHTML, wxHtmlFilter)
++
++bool wxHtmlFilterHTML::CanRead(const wxFSFile& file) const
++{
++//    return (file.GetMimeType() == "text/html");
++// This is true in most case but some page can return:
++// "text/html; char-encoding=...."
++// So we use Find instead
++  return (file.GetMimeType().Find(_T("text/html")) == 0);
++}
++
++
++
++wxString wxHtmlFilterHTML::ReadFile(const wxFSFile& file) const
++{
++    wxInputStream *s = file.GetStream();
++    char *src;
++    wxString doc;
++
++    if (s == NULL) return wxEmptyString;
++    src = new char[s -> GetSize() + 1];
++    src[s -> GetSize()] = 0;
++    s -> Read(src, s -> GetSize());
++    doc = src;
++    delete[] src;
++
++    return doc;
++}
++
++
++
++
++///// Module:
++
++class wxHtmlFilterModule : public wxModule
++{
++    DECLARE_DYNAMIC_CLASS(wxHtmlFilterModule)
++
++    public:
++        virtual bool OnInit()
++        {
++            wxHtmlWindow::AddFilter(new wxHtmlFilterHTML);
++            wxHtmlWindow::AddFilter(new wxHtmlFilterImage);
++            return TRUE;
++        }
++        virtual void OnExit() {}
++};
++
++IMPLEMENT_DYNAMIC_CLASS(wxHtmlFilterModule, wxModule)
++
++#endif
+Index: wxWidgets/src/html/htmlhelp.cpp
+===================================================================
+RCS file: htmlhelp.cpp
+diff -N htmlhelp.cpp
+--- /dev/null	Thu Dec 14 21:47:46 2006
++++ wxWidgets/src/html/htmlhelp.cpp	Thu Dec 14 21:47:50 2006
+@@ -0,0 +1,839 @@
++// Name:        htmlhelp.cpp
++// Purpose:     Help controller
++// Author:      Vaclav Slavik
++// Copyright:   (c) 1999 Vaclav Slavik
++// Licence:     wxWindows Licence
++/////////////////////////////////////////////////////////////////////////////
++
++#error This file should not be compiled! Update your build system! \
++(configure users, rerun configure to get a new Makefile) \
++Instead of htmlhelp[_io], use helpdata, helpfrm and helpctrl. This \
++file is only left to point out the problem and will be removed r.s.n.
++
++#ifdef __GNUG__
++#pragma implementation "htmlhelp.h"
++#endif
++
++#include "wx/wxprec.h"
++
++#if wxUSE_HTML
++
++#ifdef __BORDLANDC__
++#pragma hdrstop
++#endif
++
++#ifndef WXPRECOMP
++#endif
++
++#include <wx/notebook.h>
++#include <wx/imaglist.h>
++#include <wx/treectrl.h>
++#include <wx/tokenzr.h>
++#include <wx/wfstream.h>
++#include <wx/html/htmlwin.h>
++#include <wx/html/htmlhelp.h>
++#include <wx/busyinfo.h>
++
++#if !((wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7)))
++#include <wx/progdlg.h>
++#endif
++
++
++// Bitmaps:
++
++#ifndef __WXMSW__
++    // XPM hack: make the arrays const
++    #define static static const
++
++    #include "bitmaps/panel.xpm"
++    #include "bitmaps/back.xpm"
++    #include "bitmaps/forward.xpm"
++    #include "bitmaps/book.xpm"
++    #include "bitmaps/folder.xpm"
++    #include "bitmaps/page.xpm"
++
++    #undef static
++#endif
++
++#include "search.h"
++
++
++
++
++#include <wx/arrimpl.cpp>
++WX_DEFINE_OBJARRAY(HtmlBookRecArray)
++
++
++
++
++
++
++
++
++
++//-----------------------------------------------------------------------------
++// wxHtmlHelpController
++//-----------------------------------------------------------------------------
++
++
++IMPLEMENT_DYNAMIC_CLASS(wxHtmlHelpController, wxEvtHandler)
++
++
++wxHtmlHelpController::wxHtmlHelpController() : wxEvtHandler()
++{
++    m_Frame = NULL;
++    m_Config = NULL;
++    m_ConfigRoot = wxEmptyString;
++    m_TitleFormat = _("Help : %s");
++    m_TempPath = wxEmptyString;
++
++    m_Cfg.x = m_Cfg.y = 0;
++    m_Cfg.w = 700; m_Cfg.h = 480;
++    m_Cfg.sashpos = 240;
++    m_Cfg.navig_on = TRUE;
++
++    m_ContentsImageList = new wxImageList(12, 12);
++    m_ContentsImageList -> Add(wxICON(book));
++    m_ContentsImageList -> Add(wxICON(folder));
++    m_ContentsImageList -> Add(wxICON(page));
++
++    m_Contents = NULL;
++    m_ContentsCnt = 0;
++    m_Index = NULL;
++    m_IndexCnt = 0;
++
++    m_IndexBox = NULL;
++    m_ContentsBox = NULL;
++    m_SearchList = NULL;
++    m_SearchText = NULL;
++    m_SearchButton = NULL;
++    m_HtmlWin = NULL;
++    m_Splitter = NULL;
++    m_NavigPan = NULL;
++}
++
++
++
++wxHtmlHelpController::~wxHtmlHelpController()
++{
++    int i;
++
++    m_BookRecords.Empty();
++    delete m_ContentsImageList;
++    if (m_Contents) {
++        for (i = 0; i < m_ContentsCnt; i++) {
++            delete[] m_Contents[i].m_Page;
++            delete[] m_Contents[i].m_Name;
++        }
++        free(m_Contents);
++    }
++    if (m_Index) {
++        for (i = 0; i < m_IndexCnt; i++) {
++            delete[] m_Index[i].m_Page;
++            delete[] m_Index[i].m_Name;
++        }
++        free(m_Index);
++    }
++}
++
++
++
++void wxHtmlHelpController::SetTempDir(const wxString& path)
++{
++    if (path == wxEmptyString) m_TempPath = path;
++    else {
++	if (wxIsAbsolutePath(path)) m_TempPath = path;
++	else m_TempPath = wxGetCwd() + "/" + path;
++
++	if (m_TempPath[m_TempPath.Length() - 1] != '/')
++            m_TempPath << "/";
++    }
++}
++
++
++
++
++// Reads one line, stores it into buf and returns pointer to new line or NULL.
++static char* ReadLine(char *line, char *buf)
++{
++    char *writeptr = buf, *readptr = line;
++
++    while (*readptr != 0 && *readptr != '\r' && *readptr != '\n') *(writeptr++) = *(readptr++);
++    *writeptr = 0;
++    while (*readptr == '\r' || *readptr == '\n') readptr++;
++    if (*readptr == 0) return NULL;
++    else return readptr;
++}
++
++
++static wxString SafeFileName(const wxString& s)
++{
++    wxString res = s;
++    res.Replace(_T(":"), _T("_"), TRUE);
++    res.Replace(_T(" "), _T("_"), TRUE);
++    res.Replace(_T("/"), _T("_"), TRUE);
++    res.Replace(_T("\\"), _T("_"), TRUE);
++    res.Replace(_T("#"), _T("_"), TRUE);
++    res.Replace(_T("."), _T("_"), TRUE);
++    return res;
++}
++
++
++static int IndexCompareFunc(const void *a, const void *b)
++{
++    return strcmp(((HtmlContentsItem*)a) -> m_Name, ((HtmlContentsItem*)b) -> m_Name);
++}
++
++
++
++bool wxHtmlHelpController::AddBook(const wxString& book, bool show_wait_msg)
++{
++    wxFSFile *fi;
++    wxFileSystem fsys;
++    wxInputStream *s;
++    HtmlBookRecord *bookr;
++    wxString bookFull;
++
++    int sz;
++    char *buff, *lineptr;
++    char linebuf[300];
++
++    wxString title = _("noname"),
++             safetitle,
++             start = wxEmptyString,
++             contents = wxEmptyString, index = wxEmptyString;
++
++    if (wxIsAbsolutePath(book)) bookFull = book;
++    else bookFull = wxGetCwd() + "/" + book;
++
++    fi = fsys.OpenFile(bookFull);
++    if (fi == NULL) return FALSE;
++    fsys.ChangePathTo(bookFull);
++    s = fi -> GetStream();
++    sz = s -> GetSize();
++    buff = new char[sz+1];
++    buff[sz] = 0;
++    s -> Read(buff, sz);
++    lineptr = buff;
++    delete fi;
++
++    while ((lineptr = ReadLine(lineptr, linebuf)) != NULL) {
++        if (strstr(linebuf, "Title=") == linebuf)
++            title = linebuf + strlen("Title=");
++        if (strstr(linebuf, "Default topic=") == linebuf)
++            start = linebuf + strlen("Default topic=");
++        if (strstr(linebuf, "Index file=") == linebuf)
++            index = linebuf + strlen("Index file=");
++        if (strstr(linebuf, "Contents file=") == linebuf)
++            contents = linebuf + strlen("Contents file=");
++    }
++    delete[] buff;
++
++    bookr = new HtmlBookRecord(fsys.GetPath(), title, start);
++
++    if (m_ContentsCnt % HTML_REALLOC_STEP == 0)
++        m_Contents = (HtmlContentsItem*) realloc(m_Contents, (m_ContentsCnt + HTML_REALLOC_STEP) * sizeof(HtmlContentsItem));
++    m_Contents[m_ContentsCnt].m_Level = 0;
++    m_Contents[m_ContentsCnt].m_ID = 0;
++    m_Contents[m_ContentsCnt].m_Page = new char[start.Length() + 1];
++    strcpy(m_Contents[m_ContentsCnt].m_Page, start.c_str());
++    m_Contents[m_ContentsCnt].m_Name = new char [title.Length() + 1];
++    strcpy(m_Contents[m_ContentsCnt].m_Name, title.c_str());
++    m_Contents[m_ContentsCnt].m_Book = bookr;
++    m_ContentsCnt++;
++
++    // Try to find cached binary versions:
++    safetitle = SafeFileName(title);
++    fi = fsys.OpenFile(safetitle + ".cached");
++    if (fi == NULL) fi = fsys.OpenFile(m_TempPath + safetitle + ".cached");
++    if ((fi == NULL) || (m_TempPath == wxEmptyString)) {
++        LoadMSProject(bookr, fsys, index, contents, show_wait_msg);
++        if (m_TempPath != wxEmptyString) {
++	        wxFileOutputStream *outs = new wxFileOutputStream(m_TempPath + safetitle + ".cached");
++            SaveCachedBook(bookr, outs);
++            delete outs;
++	}
++    }
++    else {
++        LoadCachedBook(bookr, fi -> GetStream());
++        delete fi;
++    }
++
++    m_BookRecords.Add(bookr);
++    if (m_IndexCnt > 0)
++        qsort(m_Index, m_IndexCnt, sizeof(HtmlContentsItem), IndexCompareFunc);
++
++    return TRUE;
++}
++
++
++
++
++void wxHtmlHelpController::Display(const wxString& x)
++{
++    int cnt;
++    int i;
++    wxFileSystem fsys;
++    wxFSFile *f;
++
++    CreateHelpWindow();
++
++    /* 1. try to open given file: */
++
++    cnt = m_BookRecords.GetCount();
++    for (i = 0; i < cnt; i++) {
++        f = fsys.OpenFile(m_BookRecords[i].GetBasePath() + x);
++        if (f) {
++            m_HtmlWin -> LoadPage(m_BookRecords[i].GetBasePath() + x);
++            delete f;
++            return;
++        }
++    }
++
++
++    /* 2. try to find a book: */
++
++    for (i = 0; i < cnt; i++) {
++        if (m_BookRecords[i].GetTitle() == x) {
++            m_HtmlWin -> LoadPage(m_BookRecords[i].GetBasePath() + m_BookRecords[i].GetStart());
++            return;
++        }
++    }
++
++    /* 3. try to find in contents: */
++
++    cnt = m_ContentsCnt;
++    for (i = 0; i < cnt; i++) {
++        if (strcmp(m_Contents[i].m_Name, x) == 0) {
++            m_HtmlWin -> LoadPage(m_Contents[i].m_Book -> GetBasePath() + m_Contents[i].m_Page);
++            return;
++        }
++    }
++
++
++    /* 4. try to find in index: */
++
++    cnt = m_IndexCnt;
++    for (i = 0; i < cnt; i++) {
++        if (strcmp(m_Index[i].m_Name, x) == 0) {
++            m_HtmlWin -> LoadPage(m_Index[i].m_Book -> GetBasePath() + m_Index[i].m_Page);
++            return;
++        }
++    }
++
++
++    /* 5. if everything failed, search the documents: */
++
++    KeywordSearch(x);
++}
++
++
++
++void wxHtmlHelpController::Display(const int id)
++{
++    CreateHelpWindow();
++
++    for (int i = 0; i < m_ContentsCnt; i++) {
++        if (m_Contents[i].m_ID == id) {
++            m_HtmlWin -> LoadPage(m_Contents[i].m_Book -> GetBasePath() + m_Contents[i].m_Page);
++            return;
++        }
++    }
++}
++
++
++
++void wxHtmlHelpController::DisplayContents()
++{
++    CreateHelpWindow();
++    m_Frame -> Raise();
++    if (!m_Splitter -> IsSplit()) {
++       m_NavigPan -> Show(TRUE);
++       m_HtmlWin -> Show(TRUE);
++       m_Splitter -> SplitVertically(m_NavigPan, m_HtmlWin, m_Cfg.sashpos);
++    }
++    m_NavigPan -> SetSelection(0);
++}
++
++
++
++void wxHtmlHelpController::DisplayIndex()
++{
++    CreateHelpWindow();
++    m_Frame -> Raise();
++    if (!m_Splitter -> IsSplit()) {
++       m_NavigPan -> Show(TRUE);
++       m_HtmlWin -> Show(TRUE);
++       m_Splitter -> SplitVertically(m_NavigPan, m_HtmlWin, m_Cfg.sashpos);
++    }
++    m_NavigPan -> SetSelection(1);
++}
++
++
++
++
++#if (wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7))
++
++class MyProgressDlg : public wxDialog
++{
++    public:
++        bool m_Canceled;
++
++        MyProgressDlg(wxWindow *parent) : wxDialog(parent, -1,
++	              _("Searching..."),
++	              wxPoint(0, 0),
++#ifdef __WXGTK__
++		      wxSize(300, 110)
++#else
++		      wxSize(300, 130)
++#endif
++              )
++		      {m_Canceled = FALSE;}
++        void OnCancel(wxCommandEvent& event) {m_Canceled = TRUE;}
++        DECLARE_EVENT_TABLE()
++};
++BEGIN_EVENT_TABLE(MyProgressDlg, wxDialog)
++    EVT_BUTTON(wxID_CANCEL, MyProgressDlg::OnCancel)
++END_EVENT_TABLE()
++
++#endif
++
++
++bool wxHtmlHelpController::KeywordSearch(const wxString& keyword)
++{
++    int foundcnt = 0;
++    CreateHelpWindow();
++    // if these are not set, we can't continue
++    if (! (m_SearchList && m_HtmlWin))
++       return FALSE;
++    m_Frame -> Raise();
++    if (m_Splitter && m_NavigPan && m_SearchButton) {
++       if (!m_Splitter -> IsSplit()) {
++          m_NavigPan -> Show(TRUE);
++          m_HtmlWin -> Show(TRUE);
++          m_Splitter -> SplitVertically(m_NavigPan, m_HtmlWin, m_Cfg.sashpos);
++       }
++       m_NavigPan -> SetSelection(2);
++       m_SearchList -> Clear();
++       m_SearchText -> SetValue(keyword);
++       m_SearchButton -> Enable(FALSE);
++    }
++    {
++        int cnt = m_ContentsCnt;
++        wxSearchEngine engine;
++        wxFileSystem fsys;
++        wxFSFile *file;
++        wxString lastpage = wxEmptyString;
++        wxString foundstr;
++
++#if (wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7))
++        MyProgressDlg progress(m_Frame);
++
++        wxStaticText *prompt = new wxStaticText(&progress, -1, "", wxPoint(20, 50), wxSize(260, 25), wxALIGN_CENTER);
++        wxGauge *gauge = new wxGauge(&progress, -1, cnt, wxPoint(20, 20), wxSize(260, 25));
++        wxButton *btn = new wxButton(&progress, wxID_CANCEL, _("Cancel"), wxPoint(110, 70), wxSize(80, 25));
++        btn = btn; /* fool compiler :-) */
++        prompt -> SetLabel(_("No matching page found yet"));
++
++	progress.Centre(wxBOTH);
++        progress.Show(TRUE);
++#else
++	wxProgressDialog progress(_("Searching..."), _("No matching page found yet"), cnt, m_Frame, wxPD_APP_MODAL | wxPD_CAN_ABORT | wxPD_AUTO_HIDE);
++#endif
++
++        engine.LookFor(keyword);
++
++        for (int i = 0; i < cnt; i++) {
++#if (wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7))
++            gauge -> SetValue(i);
++            if (progress.m_Canceled) break;
++#else
++    	    if (progress.Update(i) == FALSE) break;
++#endif
++	    wxYield();
++
++            file = fsys.OpenFile(m_Contents[i].m_Book -> GetBasePath() + m_Contents[i].m_Page);
++            if (file) {
++                if (lastpage != file -> GetLocation()) {
++                    lastpage = file -> GetLocation();
++                    if (engine.Scan(file -> GetStream())) {
++                        foundstr.Printf(_("Found %i matches"), ++foundcnt);
++#if (wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7))
++                        prompt -> SetLabel(foundstr);
++#else
++    	    	    	progress.Update(i, foundstr);
++#endif
++                        wxYield();
++                        m_SearchList -> Append(m_Contents[i].m_Name, (char*)(m_Contents + i));
++                    }
++                }
++                delete file;
++            }
++        }
++
++#if (wxVERSION_NUMBER < 2100) || ((wxVERSION_NUMBER == 2100) && (wxBETA_NUMBER < 7))
++        progress.Close(TRUE);
++#endif
++    }
++    if (m_SearchButton)
++	m_SearchButton -> Enable(TRUE);
++    if (m_SearchText) {
++	m_SearchText -> SetSelection(0, keyword.Length());
++	m_SearchText -> SetFocus();
++    }
++    if (foundcnt) {
++        HtmlContentsItem *it = (HtmlContentsItem*) m_SearchList -> GetClientData(0);
++        if (it) m_HtmlWin -> LoadPage(it -> m_Book -> GetBasePath() + it -> m_Page);
++    }
++    return (foundcnt > 0);
++}
++
++
++
++
++
++
++void wxHtmlHelpController::CreateHelpWindow()
++{
++    wxBusyCursor cur;
++    wxString oldpath;
++    wxStatusBar *sbar;
++
++    if (m_Frame) {
++        m_Frame -> Raise();
++    	m_Frame -> Show(TRUE);
++        return;
++    }
++
++#if wxUSE_BUSYINFO
++    wxBusyInfo busyinfo(_("Preparing help window..."));
++#endif
++
++    if (m_Config) ReadCustomization(m_Config, m_ConfigRoot);
++
++    m_Frame = new wxFrame(NULL, -1, "", wxPoint(m_Cfg.x, m_Cfg.y), wxSize(m_Cfg.w, m_Cfg.h));
++    m_Frame -> PushEventHandler(this);
++    sbar = m_Frame -> CreateStatusBar();
++
++    {
++        wxToolBar *toolBar;
++        toolBar = m_Frame -> CreateToolBar(wxNO_BORDER | wxTB_HORIZONTAL | wxTB_FLAT | wxTB_DOCKABLE);
++        toolBar -> SetMargins(2, 2);
++        wxBitmap* toolBarBitmaps[3];
++
++#ifdef __WXMSW__
++        toolBarBitmaps[0] = new wxBitmap("panel");
++        toolBarBitmaps[1] = new wxBitmap("back");
++        toolBarBitmaps[2] = new wxBitmap("forward");
++        int width = 24;
++#else
++        toolBarBitmaps[0] = new wxBitmap(panel_xpm);
++        toolBarBitmaps[1] = new wxBitmap(back_xpm);
++        toolBarBitmaps[2] = new wxBitmap(forward_xpm);
++        int width = 16;
++#endif
++
++        int currentX = 5;
++
++        toolBar -> AddTool(wxID_HTML_PANEL, *(toolBarBitmaps[0]), wxNullBitmap, FALSE, currentX, -1, (wxObject *) NULL, _("Show/hide navigation panel"));
++        currentX += width + 5;
++        toolBar -> AddSeparator();
++        toolBar -> AddTool(wxID_HTML_BACK, *(toolBarBitmaps[1]), wxNullBitmap, FALSE, currentX, -1, (wxObject *) NULL, _("Go back to the previous HTML page"));
++        currentX += width + 5;
++        toolBar -> AddTool(wxID_HTML_FORWARD, *(toolBarBitmaps[2]), wxNullBitmap, FALSE, currentX, -1, (wxObject *) NULL, _("Go forward to the next HTML page"));
++        currentX += width + 5;
++
++        toolBar -> Realize();
++
++        // Can delete the bitmaps since they're reference counted
++        for (int i = 0; i < 3; i++) delete toolBarBitmaps[i];
++    }
++
++
++    {
++        m_Splitter = new wxSplitterWindow(m_Frame);
++
++        m_HtmlWin = new wxHtmlWindow(m_Splitter);
++        m_HtmlWin -> SetRelatedFrame(m_Frame, m_TitleFormat);
++        m_HtmlWin -> SetRelatedStatusBar(0);
++        if (m_Config) m_HtmlWin -> ReadCustomization(m_Config, m_ConfigRoot);
++
++        m_NavigPan = new wxNotebook(m_Splitter, wxID_HTML_NOTEBOOK, wxDefaultPosition, wxDefaultSize);
++        {
++            m_ContentsBox = new wxTreeCtrl(m_NavigPan, wxID_HTML_TREECTRL, wxDefaultPosition, wxDefaultSize, wxTR_HAS_BUTTONS | wxSUNKEN_BORDER);
++            m_ContentsBox -> SetImageList(m_ContentsImageList);
++            m_NavigPan -> AddPage(m_ContentsBox, _("Contents"));
++        }
++
++        {
++            wxWindow *dummy = new wxPanel(m_NavigPan, wxID_HTML_INDEXPAGE);
++            wxLayoutConstraints *b1 = new wxLayoutConstraints;
++            b1 -> top.SameAs        (dummy, wxTop, 0);
++            b1 -> left.SameAs       (dummy, wxLeft, 0);
++            b1 -> width.PercentOf   (dummy, wxWidth, 100);
++            b1 -> bottom.SameAs     (dummy, wxBottom, 0);
++            m_IndexBox = new wxListBox(dummy, wxID_HTML_INDEXLIST, wxDefaultPosition, wxDefaultSize, 0);
++            m_IndexBox -> SetConstraints(b1);
++            dummy -> SetAutoLayout(TRUE);
++            m_NavigPan -> AddPage(dummy, _("Index"));
++        }
++
++        {
++            wxWindow *dummy = new wxPanel(m_NavigPan, wxID_HTML_SEARCHPAGE);
++
++            wxLayoutConstraints *b1 = new wxLayoutConstraints;
++            m_SearchText = new wxTextCtrl(dummy, wxID_HTML_SEARCHTEXT);
++            b1 -> top.SameAs        (dummy, wxTop, 0);
++            b1 -> left.SameAs       (dummy, wxLeft, 0);
++            b1 -> right.SameAs      (dummy, wxRight, 0);
++            b1 -> height.AsIs();
++            m_SearchText -> SetConstraints(b1);
++
++            wxLayoutConstraints *b2 = new wxLayoutConstraints;
++            m_SearchButton = new wxButton(dummy, wxID_HTML_SEARCHBUTTON, _("Search!"));
++            b2 -> top.Below         (m_SearchText, 10);
++            b2 -> right.SameAs      (dummy, wxRight, 10);
++            b2 -> width.AsIs();
++            b2 -> height.AsIs();
++            m_SearchButton -> SetConstraints(b2);
++
++            wxLayoutConstraints *b3 = new wxLayoutConstraints;
++            m_SearchList = new wxListBox(dummy, wxID_HTML_SEARCHLIST, wxDefaultPosition, wxDefaultSize, 0);
++            b3 -> top.Below         (m_SearchButton, 10);
++            b3 -> left.SameAs       (dummy, wxLeft, 0);
++            b3 -> right.SameAs      (dummy, wxRight, 0);
++            b3 -> bottom.SameAs     (dummy, wxBottom, 0);
++            m_SearchList -> SetConstraints(b3);
++
++            dummy -> SetAutoLayout(TRUE);
++            dummy -> Layout();
++            m_NavigPan -> AddPage(dummy, _("Search"));
++        }
++
++        RefreshLists();
++        m_NavigPan -> Show(TRUE);
++        m_HtmlWin -> Show(TRUE);
++        m_Splitter -> SetMinimumPaneSize(20);
++        m_Splitter -> SplitVertically(m_NavigPan, m_HtmlWin, m_Cfg.sashpos);
++        if (!m_Cfg.navig_on) m_Splitter -> Unsplit(m_NavigPan);
++        wxYield();
++    }
++
++    m_Frame -> Show(TRUE);
++    wxYield();
++}
++
++
++
++#define MAX_ROOTS 64
++
++void wxHtmlHelpController::CreateContents()
++{
++    HtmlContentsItem *it;
++    wxTreeItemId roots[MAX_ROOTS];
++    bool imaged[MAX_ROOTS];
++    int count = m_ContentsCnt;
++
++    m_ContentsBox -> DeleteAllItems();
++    roots[0] = m_ContentsBox -> AddRoot(_("(Help)"));
++    imaged[0] = TRUE;
++
++    for (int i = 0; i < count; i++) {
++        it = m_Contents + i;
++        roots[it -> m_Level + 1] = m_ContentsBox -> AppendItem(roots[it -> m_Level], it -> m_Name, IMG_Page, -1, new wxHtmlHelpTreeItemData(it));
++        if (it -> m_Level == 0) {
++            m_ContentsBox -> SetItemBold(roots[1], TRUE);
++            m_ContentsBox -> SetItemImage(roots[1], IMG_Book);
++            m_ContentsBox -> SetItemSelectedImage(roots[1], IMG_Book);
++            imaged[1] = TRUE;
++        }
++        else imaged[it -> m_Level + 1] = FALSE;
++
++        if (!imaged[it -> m_Level]) {
++            m_ContentsBox -> SetItemImage(roots[it -> m_Level], IMG_Folder);
++            m_ContentsBox -> SetItemSelectedImage(roots[it -> m_Level], IMG_Folder);
++            imaged[it -> m_Level] = TRUE;
++        }
++    }
++
++    m_ContentsBox -> Expand(roots[0]);
++}
++
++
++
++
++void wxHtmlHelpController::CreateIndex()
++{
++    m_IndexBox -> Clear();
++
++    for (int i = 0; i < m_IndexCnt; i++)
++        m_IndexBox -> Append(m_Index[i].m_Name, (char*)(m_Index + i));
++}
++
++
++
++void wxHtmlHelpController::RefreshLists()
++{
++    if (m_Frame) {
++        CreateContents();
++        CreateIndex();
++        m_SearchList -> Clear();
++    }
++}
++
++
++
++
++
++
++
++void wxHtmlHelpController::ReadCustomization(wxConfigBase *cfg, wxString path)
++{
++    wxString oldpath;
++    wxString tmp;
++
++    if (path != wxEmptyString) {
++        oldpath = cfg -> GetPath();
++        cfg -> SetPath(path);
++    }
++
++    m_Cfg.navig_on = cfg -> Read("hcNavigPanel", m_Cfg.navig_on) != 0;
++    m_Cfg.sashpos = cfg -> Read("hcSashPos", m_Cfg.sashpos);
++    m_Cfg.x = cfg -> Read("hcX", m_Cfg.x);
++    m_Cfg.y = cfg -> Read("hcY", m_Cfg.y);
++    m_Cfg.w = cfg -> Read("hcW", m_Cfg.w);
++    m_Cfg.h = cfg -> Read("hcH", m_Cfg.h);
++
++    if (path != wxEmptyString)
++        cfg -> SetPath(oldpath);
++}
++
++
++
++void wxHtmlHelpController::WriteCustomization(wxConfigBase *cfg, wxString path)
++{
++    wxString oldpath;
++    wxString tmp;
++
++    if (path != wxEmptyString) {
++        oldpath = cfg -> GetPath();
++        cfg -> SetPath(path);
++    }
++
++    cfg -> Write("hcNavigPanel", m_Cfg.navig_on);
++    cfg -> Write("hcSashPos", (long)m_Cfg.sashpos);
++    cfg -> Write("hcX", (long)m_Cfg.x);
++    cfg -> Write("hcY", (long)m_Cfg.y);
++    cfg -> Write("hcW", (long)m_Cfg.w);
++    cfg -> Write("hcH", (long)m_Cfg.h);
++
++    if (path != wxEmptyString)
++        cfg -> SetPath(oldpath);
++}
++
++
++
++
++
++/*
++EVENT HANDLING :
++*/
++
++
++void wxHtmlHelpController::OnToolbar(wxCommandEvent& event)
++{
++    switch (event.GetId()) {
++        case wxID_HTML_BACK :
++            m_HtmlWin -> HistoryBack();
++            break;
++        case wxID_HTML_FORWARD :
++            m_HtmlWin -> HistoryForward();
++            break;
++        case wxID_HTML_PANEL :
++            if (m_Splitter -> IsSplit()) {
++                m_Cfg.sashpos = m_Splitter -> GetSashPosition();
++                m_Splitter -> Unsplit(m_NavigPan);
++            }
++            else {
++                m_NavigPan -> Show(TRUE);
++                m_HtmlWin -> Show(TRUE);
++                m_Splitter -> SplitVertically(m_NavigPan, m_HtmlWin, m_Cfg.sashpos);
++            }
++            break;
++    }
++}
++
++
++
++void wxHtmlHelpController::OnContentsSel(wxTreeEvent& event)
++{
++    wxHtmlHelpTreeItemData *pg;
++
++    pg = (wxHtmlHelpTreeItemData*) m_ContentsBox -> GetItemData(event.GetItem());
++    if (pg) m_HtmlWin -> LoadPage(pg -> GetPage());
++}
++
++
++
++void wxHtmlHelpController::OnIndexSel(wxCommandEvent& event)
++{
++    HtmlContentsItem *it = (HtmlContentsItem*) m_IndexBox -> GetClientData(m_IndexBox -> GetSelection());
++    if (it) m_HtmlWin -> LoadPage(it -> m_Book -> GetBasePath() + it -> m_Page);
++}
++
++
++
++void wxHtmlHelpController::OnSearchSel(wxCommandEvent& event)
++{
++    HtmlContentsItem *it = (HtmlContentsItem*) m_SearchList -> GetClientData(m_SearchList -> GetSelection());
++    if (it) m_HtmlWin -> LoadPage(it -> m_Book -> GetBasePath() + it -> m_Page);
++}
++
++
++
++void wxHtmlHelpController::OnCloseWindow(wxCloseEvent& event)
++{
++    int a, b;
++
++    m_Cfg.navig_on = m_Splitter -> IsSplit();
++    if (m_Cfg.navig_on)
++        m_Cfg.sashpos = m_Splitter -> GetSashPosition();
++    m_Frame -> GetPosition(&a, &b);
++    m_Cfg.x = a, m_Cfg.y = b;
++    m_Frame -> GetSize(&a, &b);
++    m_Cfg.w = a, m_Cfg.h = b;
++
++    if (m_Config) {
++        WriteCustomization(m_Config, m_ConfigRoot);
++        m_HtmlWin -> WriteCustomization(m_Config, m_ConfigRoot);
++    }
++    m_Frame = NULL;
++
++    event.Skip();
++}
++
++
++
++void wxHtmlHelpController::OnSearch(wxCommandEvent& event)
++{
++    wxString sr = m_SearchText -> GetLineText(0);
++
++    if (sr != wxEmptyString) KeywordSearch(sr);
++}
++
++
++
++BEGIN_EVENT_TABLE(wxHtmlHelpController, wxEvtHandler)
++    EVT_TOOL_RANGE(wxID_HTML_PANEL, wxID_HTML_FORWARD, wxHtmlHelpController::OnToolbar)
++    EVT_TREE_SEL_CHANGED(wxID_HTML_TREECTRL, wxHtmlHelpController::OnContentsSel)
++    EVT_LISTBOX(wxID_HTML_INDEXLIST, wxHtmlHelpController::OnIndexSel)
++    EVT_LISTBOX(wxID_HTML_SEARCHLIST, wxHtmlHelpController::OnSearchSel)
++    EVT_CLOSE(wxHtmlHelpController::OnCloseWindow)
++    EVT_BUTTON(wxID_HTML_SEARCHBUTTON, wxHtmlHelpController::OnSearch)
++    EVT_TEXT_ENTER(wxID_HTML_SEARCHTEXT, wxHtmlHelpController::OnSearch)
++END_EVENT_TABLE()
++
++
++
++#endif
++
+Index: wxWidgets/src/html/search.cpp
+===================================================================
+RCS file: search.cpp
+diff -N search.cpp
+--- /dev/null	Thu Dec 14 21:47:46 2006
++++ wxWidgets/src/html/search.cpp	Thu Dec 14 21:47:51 2006
+@@ -0,0 +1,72 @@
++/////////////////////////////////////////////////////////////////////////////
++// Name:        search.cpp
++// Purpose:     search engine
++// Author:      Vaclav Slavik
++// RCS-ID:      $Id: search.cpp,v 1.9 2001/07/05 18:48:48 VZ Exp $
++// Copyright:   (c) 1999 Vaclav Slavik
++// Licence:     wxWindows Licence
++/////////////////////////////////////////////////////////////////////////////
++
++
++
++#ifdef __GNUG__
++#pragma implementation
++#endif
++
++#include "wx/wxprec.h"
++
++#include "wx/defs.h"
++#if wxUSE_HTML
++
++#ifdef __BORDLANDC__
++#pragma hdrstop
++#endif
++
++#ifndef WXPRECOMP
++#endif
++
++#include "wx/html/helpdata.h"
++
++
++//--------------------------------------------------------------------------------
++// wxSearchEngine
++//--------------------------------------------------------------------------------
++
++void wxSearchEngine::LookFor(const wxString& keyword)
++{
++    if (m_Keyword) delete[] m_Keyword;
++    m_Keyword = new wxChar[keyword.Length() + 1];
++    wxStrcpy(m_Keyword, keyword.c_str());
++    for (int i = wxStrlen(m_Keyword) - 1; i >= 0; i--)
++        if ((m_Keyword[i] >= wxT('A')) && (m_Keyword[i] <= wxT('Z')))
++            m_Keyword[i] += wxT('a') - wxT('A');
++}
++
++
++
++bool wxSearchEngine::Scan(wxInputStream *stream)
++{
++    wxASSERT_MSG(m_Keyword != NULL, _("wxSearchEngine::LookFor must be called before scanning!"));
++
++    int i, j;
++    int lng = stream ->GetSize();
++    int wrd = wxStrlen(m_Keyword);
++    bool found = FALSE;
++    char *buf = new char[lng + 1];
++    stream -> Read(buf, lng);
++    buf[lng] = 0;
++
++    for (i = 0; i < lng; i++)
++        if ((buf[i] >= 'A') && (buf[i] <= 'Z')) buf[i] += 'a' - 'A';
++
++    for (i = 0; i < lng - wrd; i++) {
++        j = 0;
++        while ((j < wrd) && (buf[i + j] == m_Keyword[j])) j++;
++        if (j == wrd) {found = TRUE; break;}
++    }
++
++    delete[] buf;
++    return found;
++}
++
++#endif
+Index: wxWidgets/src/unix/net.cpp
+===================================================================
+RCS file: net.cpp
+diff -N net.cpp
+--- /dev/null	Thu Dec 14 21:48:09 2006
++++ wxWidgets/src/unix/net.cpp	Thu Dec 14 21:48:13 2006
+@@ -0,0 +1,422 @@
++// -*- c++ -*- ///////////////////////////////////////////////////////////////
++// Name:        unix/net.cpp
++// Purpose:     Network related wxWindows classes and functions
++// Author:      Karsten Ballüder
++// Modified by:
++// Created:     03.10.99
++// RCS-ID:      $Id: net.cpp,v 1.3 1999/10/03 17:26:45 KB Exp $
++// Copyright:   (c) Karsten Ballüder
++// Licence:     wxWindows licence
++/////////////////////////////////////////////////////////////////////////////
++
++#include "wx/setup.h"
++
++#if wxUSE_DIALUP_MANAGER
++
++#ifndef  WX_PRECOMP
++#   include "wx/defs.h"
++#endif // !PCH
++
++#include "wx/string.h"
++#include "wx/event.h"
++#include "wx/net.h"
++#include "wx/timer.h"
++#include "wx/filefn.h"
++#include "wx/utils.h"
++#include "wx/log.h"
++#include "wx/file.h"
++
++#include <stdlib.h>
++#include <signal.h>
++#include <fcntl.h>
++#include <unistd.h>
++#define __STRICT_ANSI__
++#include <sys/socket.h>
++#include <sys/types.h>
++#include <sys/stat.h>
++#include <netdb.h>
++#include <netinet/in.h>
++#include <arpa/inet.h>
++
++// ----------------------------------------------------------------------------
++// A class which groups functions dealing with connecting to the network from a
++// workstation using dial-up access to the net. There is at most one instance
++// of this class in the program accessed via GetDialUpManager().
++// ----------------------------------------------------------------------------
++
++/* TODO
++ *
++ * 1. more configurability for Unix: i.e. how to initiate the connection, how
++ *    to check for online status, &c.
++ * 2. add a "long Dial(long connectionId = -1)" function which asks the user
++ *    about which connection to dial (this may be done using native dialogs
++ *    under NT, need generic dialogs for all others) and returns the identifier
++ *    of the selected connection (it's opaque to the application) - it may be
++ *    reused later to dial the same connection later (or use strings instead of
++ *    longs may be?)
++ * 3. add an async version of dialing functions which notify the caller about
++ *    the progress (or may be even start another thread to monitor it)
++ * 4. the static creation/accessor functions are not MT-safe - but is this
++ *    really crucial? I think we may suppose they're always called from the
++ *    main thread?
++ */
++
++class WXDLLEXPORT wxDialUpManagerImpl : public wxDialUpManager
++{
++public:
++   wxDialUpManagerImpl()
++      {
++         m_IsOnline = -1; // unknown
++         m_timer = NULL;
++         m_CanUseIfconfig = -1; // unknown
++         m_BeaconHost = WXDIALUP_MANAGER_DEFAULT_BEACONHOST;
++         m_BeaconPort = 80;
++      }
++
++   /** Could the dialup manager be initialized correctly? If this function
++       returns FALSE, no other functions will work neither, so it's a good idea
++       to call this function and check its result before calling any other
++       wxDialUpManager methods.
++   */
++   virtual bool IsOk() const
++      { return TRUE; }
++
++   /** The simplest way to initiate a dial up: this function dials the given
++       ISP (exact meaning of the parameter depends on the platform), returns
++       TRUE on success or FALSE on failure and logs the appropriate error
++       message in the latter case.
++       @param nameOfISP optional paramater for dial program
++       @param username unused
++       @param password unused
++   */
++   virtual bool Dial(const wxString& nameOfISP,
++                     const wxString& WXUNUSED(username),
++                     const wxString& WXUNUSED(password));
++
++   /// Hang up the currently active dial up connection.
++   virtual bool HangUp();
++   
++   // returns TRUE if the computer is connected to the network: under Windows,
++   // this just means that a RAS connection exists, under Unix we check that
++   // the "well-known host" (as specified by SetWellKnownHost) is reachable
++   virtual bool IsOnline() const
++      {
++         if( (! m_timer) // we are not polling, so test now:
++             || m_IsOnline == -1
++            )
++            CheckStatus();
++         return m_IsOnline != 0;
++      }
++
++   // sometimes the built-in logic for determining the online status may fail,
++   // so, in general, the user should be allowed to override it. This function
++   // allows to forcefully set the online status - whatever our internal
++   // algorithm may think about it.
++   virtual void SetOnlineStatus(bool isOnline = TRUE)
++      { m_IsOnline = isOnline; }
++
++   // set misc wxDialUpManager options
++   // --------------------------------
++
++   // enable automatical checks for the connection status and sending of
++   // wxEVT_DIALUP_CONNECTED/wxEVT_DIALUP_DISCONNECTED events. The interval
++   // parameter is only for Unix where we do the check manually: under
++   // Windows, the notification about the change of connection status is
++   // instantenous.
++   //
++   // Returns FALSE if couldn't set up automatic check for online status.
++   virtual bool EnableAutoCheckOnlineStatus(size_t nSeconds);
++
++   // disable automatic check for connection status change - notice that the
++   // wxEVT_DIALUP_XXX events won't be sent any more neither.
++   virtual void DisableAutoCheckOnlineStatus();
++
++   // under Unix, the value of well-known host is used to check whether we're
++   // connected to the internet. It's unused under Windows, but this function
++   // is always safe to call. The default value is www.yahoo.com.
++   virtual void SetWellKnownHost(const wxString& hostname,
++                                 int portno = 80);
++   /** Sets the commands to start up the network and to hang up
++       again. Used by the Unix implementations only.
++   */
++   virtual void SetConnectCommand(const wxString &command, const wxString &hupcmd)
++      { m_ConnectCommand = command; m_HangUpCommand = hupcmd; }
++
++private:
++   /// -1: don´t know, 0 = no, 1 = yes
++   int m_IsOnline;
++   
++   ///  Can we use ifconfig to list active devices?
++   int m_CanUseIfconfig;
++   /// The path to ifconfig
++   wxString m_IfconfigPath;
++
++   /// beacon host:
++   wxString m_BeaconHost;
++   /// beacon host portnumber for connect:
++   int m_BeaconPort;
++
++   /// command to connect to network
++   wxString m_ConnectCommand;
++   /// command to hang up
++   wxString m_HangUpCommand;
++   /// name of ISP
++   wxString m_ISPname;
++   /// a timer for regular testing
++   class AutoCheckTimer *m_timer;
++
++   friend class AutoCheckTimer;
++   /// determine status
++   void CheckStatus(void) const;
++
++   /// real status check
++   void CheckStatusInternal(void);
++};
++
++
++class AutoCheckTimer : public wxTimer
++{
++public:
++   AutoCheckTimer(wxDialUpManagerImpl *dupman)
++      {
++         m_dupman = dupman;
++         m_started = FALSE;
++      }
++
++   virtual bool Start( int millisecs = -1 )
++      { m_started = TRUE; return wxTimer::Start(millisecs, FALSE); }
++
++   virtual void Notify()
++      { wxLogTrace("Checking dial up network status."); m_dupman->CheckStatus(); }
++
++   virtual void Stop()
++      { if ( m_started ) wxTimer::Stop(); }
++public:
++   bool m_started;
++   wxDialUpManagerImpl *m_dupman;
++};
++
++bool
++wxDialUpManagerImpl::Dial(const wxString &isp,
++                          const wxString & WXUNUSED(username),
++                          const wxString & WXUNUSED(password))
++{
++   if(m_IsOnline == 1)
++      return FALSE;
++   m_IsOnline = -1;
++   m_ISPname = isp;
++   wxString cmd;
++   if(m_ConnectCommand.Find("%s"))
++      cmd.Printf(m_ConnectCommand,m_ISPname.c_str());
++   else
++      cmd = m_ConnectCommand;
++   return wxExecute(cmd, /* sync */ TRUE) == 0;
++}
++
++bool
++wxDialUpManagerImpl::HangUp(void)
++{
++   if(m_IsOnline == 0)
++      return FALSE;
++   m_IsOnline = -1;
++   wxString cmd;
++   if(m_HangUpCommand.Find("%s"))
++      cmd.Printf(m_HangUpCommand,m_ISPname.c_str());
++   else
++      cmd = m_HangUpCommand;
++   return wxExecute(cmd, /* sync */ TRUE) == 0;
++}
++
++
++bool
++wxDialUpManagerImpl::EnableAutoCheckOnlineStatus(size_t nSeconds)
++{
++   wxASSERT(m_timer == NULL);
++   m_timer = new AutoCheckTimer(this);
++   bool rc = m_timer->Start(nSeconds*1000);
++   if(! rc)
++   {
++      delete m_timer;
++      m_timer = NULL;
++   }
++   return rc;
++}
++
++void
++wxDialUpManagerImpl::DisableAutoCheckOnlineStatus()
++{
++   wxASSERT(m_timer != NULL);
++   m_timer->Stop();
++   delete m_timer;
++   m_timer = NULL;
++}
++
++
++void
++wxDialUpManagerImpl::SetWellKnownHost(const wxString& hostname, int portno)
++{
++   /// does hostname contain a port number?
++   wxString port = hostname.After(':');
++   if(port.Length())
++   {
++      m_BeaconHost = hostname.Before(':');
++      m_BeaconPort = atoi(port);
++   }
++   else
++   {
++      m_BeaconHost = hostname;
++      m_BeaconPort = portno;
++   }
++}
++
++
++void
++wxDialUpManagerImpl::CheckStatus(void) const
++{
++   // This function calls the CheckStatusInternal() helper function
++   // which is OS - specific and then sends the events.
++
++   int oldIsOnline = m_IsOnline;
++   ( /* non-const */ (wxDialUpManagerImpl *)this)->CheckStatusInternal();
++
++   // now send the events as appropriate:
++   if(m_IsOnline != oldIsOnline)
++   {
++      if(m_IsOnline)
++         ; // send ev
++      else
++         ; // send ev
++   }
++}
++
++/*
++  We have three methods that we can use:
++
++  1. test via /sbin/ifconfig and grep for "sl", "ppp", "pl"
++     --> should be fast enough for regular polling
++  2. test if we can reach the well known beacon host
++     --> too slow for polling
++  3. check /proc/net/dev on linux??
++     This method should be preferred, if possible. Need to do more
++     testing.
++    
++*/
++
++void
++wxDialUpManagerImpl::CheckStatusInternal(void)
++{
++   m_IsOnline = -1;
++
++   // First time check for ifconfig location. We only use the variant
++   // which does not take arguments, a la GNU.
++   if(m_CanUseIfconfig == -1) // unknown
++   {
++      if(wxFileExists("/sbin/ifconfig"))
++         m_IfconfigPath = "/sbin/ifconfig";
++      else if(wxFileExists("/usr/sbin/ifconfig"))
++         m_IfconfigPath = "/usr/sbin/ifconfig";
++   }
++
++   wxLogNull ln; // suppress all error messages
++   // Let´s try the ifconfig method first, should be fastest:
++   if(m_CanUseIfconfig != 0) // unknown or yes
++   {
++      wxASSERT(m_IfconfigPath.length());
++      
++      wxString tmpfile = wxGetTempFileName("_wxdialuptest");
++      wxString cmd = "/bin/sh -c \'";
++      cmd << m_IfconfigPath << " >" << tmpfile <<  '\'';
++      /* I tried to add an option to wxExecute() to not close stdout,
++         so we could let ifconfig write directly to the tmpfile, but
++         this does not work. That should be faster, as it doesn´t call 
++         the shell first. I have no idea why. :-(  (KB) */
++#if 0
++      // temporarily redirect stdout/stderr:
++      int
++         new_stdout = dup(STDOUT_FILENO),
++         new_stderr = dup(STDERR_FILENO);
++      close(STDOUT_FILENO);
++      close(STDERR_FILENO);
++
++      int
++         // new stdout:
++         output_fd = open(tmpfile, O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR),
++         // new stderr:
++         null_fd = open("/dev/null", O_CREAT, S_IRUSR|S_IWUSR);
++      // verify well behaved unix behaviour:
++      wxASSERT(output_fd == STDOUT_FILENO);
++      wxASSERT(null_fd == STDERR_FILENO);
++      int rc = wxExecute(m_IfconfigPath,TRUE /* sync */,NULL ,wxEXECUTE_DONT_CLOSE_FDS);
++      close(null_fd); close(output_fd);
++      // restore old stdout, stderr:
++      int test;
++      test = dup(new_stdout); close(new_stdout); wxASSERT(test == STDOUT_FILENO);
++      test = dup(new_stderr); close(new_stderr); wxASSERT(test == STDERR_FILENO);
++      if(rc == 0)
++#endif
++      if(wxExecute(cmd,TRUE /* sync */) == 0)
++      {
++         m_CanUseIfconfig = 1;
++         wxFile file;
++         if( file.Open(tmpfile) )
++         {
++            char *output = new char [file.Length()+1];
++            output[file.Length()] = '\0';
++            if(file.Read(output,file.Length()) == file.Length())
++            {
++               if(strstr(output,"ppp")   // ppp
++                  || strstr(output,"sl") // slip
++                  || strstr(output,"pl") // plip
++                  )
++                  m_IsOnline = 1;
++               else
++                  m_IsOnline = 0;
++            }
++            file.Close();
++            delete [] output;
++         }
++         // else m_IsOnline remains -1 as we don't know for sure
++      }
++      else // could not run ifconfig correctly
++         m_CanUseIfconfig = 0; // don´t try again
++      (void) wxRemoveFile(tmpfile);
++      if(m_IsOnline != -1) // we are done
++         return;
++   }
++
++   // second method: try to connect to well known host:
++   // This can be used under Win 9x, too!
++   struct hostent     *hp;
++   struct sockaddr_in  serv_addr;
++   int	sockfd;
++
++   m_IsOnline = 0; // assume false
++   if((hp = gethostbyname(m_BeaconHost)) == NULL)
++      return; // no DNS no net
++   
++   serv_addr.sin_family		= hp->h_addrtype;
++   memcpy(&serv_addr.sin_addr,hp->h_addr, hp->h_length);
++   serv_addr.sin_port		= htons(m_BeaconPort);
++   if( ( sockfd = socket(hp->h_addrtype, SOCK_STREAM, 0)) < 0) 
++   {	
++      //  sys_error("cannot create socket for gw");
++      return;
++   }
++   if( connect(sockfd, (struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
++   {	
++      //sys_error("cannot connect to server");
++      return;
++   }
++   //connected!
++   close(sockfd);
++}
++
++
++/* static */
++wxDialUpManager *
++wxDialUpManager::wxDialUpManager::Create(void)
++{
++   return new wxDialUpManagerImpl;
++}
++
++#endif // wxUSE_DIALUP_MANAGER
+Index: wxWidgets/utils/wxprop/src/prop.cpp
+===================================================================
+RCS file: prop.cpp
+diff -N prop.cpp
+--- /dev/null	Thu Dec 14 21:48:56 2006
++++ wxWidgets/utils/wxprop/src/prop.cpp	Thu Dec 14 21:48:57 2006
+@@ -0,0 +1,1119 @@
++/////////////////////////////////////////////////////////////////////////////
++// Name:        prop.cpp
++// Purpose:     Propert sheet classes implementation
++// Author:      Julian Smart
++// Modified by:
++// Created:     04/01/98
++// RCS-ID:      $Id: prop.cpp,v 1.11 1999/06/28 21:39:49 VZ Exp $
++// Copyright:   (c) Julian Smart
++// Licence:   	wxWindows license
++/////////////////////////////////////////////////////////////////////////////
++
++#ifdef __GNUG__
++#pragma implementation "prop.h"
++#endif
++
++// For compilers that support precompilation, includes "wx/wx.h".
++#include "wx/wxprec.h"
++
++#ifdef __BORLANDC__
++#pragma hdrstop
++#endif
++
++#ifndef WX_PRECOMP
++#include "wx/wx.h"
++#endif
++
++#include <ctype.h>
++#include <stdlib.h>
++#include <math.h>
++#include <string.h>
++
++#if wxUSE_IOSTREAMH
++#if defined(__WXMSW__) && !defined(__GNUWIN32__)
++#include <strstrea.h>
++#else
++#include <strstream.h>
++#endif
++#else
++#include <strstream>
++#endif
++
++#include "wx/window.h"
++#include "wx/utils.h"
++#include "wx/list.h"
++#include "prop.h"
++
++IMPLEMENT_DYNAMIC_CLASS(wxPropertyValue, wxObject)
++
++wxPropertyValue::wxPropertyValue(void)
++{
++  m_type = wxPropertyValueNull;
++  m_next = NULL;
++  m_last = NULL;
++  m_value.first = NULL;
++  m_clientData = NULL;
++  m_modifiedFlag = FALSE;
++}
++
++wxPropertyValue::wxPropertyValue(const wxPropertyValue& copyFrom)
++{
++  m_modifiedFlag = FALSE;
++  Copy((wxPropertyValue& )copyFrom);
++}
++
++wxPropertyValue::wxPropertyValue(const char *val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueString;
++
++  m_value.string = copystring(val);
++  m_clientData = NULL;
++  m_next = NULL;
++  m_last = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(const wxString& val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueString;
++
++  m_value.string = copystring((const char *)val);
++  m_clientData = NULL;
++  m_next = NULL;
++  m_last = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(long the_integer)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueInteger;
++  m_value.integer = the_integer;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(bool val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValuebool;
++  m_value.integer = val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(float the_real)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueReal;
++  m_value.real = the_real;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(double the_real)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueReal;
++  m_value.real = (float)the_real;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++// Pointer versions: we have a pointer to the real C++ value.
++wxPropertyValue::wxPropertyValue(char **val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueStringPtr;
++
++  m_value.stringPtr = val;
++  m_clientData = NULL;
++  m_next = NULL;
++  m_last = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(long *val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueIntegerPtr;
++  m_value.integerPtr = val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(bool *val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueboolPtr;
++  m_value.boolPtr = val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(float *val)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueRealPtr;
++  m_value.realPtr = val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++wxPropertyValue::wxPropertyValue(wxList *the_list)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueList;
++  m_clientData = NULL;
++  m_last = NULL;
++  m_value.first = NULL;
++
++  wxNode *node = the_list->First();
++  while (node)
++  {
++    wxPropertyValue *expr = (wxPropertyValue *)node->Data();
++    Append(expr);
++    node = node->Next();
++  }
++
++  delete the_list;
++}
++
++wxPropertyValue::wxPropertyValue(wxStringList *the_list)
++{
++  m_modifiedFlag = FALSE;
++  m_type = wxPropertyValueList;
++  m_clientData = NULL;
++  m_last = NULL;
++  m_value.first = NULL;
++
++  wxNode *node = the_list->First();
++  while (node)
++  {
++    char *s = (char *)node->Data();
++    Append(new wxPropertyValue(s));
++    node = node->Next();
++  }
++  delete the_list;
++}
++
++wxPropertyValue::~wxPropertyValue(void)
++{
++  switch (m_type)
++  {
++    case wxPropertyValueInteger:
++    case wxPropertyValuebool:
++    case wxPropertyValueReal:
++    {
++     break;
++    }
++   case wxPropertyValueString:
++   {
++     delete[] m_value.string;
++     break;
++   }
++   case wxPropertyValueList:
++   {
++     wxPropertyValue *expr = m_value.first;
++     while (expr)
++     {
++       wxPropertyValue *expr1 = expr->m_next;
++
++       delete expr;
++       expr = expr1;
++     }
++     break;
++   }
++   default:
++   case wxPropertyValueNull: break;
++  }
++}
++
++void wxPropertyValue::Append(wxPropertyValue *expr)
++{
++  m_modifiedFlag = TRUE;
++  if (!m_value.first)
++    m_value.first = expr;
++
++  if (m_last)
++    m_last->m_next = expr;
++  m_last = expr;
++}
++
++void wxPropertyValue::Insert(wxPropertyValue *expr)
++{
++  m_modifiedFlag = TRUE;
++  expr->m_next = m_value.first;
++  m_value.first = expr;
++
++  if (!m_last)
++    m_last = expr;
++}
++
++// Delete from list
++void wxPropertyValue::Delete(wxPropertyValue *node)
++{
++  wxPropertyValue *expr = GetFirst();
++  
++  wxPropertyValue *previous = NULL;
++  while (expr && (expr != node))
++  {
++    previous = expr;
++    expr = expr->GetNext();
++  }
++
++  if (expr)
++  {
++    if (previous)
++      previous->m_next = expr->m_next;
++      
++    // If node was the first in the list,
++    // make the list point to the NEXT one.
++    if (GetFirst() == expr)
++    {
++      m_value.first = expr->m_next;
++    }
++
++    // If node was the last in the list,
++    // make the list 'last' pointer point to the PREVIOUS one.
++    if (GetLast() == expr)
++    {
++      if (previous)
++        m_last = previous;
++      else
++        m_last = NULL;
++    }
++    m_modifiedFlag = TRUE;
++    delete expr;
++  }
++
++}
++
++void wxPropertyValue::ClearList(void)
++{
++  wxPropertyValue *val = GetFirst();
++  if (val)
++    m_modifiedFlag = TRUE;
++
++  while (val)
++  {
++    wxPropertyValue *next = val->GetNext();
++    delete val;
++    val = next;
++  }
++  m_value.first = NULL;
++  m_last = NULL;
++}
++
++wxPropertyValue *wxPropertyValue::NewCopy(void) const
++{
++  switch (m_type)
++  {
++    case wxPropertyValueInteger:
++      return new wxPropertyValue(m_value.integer);
++    case wxPropertyValuebool:
++      return new wxPropertyValue((bool) (m_value.integer != 0));
++    case wxPropertyValueReal:
++      return new wxPropertyValue(m_value.real);
++    case wxPropertyValueString:
++      return new wxPropertyValue(m_value.string);
++    case wxPropertyValueList:
++    {
++      wxPropertyValue *expr = m_value.first;
++      wxPropertyValue *new_list = new wxPropertyValue;
++      new_list->SetType(wxPropertyValueList);
++      while (expr)
++      {
++        wxPropertyValue *expr2 = expr->NewCopy();
++        new_list->Append(expr2);
++        expr = expr->m_next;
++      }
++      return new_list;
++    }
++   case wxPropertyValueIntegerPtr:
++     return new wxPropertyValue(m_value.integerPtr);
++   case wxPropertyValueRealPtr:
++     return new wxPropertyValue(m_value.realPtr);
++   case wxPropertyValueboolPtr:
++     return new wxPropertyValue(m_value.boolPtr);
++   case wxPropertyValueStringPtr:
++     return new wxPropertyValue(m_value.stringPtr);
++
++   case wxPropertyValueNull: 
++#ifdef __X__
++    cerr << "Should never get here!\n";
++#endif
++    break;
++  }
++  return NULL;
++}
++
++void wxPropertyValue::Copy(wxPropertyValue& copyFrom)
++{
++  m_type = copyFrom.Type();
++
++  switch (m_type)
++  {
++    case wxPropertyValueInteger:
++      (*this) = copyFrom.IntegerValue();
++      return ;
++
++    case wxPropertyValueReal:
++      (*this) = copyFrom.RealValue();
++      return ;
++      
++    case wxPropertyValueString:
++      (*this) = wxString(copyFrom.StringValue());
++      return ;
++      
++    case wxPropertyValuebool:
++      (*this) = copyFrom.BoolValue();
++      return ;
++
++    // Pointers
++    case wxPropertyValueboolPtr:
++      (*this) = copyFrom.BoolValuePtr();
++      return ;
++    case wxPropertyValueRealPtr:
++      (*this) = copyFrom.RealValuePtr();
++      return ;
++    case wxPropertyValueIntegerPtr:
++      (*this) = copyFrom.IntegerValuePtr();
++      return ;
++    case wxPropertyValueStringPtr:
++    {
++      char** s = copyFrom.StringValuePtr();
++      (*this) = s != 0;
++      return ;
++    }
++      
++    case wxPropertyValueList:
++    {
++      m_value.first = NULL;
++      m_next = NULL;
++      m_last = NULL;
++      wxPropertyValue *expr = copyFrom.m_value.first;
++      while (expr)
++      {
++        wxPropertyValue *expr2 = expr->NewCopy();
++        Append(expr2);
++        expr = expr->m_next;
++      }
++      return;
++    }
++   case wxPropertyValueNull: 
++#ifdef __X__
++    cerr << "Should never get here!\n";
++#endif
++    break;
++  }
++}
++
++// Return nth argument of a clause (starting from 1)
++wxPropertyValue *wxPropertyValue::Arg(wxPropertyValueType type, int arg) const
++{
++  wxPropertyValue *expr = m_value.first;
++  for (int i = 1; i < arg; i++)
++    if (expr)
++      expr = expr->m_next;
++
++  if (expr && (expr->m_type == type))
++    return expr;
++  else
++    return NULL;
++}
++
++// Return nth argument of a list expression (starting from zero)
++wxPropertyValue *wxPropertyValue::Nth(int arg) const
++{
++  if (m_type != wxPropertyValueList)
++    return NULL;
++
++  wxPropertyValue *expr = m_value.first;
++  for (int i = 0; i < arg; i++)
++    if (expr)
++      expr = expr->m_next;
++    else return NULL;
++
++  if (expr)
++    return expr;
++  else
++    return NULL;
++}
++
++  // Returns the number of elements in a list expression
++int wxPropertyValue::Number(void) const
++{
++  if (m_type != wxPropertyValueList)
++    return 0;
++
++  int i = 0;
++  wxPropertyValue *expr = m_value.first;
++  while (expr)
++  {
++    expr = expr->m_next;
++    i ++;
++  }
++  return i;
++}
++
++void wxPropertyValue::WritePropertyClause(ostream& stream)  // Write this expression as a top-level clause
++{
++  if (m_type != wxPropertyValueList)
++    return;
++
++  wxPropertyValue *node = m_value.first;
++  if (node)
++  {
++    node->WritePropertyType(stream);
++    stream << "(";
++    node = node->m_next;
++    bool first = TRUE;
++    while (node)
++    {
++      if (!first)
++        stream << "  ";
++      node->WritePropertyType(stream);
++      node = node->m_next;
++      if (node) stream << ",\n";
++      first = FALSE;
++    }
++    stream << ").\n\n";
++  }
++}
++
++void wxPropertyValue::WritePropertyType(ostream& stream)    // Write as any other subexpression
++{
++  switch (m_type)
++  {
++    case wxPropertyValueInteger:
++    {
++      stream << m_value.integer;
++      break;
++    }
++    case wxPropertyValueIntegerPtr:
++    {
++      stream << *m_value.integerPtr;
++      break;
++    }
++    case wxPropertyValuebool:
++    {
++      if (m_value.integer)
++        stream << "True";
++      else
++        stream << "False";
++      break;
++    }
++    case wxPropertyValueboolPtr:
++    {
++      if (*m_value.integerPtr)
++        stream << "True";
++      else
++        stream << "False";
++      break;
++    }
++    case wxPropertyValueReal:
++    {
++      float f = m_value.real;
++      sprintf(wxBuffer, "%.6g", (double)f);
++      stream << wxBuffer;
++      break;
++    }
++    case wxPropertyValueRealPtr:
++    {
++      float f = *m_value.realPtr;
++/* Now the parser can cope with this.
++      // Prevent printing in 'e' notation. Any better way?
++      if (fabs(f) < 0.00001)
++        f = 0.0;
++*/
++      sprintf(wxBuffer, "%.6g", f);
++      stream << wxBuffer;
++      break;
++    }
++    case wxPropertyValueString:
++    {
++//      stream << "\"";
++      int i;
++      int len = strlen(m_value.string);
++      for (i = 0; i < len; i++)
++      {
++        char ch = m_value.string[i];
++//        if (ch == '"' || ch == '\\')
++//          stream << "\\";
++        stream << ch;
++      }
++
++//      stream << "\"";
++      break;
++    }
++    case wxPropertyValueStringPtr:
++    {
++      int i;
++      int len = strlen(*(m_value.stringPtr));
++      for (i = 0; i < len; i++)
++      {
++        char ch = *(m_value.stringPtr)[i];
++
++      }
++      break;
++    }
++    case wxPropertyValueList:
++    {
++      if (!m_value.first)
++        stream << "[]";
++      else
++      {
++        wxPropertyValue *expr = m_value.first;
++
++        stream << "[";
++        while (expr)
++        {
++          expr->WritePropertyType(stream);
++          expr = expr->m_next;
++          if (expr) stream << ", ";
++        }
++        stream << "]";
++      }
++      break;
++    }
++   case wxPropertyValueNull: break;
++  }
++}
++
++wxString wxPropertyValue::GetStringRepresentation(void)
++{
++  char buf[500];
++  buf[0] = 0;
++  
++  ostrstream str((char *)buf, (int)500, ios::out);
++  WritePropertyType(str);
++  str << '\0';
++  str.flush();
++
++  wxString theString(buf);
++  return theString;
++}
++
++void wxPropertyValue::operator=(const wxPropertyValue& val)
++{
++  m_modifiedFlag = TRUE;
++  Copy((wxPropertyValue&)val);
++}
++
++// void wxPropertyValue::operator=(const char *val)
++void wxPropertyValue::operator=(const wxString& val1)
++{
++  const char *val = (const char *)val1;
++
++  m_modifiedFlag = TRUE;
++  if (m_type == wxPropertyValueNull)
++    m_type = wxPropertyValueString;
++
++  if (m_type == wxPropertyValueString)
++  {
++    if (val)
++      m_value.string = copystring(val);
++    else
++      m_value.string = NULL;
++  }
++  else if (m_type == wxPropertyValueStringPtr)
++  {
++    if (*m_value.stringPtr)
++      delete[] *m_value.stringPtr;
++    if (val)
++      *m_value.stringPtr = copystring(val);
++    else
++      *m_value.stringPtr = NULL;
++  }
++  
++  m_clientData = NULL;
++  m_next = NULL;
++  m_last = NULL;
++
++}
++
++void wxPropertyValue::operator=(const long val)
++{
++  m_modifiedFlag = TRUE;
++  if (m_type == wxPropertyValueNull)
++    m_type = wxPropertyValueInteger;
++
++  if (m_type == wxPropertyValueInteger)
++    m_value.integer = val;
++  else if (m_type == wxPropertyValueIntegerPtr)
++    *m_value.integerPtr = val;
++  else if (m_type == wxPropertyValueReal)
++    m_value.real = (float)val;
++  else if (m_type == wxPropertyValueRealPtr)
++    *m_value.realPtr = (float)val;
++
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++void wxPropertyValue::operator=(const bool val)
++{
++  m_modifiedFlag = TRUE;
++  if (m_type == wxPropertyValueNull)
++    m_type = wxPropertyValuebool;
++
++  if (m_type == wxPropertyValuebool)
++    m_value.integer = (long)val;
++  else if (m_type == wxPropertyValueboolPtr)
++    *m_value.boolPtr = val;
++
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++void wxPropertyValue::operator=(const float val)
++{
++  m_modifiedFlag = TRUE;
++  if (m_type == wxPropertyValueNull)
++    m_type = wxPropertyValueReal;
++
++  if (m_type == wxPropertyValueInteger)
++    m_value.integer = (long)val;
++  else if (m_type == wxPropertyValueIntegerPtr)
++    *m_value.integerPtr = (long)val;
++  else if (m_type == wxPropertyValueReal)
++    m_value.real = val;
++  else if (m_type == wxPropertyValueRealPtr)
++    *m_value.realPtr = val;
++
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++void wxPropertyValue::operator=(const char **val)
++{
++  m_modifiedFlag = TRUE;
++  m_type = wxPropertyValueStringPtr;
++
++  if (val)
++    m_value.stringPtr = (char **)val;
++  else
++    m_value.stringPtr = NULL;
++  m_clientData = NULL;
++  m_next = NULL;
++  m_last = NULL;
++
++}
++
++void wxPropertyValue::operator=(const long *val)
++{
++  m_modifiedFlag = TRUE;
++  m_type = wxPropertyValueIntegerPtr;
++  m_value.integerPtr = (long *)val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++void wxPropertyValue::operator=(const bool *val)
++{
++  m_modifiedFlag = TRUE;
++  m_type = wxPropertyValueboolPtr;
++  m_value.boolPtr = (bool *)val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++void wxPropertyValue::operator=(const float *val)
++{
++  m_modifiedFlag = TRUE;
++  m_type = wxPropertyValueRealPtr;
++  m_value.realPtr = (float *)val;
++  m_clientData = NULL;
++  m_next = NULL;
++}
++
++long wxPropertyValue::IntegerValue(void) const
++  {
++    if (m_type == wxPropertyValueInteger)
++      return m_value.integer;
++    else if (m_type == wxPropertyValueReal)
++      return (long)m_value.real;
++    else if (m_type == wxPropertyValueIntegerPtr)
++      return *m_value.integerPtr;
++    else if (m_type == wxPropertyValueRealPtr)
++      return (long)(*m_value.realPtr);
++    else return 0;
++  }
++
++long *wxPropertyValue::IntegerValuePtr(void) const
++{
++  return m_value.integerPtr;
++}
++
++float wxPropertyValue::RealValue(void) const {
++    if (m_type == wxPropertyValueReal)
++      return m_value.real;
++    else if (m_type == wxPropertyValueRealPtr)
++      return *m_value.realPtr;
++    else if (m_type == wxPropertyValueInteger)
++      return (float)m_value.integer;
++    else if (m_type == wxPropertyValueIntegerPtr)
++      return (float)*(m_value.integerPtr);
++    else return 0.0;
++  }
++
++float *wxPropertyValue::RealValuePtr(void) const
++{
++  return m_value.realPtr;
++}
++
++bool wxPropertyValue::BoolValue(void) const {
++    if (m_type == wxPropertyValueReal)
++      return (m_value.real != 0.0);
++    if (m_type == wxPropertyValueRealPtr)
++      return (*(m_value.realPtr) != 0.0);
++    else if (m_type == wxPropertyValueInteger)
++      return (m_value.integer != 0);
++    else if (m_type == wxPropertyValueIntegerPtr)
++      return (*(m_value.integerPtr) != 0);
++    else if (m_type == wxPropertyValuebool)
++      return (m_value.integer != 0);
++    else if (m_type == wxPropertyValueboolPtr)
++      return (*(m_value.boolPtr) != 0);
++    else return FALSE;
++  }
++
++bool *wxPropertyValue::BoolValuePtr(void) const
++{
++  return m_value.boolPtr;
++}
++
++char *wxPropertyValue::StringValue(void) const {
++    if (m_type == wxPropertyValueString)
++      return m_value.string;
++    else if (m_type == wxPropertyValueStringPtr)
++      return *(m_value.stringPtr);
++    else return NULL;
++  }
++
++char **wxPropertyValue::StringValuePtr(void) const
++{
++  return m_value.stringPtr;
++}
++
++/*
++ * A property (name plus value)
++ */
++ 
++IMPLEMENT_DYNAMIC_CLASS(wxProperty, wxObject)
++
++wxProperty::wxProperty(void)
++{
++  m_propertyRole = (char *)NULL;
++  m_propertyValidator = NULL;
++  m_propertyWindow = NULL;
++  m_enabled = TRUE;
++}
++
++wxProperty::wxProperty(wxProperty& copyFrom)
++{
++  m_value = copyFrom.GetValue();
++  m_name = copyFrom.GetName();
++  m_propertyRole = copyFrom.GetRole();
++  m_propertyValidator = copyFrom.GetValidator();
++  m_enabled = copyFrom.IsEnabled();
++  m_propertyWindow = NULL;
++}
++
++wxProperty::wxProperty(wxString nm, wxString role, wxPropertyValidator *ed):m_name(nm), m_propertyRole(role)
++{
++  m_propertyValidator = ed;
++  m_propertyWindow = NULL;
++  m_enabled = TRUE;
++}
++
++wxProperty::wxProperty(wxString nm, const wxPropertyValue& val, wxString role, wxPropertyValidator *ed):
++  m_name(nm), m_value(val), m_propertyRole(role)
++{
++  m_propertyValidator = ed;
++  m_propertyWindow = NULL;
++  m_enabled = TRUE;
++}
++
++wxProperty::~wxProperty(void)
++{
++  if (m_propertyValidator)
++    delete m_propertyValidator;
++}
++
++wxPropertyValue& wxProperty::GetValue(void) const
++{
++  return (wxPropertyValue&) m_value;
++}
++
++wxPropertyValidator *wxProperty::GetValidator(void) const
++{
++  return m_propertyValidator;
++}
++
++wxString& wxProperty::GetName(void) const
++{
++  return (wxString&) m_name;
++}
++
++wxString& wxProperty::GetRole(void) const
++{
++  return (wxString&) m_propertyRole;
++}
++
++void wxProperty::SetValue(const wxPropertyValue& val)
++{
++  m_value = val;
++}
++
++void wxProperty::SetValidator(wxPropertyValidator *ed)
++{
++  m_propertyValidator = ed;
++}
++
++void wxProperty::SetRole(wxString& role)
++{
++  m_propertyRole = role;
++}
++
++void wxProperty::SetName(wxString& nm)
++{
++  m_name = nm;
++}
++
++void wxProperty::operator=(const wxPropertyValue& val)
++{
++  m_value = val;
++}
++
++/*
++ * Base property view class
++ */
++ 
++IMPLEMENT_DYNAMIC_CLASS(wxPropertyView, wxEvtHandler)
++
++wxPropertyView::wxPropertyView(long flags)
++{
++  m_buttonFlags = flags;
++  m_propertySheet = NULL;
++  m_currentValidator = NULL;
++  m_currentProperty = NULL;
++}
++
++wxPropertyView::~wxPropertyView(void)
++{
++}
++
++void wxPropertyView::AddRegistry(wxPropertyValidatorRegistry *registry)
++{
++  m_validatorRegistryList.Append(registry);
++}
++
++wxPropertyValidator *wxPropertyView::FindPropertyValidator(wxProperty *property)
++{
++  if (property->GetValidator())
++    return property->GetValidator();
++    
++  wxNode *node = m_validatorRegistryList.First();
++  while (node)
++  {
++    wxPropertyValidatorRegistry *registry = (wxPropertyValidatorRegistry *)node->Data();
++    wxPropertyValidator *validator = registry->GetValidator(property->GetRole());
++    if (validator)
++      return validator;
++    node = node->Next();
++  }
++  return NULL;
++/*
++  if (!wxDefaultPropertyValidator)
++    wxDefaultPropertyValidator = new wxPropertyListValidator;
++  return wxDefaultPropertyValidator;
++*/
++}
++
++/*
++ * Property sheet
++ */
++
++IMPLEMENT_DYNAMIC_CLASS(wxPropertySheet, wxObject)
++
++wxPropertySheet::wxPropertySheet(void):m_properties(wxKEY_STRING)
++{
++}
++
++wxPropertySheet::~wxPropertySheet(void)
++{
++  Clear();
++}
++
++bool wxPropertySheet::Save( ostream& WXUNUSED(str) )
++{
++  return FALSE;
++}
++
++bool wxPropertySheet::Load( ostream& WXUNUSED(str) )
++{
++  return FALSE;
++}
++
++void wxPropertySheet::UpdateAllViews( wxPropertyView *WXUNUSED(thisView) )
++{
++}
++
++// Add a property
++void wxPropertySheet::AddProperty(wxProperty *property)
++{
++  m_properties.Append((const char*) property->GetName(), property);
++}
++
++// Get property by name
++wxProperty *wxPropertySheet::GetProperty(wxString name)
++{
++  wxNode *node = m_properties.Find((const char*) name);
++  if (!node)
++    return NULL;
++  else
++    return (wxProperty *)node->Data();
++}
++
++// Clear all properties
++void wxPropertySheet::Clear(void)
++{
++  wxNode *node = m_properties.First();
++  while (node)
++  {
++    wxProperty *prop = (wxProperty *)node->Data();
++    wxNode *next = node->Next();
++    delete prop;
++    delete node;
++    node = next;
++  }
++}
++
++// Sets/clears the modified flag for each property value
++void wxPropertySheet::SetAllModified(bool flag)
++{
++  wxNode *node = m_properties.First();
++  while (node)
++  {
++    wxProperty *prop = (wxProperty *)node->Data();
++    prop->GetValue().SetModified(flag);
++    node = node->Next();
++  }  
++}
++
++/*
++ * Property validator registry
++ *
++ */
++
++IMPLEMENT_DYNAMIC_CLASS(wxPropertyValidatorRegistry, wxHashTable)
++
++wxPropertyValidatorRegistry::wxPropertyValidatorRegistry(void):wxHashTable(wxKEY_STRING)
++{
++}
++
++wxPropertyValidatorRegistry::~wxPropertyValidatorRegistry(void)
++{
++  ClearRegistry();
++}
++
++void wxPropertyValidatorRegistry::RegisterValidator(const wxString& typeName, wxPropertyValidator *validator)
++{
++  Put((const char*) typeName, validator);
++}
++
++wxPropertyValidator *wxPropertyValidatorRegistry::GetValidator(const wxString& typeName)
++{
++  return (wxPropertyValidator *)Get((const char*) typeName);
++}
++
++void wxPropertyValidatorRegistry::ClearRegistry(void)
++{
++  BeginFind();
++  wxNode *node;
++  while (node = Next())
++  {
++    delete (wxPropertyValidator *)node->Data();
++  }
++}
++
++ /*
++  * Property validator
++  */
++
++
++IMPLEMENT_ABSTRACT_CLASS(wxPropertyValidator, wxEvtHandler)
++
++wxPropertyValidator::wxPropertyValidator(long flags)
++{
++  m_validatorFlags = flags;
++  m_validatorProperty = NULL;
++}
++
++wxPropertyValidator::~wxPropertyValidator(void)
++{}
++
++bool wxPropertyValidator::StringToFloat (char *s, float *number) {
++	double num;
++	bool ok = StringToDouble (s, &num);
++	*number = (float) num;
++	return ok;
++}
++
++bool wxPropertyValidator::StringToDouble (char *s, double *number) {
++    bool ok = TRUE;
++    char *value_ptr;
++    *number = strtod (s, &value_ptr);
++    if (value_ptr) {
++		int len = strlen (value_ptr);
++		for (int i = 0; i < len; i++) {
++			ok = (isspace (value_ptr[i]) != 0);
++			if (!ok) return FALSE;
++		}
++    }
++    return ok;
++}
++
++bool wxPropertyValidator::StringToInt (char *s, int *number) {
++	long num;
++	bool ok = StringToLong (s, &num);
++	*number = (int) num;
++	return ok;
++}
++
++bool wxPropertyValidator::StringToLong (char *s, long *number) {
++    bool ok = TRUE;
++    char *value_ptr;
++    *number = strtol (s, &value_ptr, 10);
++    if (value_ptr) {
++		int len = strlen (value_ptr);
++		for (int i = 0; i < len; i++) {
++			ok = (isspace (value_ptr[i]) != 0);
++			if (!ok) return FALSE;
++		}
++    }
++    return ok;
++}
++
++char *wxPropertyValidator::FloatToString (float number) {
++	static char buf[20];
++	sprintf (buf, "%.6g", number);
++	return buf;
++}
++
++char *wxPropertyValidator::DoubleToString (double number) {
++	static char buf[20];
++	sprintf (buf, "%.6g", number);
++	return buf;
++}
++
++char *wxPropertyValidator::IntToString (int number) {
++	return ::IntToString (number);
++}
++
++char *wxPropertyValidator::LongToString (long number) {
++	return ::LongToString (number);
++  }
++
++
