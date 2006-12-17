@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.0
-Release:        2.8.0.1.2%{?dist}
+Release:        2.8.0.1.3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -126,6 +126,7 @@ export GDK_USE_XFT=1
   --enable-sound \
   --enable-mediactrl \
   --enable-display \
+  --enable-timer \
   --enable-compat24
 
 make %{?_smp_mflags}
@@ -213,6 +214,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Dec 17 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.3
+- add --enable-timer to build wxTimer class for XaraLX.
+- NOTE: if anyone else needs any non-default classes or features enabled,
+  let me know. Thanks!
+
 * Fri Dec 15 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.2
 - buildrequires gettext
 
