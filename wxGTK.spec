@@ -5,8 +5,8 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.0
-Release:        2.8.0.1.3%{?dist}
+Version:        2.8.3
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,7 +15,6 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         wxGTK-2.8.0.1-cvs.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
@@ -91,15 +90,15 @@ ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
 %prep
 %setup -q
 
-%patch0 -p1 -b .2.8.0.1
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
 
 %build
 
-# must do this to regenerate ./configure after the 2.8.0.1 patch.
-autoconf
+# must do this to regenerate ./configure if patching to a cvs
+# version.
+#autoconf
 
 export GDK_USE_XFT=1
 
@@ -214,6 +213,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Apr 15 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.3-1
+- update to 2.8.3
+
 * Sun Dec 17 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.3
 - add --enable-timer to build wxTimer class for XaraLX.
 - NOTE: if anyone else needs any non-default classes or features enabled,
