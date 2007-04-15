@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -213,8 +213,11 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Apr 15 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.3-2
+- gratuitously bump release number.
+
 * Sun Apr 15 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.3-1
-- update to 2.8.3
+- update to 2.8.3.
 
 * Sun Dec 17 2006 Matthew Miller <mattdm@mattdm.org> - 2.8.0-2.8.0.1.3
 - add --enable-timer to build wxTimer class for XaraLX.
