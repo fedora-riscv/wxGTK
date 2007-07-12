@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
