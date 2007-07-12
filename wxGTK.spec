@@ -5,7 +5,7 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.3
+Version:        2.8.4
 Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
@@ -21,7 +21,9 @@ BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  libGL-devel, libGLU-devel
-BuildRequires:  gstreamer-devel >= 0.10
+BuildRequires:  libSM-devel
+BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
+BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
@@ -43,6 +45,9 @@ Obsoletes:      wxGTK2-stc < 2.6.2-1
 Obsoletes:      wxGTK-stc < 2.6.2-1
 Provides:       wxGTK2-stc = %{version}-%{release}
 Provides:       wxGTK-stc = %{version}-%{release}
+
+# time to clean up the compat package.
+Obsoletes:      compat-wxGTK < 2.8.0
 
 %description
 wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
@@ -101,6 +106,10 @@ sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 #autoconf
 
 export GDK_USE_XFT=1
+
+# this code dereferences type-punned pointers like there's no tomorrow.
+CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 
 # --disable-optimise prevents our $RPM_OPT_FLAGS being overridden
 # (see OPTIMISE in configure).
@@ -213,6 +222,15 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jul 12 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-2
+- buildrequires for libSM-devel, gstreamer-plugins-base-devel,
+  and GConf2-devel
+
+* Wed Jul 11 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-1
+- update to 2.8.4
+- obsolete compat-wxGTK
+- add -fno-strict-aliasing
+
 * Sun Apr 15 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.3-2
 - gratuitously bump release number.
 
