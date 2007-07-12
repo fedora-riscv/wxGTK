@@ -21,7 +21,9 @@ BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  libGL-devel, libGLU-devel
-BuildRequires:  gstreamer-devel >= 0.10
+BuildRequires:  libSM-devel
+BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
+BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
@@ -220,6 +222,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jul 12 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-2
+- buildrequires for libSM-devel, gstreamer-plugins-base-devel,
+  and GConf2-devel
+
 * Wed Jul 11 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-1
 - update to 2.8.4
 - obsolete compat-wxGTK
