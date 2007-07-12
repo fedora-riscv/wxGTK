@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -190,6 +190,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libwx_gtk2u_gizmos-*.so.*
 %{_libdir}/libwx_gtk2u_gizmos_xrc*.so.*
 %{_libdir}/libwx_gtk2u_html-*.so.*
+%{_libdir}/libwx_gtk2u_media-*.so.*
 %{_libdir}/libwx_gtk2u_ogl-*.so.*
 %{_libdir}/libwx_gtk2u_qa-*.so.*
 %{_libdir}/libwx_gtk2u_richtext-*.so.*
@@ -222,6 +223,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Jul 12 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-3
+- include libwx_gtk2u_media, since I'm now listing the
+  buildreqs properly.
+
 * Thu Jul 12 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-2
 - buildrequires for libSM-devel, gstreamer-plugins-base-devel,
   and GConf2-devel
