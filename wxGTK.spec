@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,6 +15,9 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+# http://svn.wxwidgets.org/viewvc/wx?view=rev&revision=46513
+Patch0:         wxGTK-2.8.4-bad-g_free.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
@@ -95,6 +98,7 @@ ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
 %prep
 %setup -q
 
+%patch0 -p2 -b .badfree
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -223,6 +227,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jul 16 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-4
+- patch from svn to fix rh bug #247414
+
 * Thu Jul 12 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-3
 - include libwx_gtk2u_media, since I'm now listing the
   buildreqs properly.

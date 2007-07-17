@@ -1,0 +1,22 @@
+--- wxWidgets/trunk/src/gtk/button.cpp	2007/04/23 15:16:06	45602
++++ wxWidgets/trunk/src/gtk/button.cpp	2007/06/18 06:03:50	46513
+@@ -71,7 +71,7 @@
+             right_border += default_border->right;
+             top_border += default_border->top;
+             bottom_border += default_border->bottom;
+-            g_free( default_border );
++            gtk_border_free( default_border );
+         }
+         win->MoveWindow(
+             win->m_x - top_border,
+--- wxWidgets/trunk/src/gtk/window.cpp	2007/05/30 13:55:09	46249
++++ wxWidgets/trunk/src/gtk/window.cpp	2007/06/18 06:03:50	46513
+@@ -2738,7 +2738,7 @@
+                 right_border += default_border->right;
+                 top_border += default_border->top;
+                 bottom_border += default_border->bottom;
+-                g_free( default_border );
++                gtk_border_free( default_border );
+             }
+         }
+ 
