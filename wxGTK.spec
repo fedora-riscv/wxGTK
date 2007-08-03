@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -35,22 +35,27 @@ BuildRequires:  unixODBC-devel
 # all of these are for previous Fedora Extras sub-packages
 Obsoletes:      wxGTK2 < 2.6.2-1
 Provides:       wxGTK2 = %{version}-%{release}
+Obsoletes:      compat-wxGTK2 < %{version}-%{release}
+Obsoletes:      compat-wxGTK  < %{version}-%{release}
 
 Obsoletes:      wxGTK-common < 2.6.2-1
 Provides:       wxGTK-common = %{version}-%{release}
+Obsoletes:      compat-wxGTK-common < %{version}-%{release}
 
 Obsoletes:      wxGTK2-xrc < 2.6.2-1
 Obsoletes:      wxGTK-xrc < 2.6.2-1
 Provides:       wxGTK2-xrc = %{version}-%{release}
 Provides:       wxGTK-xrc = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-xrc < %{version}-%{release}
+Obsoletes:      compat-wxGTK-xrc < %{version}-%{release}
 
 Obsoletes:      wxGTK2-stc < 2.6.2-1
 Obsoletes:      wxGTK-stc < 2.6.2-1
 Provides:       wxGTK2-stc = %{version}-%{release}
 Provides:       wxGTK-stc = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-stc < %{version}-%{release}
+Obsoletes:      compat-wxGTK-stc < %{version}-%{release}
 
-# time to clean up the compat package.
-Obsoletes:      compat-wxGTK < 2.8.0
 
 %description
 wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
@@ -70,6 +75,9 @@ Obsoletes:      wxGTK2-devel < %{version}-%{release}
 Provides:       wxGTK2-devel = %{version}-%{release}
 Obsoletes:      wxGTK-common-devel < %{version}-%{release}
 Provides:       wxGTK-common-devel = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-devel < %{version}-%{release}
+Obsoletes:      compat-wxGTK-devel  < %{version}-%{release}
+Obsoletes:      compat-wxGTK-common-devel < %{version}-%{release}
 
 %description devel
 This package include files needed to link with the wxGTK2 library.
@@ -81,6 +89,8 @@ Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      wxGTK2-gl < %{version}-%{release}
 Provides:       wxGTK2-gl = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-gl < %{version}-%{release}
+Obsoletes:      compat-wxGTK-gl  < %{version}-%{release}
 
 %description gl
 OpenGL (a 3D graphics API) add-on for the wxWidgets library.
@@ -227,6 +237,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Fri Aug  3 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-5
+- obsolete all compat-wxGTK subpackages properly (bug #250687)
+
 * Mon Jul 16 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-4
 - patch from svn to fix rh bug #247414
 
