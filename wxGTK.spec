@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        4%{?dist}
+Release:        4%{?dist}.1
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -24,8 +24,6 @@ BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
 BuildRequires:  libGL-devel, libGLU-devel
-BuildRequires:  libSM-devel
-BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
 BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
 %if %{withodbc}
@@ -194,7 +192,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libwx_gtk2u_gizmos-*.so.*
 %{_libdir}/libwx_gtk2u_gizmos_xrc*.so.*
 %{_libdir}/libwx_gtk2u_html-*.so.*
-%{_libdir}/libwx_gtk2u_media-*.so.*
 %{_libdir}/libwx_gtk2u_ogl-*.so.*
 %{_libdir}/libwx_gtk2u_qa-*.so.*
 %{_libdir}/libwx_gtk2u_richtext-*.so.*
@@ -227,6 +224,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Dec 24 2007 Dan Horak <dan[at]danny.cz> - 2.8.4-4.1
+- remove some BR so it builds on EL-4
+
 * Mon Jul 16 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-4
 - patch from svn to fix rh bug #247414
 
