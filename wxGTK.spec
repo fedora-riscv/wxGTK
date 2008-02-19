@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -237,6 +237,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 2.8.4-7
+- Autorebuild for GCC 4.3
+
 * Tue Aug 28 2007 Hans de Goede <j.w.r.degoede@hhs.nl> - 2.8.4-6
 - Rebuild for new expat 2.0
 
