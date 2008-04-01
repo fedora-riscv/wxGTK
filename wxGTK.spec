@@ -5,8 +5,8 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.4
-Release:        4%{?dist}
+Version:        2.8.7
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,8 +15,7 @@ License:        wxWidgets Library Licence
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-# http://svn.wxwidgets.org/viewvc/wx?view=rev&revision=46513
-Patch0:         wxGTK-2.8.4-bad-g_free.patch
+Patch0:         wxGTK-2.8.7-race-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -35,22 +34,28 @@ BuildRequires:  unixODBC-devel
 # all of these are for previous Fedora Extras sub-packages
 Obsoletes:      wxGTK2 < 2.6.2-1
 Provides:       wxGTK2 = %{version}-%{release}
+Obsoletes:      compat-wxGTK2 < %{version}-%{release}
+Obsoletes:      compat-wxGTK  < %{version}-%{release}
 
 Obsoletes:      wxGTK-common < 2.6.2-1
 Provides:       wxGTK-common = %{version}-%{release}
+Obsoletes:      compat-wxGTK-common < %{version}-%{release}
 
 Obsoletes:      wxGTK2-xrc < 2.6.2-1
 Obsoletes:      wxGTK-xrc < 2.6.2-1
 Provides:       wxGTK2-xrc = %{version}-%{release}
 Provides:       wxGTK-xrc = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-xrc < %{version}-%{release}
+Obsoletes:      compat-wxGTK-xrc < %{version}-%{release}
 
 Obsoletes:      wxGTK2-stc < 2.6.2-1
 Obsoletes:      wxGTK-stc < 2.6.2-1
 Provides:       wxGTK2-stc = %{version}-%{release}
 Provides:       wxGTK-stc = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-stc < %{version}-%{release}
+Obsoletes:      compat-wxGTK-stc < %{version}-%{release}
 
-# time to clean up the compat package.
-Obsoletes:      compat-wxGTK < 2.8.0
+Requires:       wxBase = %{version}-%{release}
 
 %description
 wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
@@ -64,12 +69,16 @@ Group:          Development/Libraries
 Summary:        Development files for the wxGTK2 library
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-gl = %{version}-%{release}
+Requires:       wxBase = %{version}-%{release}
 Requires:       gtk2-devel
 Requires:       libGL-devel, libGLU-devel
 Obsoletes:      wxGTK2-devel < %{version}-%{release}
 Provides:       wxGTK2-devel = %{version}-%{release}
 Obsoletes:      wxGTK-common-devel < %{version}-%{release}
 Provides:       wxGTK-common-devel = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-devel < %{version}-%{release}
+Obsoletes:      compat-wxGTK-devel  < %{version}-%{release}
+Obsoletes:      compat-wxGTK-common-devel < %{version}-%{release}
 
 %description devel
 This package include files needed to link with the wxGTK2 library.
@@ -81,9 +90,12 @@ Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Obsoletes:      wxGTK2-gl < %{version}-%{release}
 Provides:       wxGTK2-gl = %{version}-%{release}
+Obsoletes:      compat-wxGTK2-gl < %{version}-%{release}
+Obsoletes:      compat-wxGTK-gl  < %{version}-%{release}
 
 %description gl
 OpenGL (a 3D graphics API) add-on for the wxWidgets library.
+
 
 %if %{withodbc}
 %package        odbc
@@ -95,10 +107,22 @@ Requires:       %{name} = %{version}-%{release}
 ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
 %endif
 
+
+%package -n     wxBase
+Summary:        Non-GUI support classes from the wxWidgets library
+Group:          System Environment/Libraries
+
+%description -n wxBase
+Every wxWidgets application must link against this library. It contains
+mandatory classes that any wxWidgets code depends on (like wxString) and
+portability classes that abstract differences between platforms. wxBase can
+be used to develop console mode applications -- it does not require any GUI
+libraries or the X Window System.
+
+
 %prep
 %setup -q
-
-%patch0 -p2 -b .badfree
+%patch0 -p1 -b .racefix
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -180,14 +204,19 @@ rm -rf $RPM_BUILD_ROOT
 %post gl -p /sbin/ldconfig
 %postun gl -p /sbin/ldconfig
 
+%if %{withodbc}
+%post odbc -p /sbin/ldconfig
+%postun odbc -p /sbin/ldconfig
+%endif
+
+%post -n wxBase -p /sbin/ldconfig
+%postun -n wxBase -p /sbin/ldconfig
+
 
 %files -f wxstd.lang
 %defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
 %doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
-%{_libdir}/libwx_baseu-*.so.*
-%{_libdir}/libwx_baseu_net-*.so.*
-%{_libdir}/libwx_baseu_xml-*.so.*
 %{_libdir}/libwx_gtk2u_adv-*.so.*
 %{_libdir}/libwx_gtk2u_aui-*.so.*
 %{_libdir}/libwx_gtk2u_core-*.so.*
@@ -226,7 +255,35 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libwx_gtk2u_odbc-*.so.*
 %endif
 
+%files -n wxBase
+%doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
+%doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
+%{_libdir}/libwx_baseu-*.so.*
+%{_libdir}/libwx_baseu_net-*.so.*
+%{_libdir}/libwx_baseu_xml-*.so.*
+
+
 %changelog
+* Tue Apr  1 2008 Dan Horak <dan[at]danny.cz> - 2.8.7-2
+- added fix for a race condition (rh bug #440011)
+
+* Wed Feb 20 2008 Matthew Miller <mattdm@mattdm.org> - 2.8.7-1
+- update to 2.8.7 (rh bug #369621, etc.)
+- split base libs into separate wxBase package (rh bug #357961)
+- okay, so, wxPython 2.8.7.1 seems to work fine against this version of the
+  library, so I'm dropping the kludgy-patch-to-2.8.7.1 thing. Please report
+  any compatibility problems with wxPython 2.8.7.1 and I'll fix them as they
+  come up.
+
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 2.8.4-7
+- Autorebuild for GCC 4.3
+
+* Tue Aug 28 2007 Hans de Goede <j.w.r.degoede@hhs.nl> - 2.8.4-6
+- Rebuild for new expat 2.0
+
+* Fri Aug  3 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-5
+- obsolete all compat-wxGTK subpackages properly (bug #250687)
+
 * Mon Jul 16 2007 Matthew Miller <mattdm@mattdm.org> - 2.8.4-4
 - patch from svn to fix rh bug #247414
 
