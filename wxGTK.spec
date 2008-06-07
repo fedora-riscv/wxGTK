@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.7
-Release:        2%{?dist}
+Release:        2%{?dist}.1
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -264,6 +264,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jun  7 2008 Dan Horak <dan[at]danny.cz> - 2.8.7-2.1
+- bump revision for chain-build with wxPython
+
 * Tue Apr  1 2008 Dan Horak <dan[at]danny.cz> - 2.8.7-2
 - added fix for a race condition (rh bug #440011)
 
