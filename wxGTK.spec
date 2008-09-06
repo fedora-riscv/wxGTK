@@ -6,12 +6,12 @@
 
 Name:           wxGTK
 Version:        2.8.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
 # change to be "wxWidgets License" once that is approved by OSI.)
-License:        wxWidgets Library Licence
+License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
@@ -262,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Sep  6 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.8.8-2
+- fix license tag
+
 * Thu Jul 31 2008 Dan Horak <dan[at]danny.cz> - 2.8.8-1
 - update to 2.8.8 (rh bug #457406)
 
