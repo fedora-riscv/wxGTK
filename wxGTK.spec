@@ -5,8 +5,8 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.8
-Release:        2%{?dist}
+Version:        2.8.9
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -262,6 +262,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Sep 22 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-1
+- update to 2.8.9
+
 * Sat Sep  6 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.8.8-2
 - fix license tag
 
