@@ -5,17 +5,16 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.7
-Release:        2%{?dist}
+Version:        2.8.9
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
 # change to be "wxWidgets License" once that is approved by OSI.)
-License:        wxWidgets Library Licence
+License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
-Patch0:         wxGTK-2.8.7-race-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -122,7 +121,6 @@ libraries or the X Window System.
 
 %prep
 %setup -q
-%patch0 -p1 -b .racefix
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -264,6 +262,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Sep 22 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-1
+- update to 2.8.9
+
+* Sat Sep  6 2008 Tom "spot" Callaway <tcallawa@redhat.com> - 2.8.8-2
+- fix license tag
+
+* Thu Jul 31 2008 Dan Horak <dan[at]danny.cz> - 2.8.8-1
+- update to 2.8.8 (rh bug #457406)
+
 * Tue Apr  1 2008 Dan Horak <dan[at]danny.cz> - 2.8.7-2
 - added fix for a race condition (rh bug #440011)
 
