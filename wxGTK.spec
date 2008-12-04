@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -160,6 +160,9 @@ rm -rf $RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_bindir}/wx-config
 ln -s %{_libdir}/wx/config/gtk2-unicode-release-2.8 $RPM_BUILD_ROOT%{_bindir}/wx-config
 
+# we don't support bakefiles
+rm -rf $RPM_BUILD_ROOT%{_datadir}/bakefile 
+
 %find_lang wxstd
 %find_lang wxmsw
 cat wxmsw.lang >> wxstd.lang
@@ -215,7 +218,6 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/wx/config
 %{_libdir}/wx/config/gtk2*
 %{_datadir}/aclocal/*
-%{_datadir}/bakefile/presets/
 
 %files gl
 %defattr(-,root,root,-)
@@ -240,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov  4 2008 Dan Horák <dan[at]danny.cz> - 2.8.9-3
+- remove support for bakefiles, fixes directory ownership (#474594)
+
 * Thu Nov  4 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-2
 - drop all the Obsoletes/Provides used for upgrading from the wxGTK 2.6 era
 - drop using of x11libdir pointing to X11R6
