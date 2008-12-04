@@ -1,12 +1,10 @@
-%define x11libdir %{_prefix}/X11R6/%{_lib}
-
 # Option - build an ODBC subpackage using unixODBC. (This is currently 
 # broken; see <https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=176950>.)
 %define withodbc 0
 
 Name:           wxGTK
 Version:        2.8.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -30,30 +28,6 @@ BuildRequires:  autoconf, gettext
 BuildRequires:  unixODBC-devel
 %endif
 
-# all of these are for previous Fedora Extras sub-packages
-Obsoletes:      wxGTK2 < 2.6.2-1
-Provides:       wxGTK2 = %{version}-%{release}
-Obsoletes:      compat-wxGTK2 < %{version}-%{release}
-Obsoletes:      compat-wxGTK  < %{version}-%{release}
-
-Obsoletes:      wxGTK-common < 2.6.2-1
-Provides:       wxGTK-common = %{version}-%{release}
-Obsoletes:      compat-wxGTK-common < %{version}-%{release}
-
-Obsoletes:      wxGTK2-xrc < 2.6.2-1
-Obsoletes:      wxGTK-xrc < 2.6.2-1
-Provides:       wxGTK2-xrc = %{version}-%{release}
-Provides:       wxGTK-xrc = %{version}-%{release}
-Obsoletes:      compat-wxGTK2-xrc < %{version}-%{release}
-Obsoletes:      compat-wxGTK-xrc < %{version}-%{release}
-
-Obsoletes:      wxGTK2-stc < 2.6.2-1
-Obsoletes:      wxGTK-stc < 2.6.2-1
-Provides:       wxGTK2-stc = %{version}-%{release}
-Provides:       wxGTK-stc = %{version}-%{release}
-Obsoletes:      compat-wxGTK2-stc < %{version}-%{release}
-Obsoletes:      compat-wxGTK-stc < %{version}-%{release}
-
 Requires:       wxBase = %{version}-%{release}
 
 %description
@@ -68,16 +42,10 @@ Group:          Development/Libraries
 Summary:        Development files for the wxGTK2 library
 Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-gl = %{version}-%{release}
+Requires:       %{name}-media = %{version}-%{release}
 Requires:       wxBase = %{version}-%{release}
 Requires:       gtk2-devel
 Requires:       libGL-devel, libGLU-devel
-Obsoletes:      wxGTK2-devel < %{version}-%{release}
-Provides:       wxGTK2-devel = %{version}-%{release}
-Obsoletes:      wxGTK-common-devel < %{version}-%{release}
-Provides:       wxGTK-common-devel = %{version}-%{release}
-Obsoletes:      compat-wxGTK2-devel < %{version}-%{release}
-Obsoletes:      compat-wxGTK-devel  < %{version}-%{release}
-Obsoletes:      compat-wxGTK-common-devel < %{version}-%{release}
 
 %description devel
 This package include files needed to link with the wxGTK2 library.
@@ -87,13 +55,18 @@ This package include files needed to link with the wxGTK2 library.
 Summary:        OpenGL add-on for the wxWidgets library
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
-Obsoletes:      wxGTK2-gl < %{version}-%{release}
-Provides:       wxGTK2-gl = %{version}-%{release}
-Obsoletes:      compat-wxGTK2-gl < %{version}-%{release}
-Obsoletes:      compat-wxGTK-gl  < %{version}-%{release}
 
 %description gl
 OpenGL (a 3D graphics API) add-on for the wxWidgets library.
+
+
+%package        media
+Summary:        Multimedia add-on for the wxWidgets library
+Group:          System Environment/Libraries
+Requires:       %{name} = %{version}-%{release}
+
+%description media
+Multimedia add-on for the wxWidgets library.
 
 
 %if %{withodbc}
@@ -140,7 +113,6 @@ CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 # --disable-optimise prevents our $RPM_OPT_FLAGS being overridden
 # (see OPTIMISE in configure).
 %configure \
-  --x-libraries=%{x11libdir} \
   --with-opengl \
 %if %{withodbc}
   --with-odbc \
@@ -202,6 +174,9 @@ rm -rf $RPM_BUILD_ROOT
 %post gl -p /sbin/ldconfig
 %postun gl -p /sbin/ldconfig
 
+%post media -p /sbin/ldconfig
+%postun media -p /sbin/ldconfig
+
 %if %{withodbc}
 %post odbc -p /sbin/ldconfig
 %postun odbc -p /sbin/ldconfig
@@ -221,7 +196,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libwx_gtk2u_gizmos-*.so.*
 %{_libdir}/libwx_gtk2u_gizmos_xrc*.so.*
 %{_libdir}/libwx_gtk2u_html-*.so.*
-%{_libdir}/libwx_gtk2u_media-*.so.*
 %{_libdir}/libwx_gtk2u_ogl-*.so.*
 %{_libdir}/libwx_gtk2u_qa-*.so.*
 %{_libdir}/libwx_gtk2u_richtext-*.so.*
@@ -247,6 +221,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_libdir}/libwx_gtk2u_gl-*.so.*
 
+%files media
+%defattr(-,root,root,-)
+%{_libdir}/libwx_gtk2u_media-*.so.*
+
 %if %{withodbc}
 %files odbc
 %defattr(-,root,root,-)
@@ -262,6 +240,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov  4 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-2
+- drop all the Obsoletes/Provides used for upgrading from the wxGTK 2.6 era
+- drop using of x11libdir pointing to X11R6
+- create media subpackage for more precise package dependencies
+
 * Mon Sep 22 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-1
 - update to 2.8.9
 
