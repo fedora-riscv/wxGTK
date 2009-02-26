@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -242,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Thu Nov  4 2008 Dan Horák <dan[at]danny.cz> - 2.8.9-3
 - remove support for bakefiles, fixes directory ownership (#474594)
 
