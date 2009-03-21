@@ -3,8 +3,8 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.9
-Release:        4%{?dist}
+Version:        2.8.10
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -93,9 +93,12 @@ libraries or the X Window System.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
+
+# fix plugin dir for 64-bit
+sed -i -e 's|/lib|/%{_lib}|' src/unix/stdpaths.cpp
 
 
 %build
@@ -242,13 +245,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 21 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-1
+- update to 2.8.10
+- fix default plugin path for 64 bit arches
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Thu Nov  4 2008 Dan Horák <dan[at]danny.cz> - 2.8.9-3
+* Thu Dec  4 2008 Dan Horák <dan[at]danny.cz> - 2.8.9-3
 - remove support for bakefiles, fixes directory ownership (#474594)
 
-* Thu Nov  4 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-2
+* Thu Dec  4 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-2
 - drop all the Obsoletes/Provides used for upgrading from the wxGTK 2.6 era
 - drop using of x11libdir pointing to X11R6
 - create media subpackage for more precise package dependencies
