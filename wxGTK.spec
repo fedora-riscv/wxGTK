@@ -5,7 +5,7 @@
 %define withodbc 0
 
 Name:           wxGTK
-Version:        2.8.9
+Version:        2.8.10
 Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
@@ -26,6 +26,9 @@ BuildRequires:  libSM-devel
 BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
 BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
+%if 0%{?fedora} < 11
+BuildRequires:  dbus-devel
+%endif
 %if %{withodbc}
 BuildRequires:  unixODBC-devel
 %endif
@@ -262,6 +265,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri May 22 2009 Dan Horak <dan[at]danny.cz> - 2.8.10-1
+- update to 2.8.10
+
 * Mon Sep 22 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-1
 - update to 2.8.9
 
