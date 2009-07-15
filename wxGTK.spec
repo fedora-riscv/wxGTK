@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -16,6 +16,8 @@ Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
 
 # http://trac.wxwidgets.org/ticket/10883
 Patch0:         %{name}-2.8.10-gsocket.patch
+# http://trac.wxwidgets.org/ticket/10993
+Patch1:         %{name}-2.8.10-CVE-2009-2369.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -98,11 +100,16 @@ libraries or the X Window System.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .gsocket
+%patch1 -p0 -b .CVE-2009-2369
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
 # fix plugin dir for 64-bit
 sed -i -e 's|/lib|/%{_lib}|' src/unix/stdpaths.cpp
+
+# fix permissions for sources
+chmod a-x include/wx/{msgout.h,dcgraph.h,graphics.h}
+chmod a-x src/common/msgout.cpp
 
 
 %build
@@ -241,6 +248,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files -n wxBase
+%defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
 %doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
 %{_libdir}/libwx_baseu-*.so.*
@@ -249,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 15 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-3
+- add fix for CVE-2009-2369 (#511279)
+
 * Thu Jun 11 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-2
 - fix build with glib >= 2.21
 
@@ -548,4 +559,4 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Mar  3 2003 Dams <anvil@livna.org>
 - Initial build.
 - Disable unicode as it breaks lmule
-- use the %find_lang macro for locale
+- use the %%find_lang macro for locale
