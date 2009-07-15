@@ -16,6 +16,9 @@ Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
 
+# http://trac.wxwidgets.org/ticket/10993
+Patch0:         %{name}-2.8.10-CVE-2009-2369.patch
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
@@ -119,6 +122,7 @@ libraries or the X Window System.
 
 %prep
 %setup -q
+%patch0 -p0 -b .CVE-2009-2369
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -251,6 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files -n wxBase
+%defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
 %doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
 %{_libdir}/libwx_baseu-*.so.*
@@ -259,6 +264,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 15 2009 Dan Horák <dan[at]danny.cz> - 2.8.9-2
+- add fix for CVE-2009-2369 (#511279)
+
 * Mon Nov 10 2008 Dan Horak <dan[at]danny.cz> - 2.8.9-1
 - update to 2.8.9
 - drop upstreamed patch
