@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -257,6 +257,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 27 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
+
 * Wed Jul 15 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-3
 - add fix for CVE-2009-2369 (#511279)
 
