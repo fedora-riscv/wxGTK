@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.10
-Release:        2%{?dist}
+Release:        2%{?dist}.1
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -130,6 +130,9 @@ libraries or the X Window System.
 %patch0 -p0 -b .CVE-2009-2369
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
+
+# fix plugin dir for 64-bit
+sed -i -e 's|/lib|/%{_lib}|' src/unix/stdpaths.cpp
 
 
 %build
@@ -270,6 +273,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug 14 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-2.1
+- fix default plugin path for 64 bit arches
+
 * Wed Jul 15 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-2
 - add fix for CVE-2009-2369 (#511279)
 
