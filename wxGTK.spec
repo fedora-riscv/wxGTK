@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -16,6 +16,8 @@ Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
 
 # http://trac.wxwidgets.org/ticket/10993
 Patch0:         %{name}-2.8.10-CVE-2009-2369.patch
+# http://trac.wxwidgets.org/ticket/11315
+Patch1:         %{name}-2.8.10-wxTimer-fix.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -98,6 +100,7 @@ libraries or the X Window System.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p0 -b .CVE-2009-2369
+%patch1 -p0 -b .wxTimer-fix
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -250,6 +253,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 16 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-3
+- add fix for excessive CPU usage (#494425)
+
 * Wed Jul 15 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-2
 - add fix for CVE-2009-2369 (#511279)
 
