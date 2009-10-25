@@ -4,7 +4,7 @@
 
 Name:           wxGTK
 Version:        2.8.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -20,6 +20,8 @@ Patch0:         %{name}-2.8.10-gsocket.patch
 Patch1:         %{name}-2.8.10-CVE-2009-2369.patch
 # http://trac.wxwidgets.org/ticket/11315
 Patch2:         %{name}-2.8.10-wxTimer-fix.patch
+# http://trac.wxwidgets.org/ticket/11310
+Patch3:         %{name}-2.8.10-menubar-height.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -104,6 +106,7 @@ libraries or the X Window System.
 %patch0 -p1 -b .gsocket
 %patch1 -p0 -b .CVE-2009-2369
 %patch2 -p0 -b .wxTimer-fix
+%patch3 -p0 -b .menubar-height
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -260,7 +263,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Oct 16 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-5 
+* Sun Oct 25 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-6
+- add fix for wrong menubar height when using larger system font (#528376)
+
+* Fri Oct 16 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-5
 - add fix for excessive CPU usage (#494425)
 
 * Mon Jul 27 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.10-4
