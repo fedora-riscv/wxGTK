@@ -1,16 +1,9 @@
 %define x11libdir %{_prefix}/X11R6/%{_lib}
 
-# Option - build an ODBC subpackage using unixODBC. (This is currently 
-# broken; see <https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=176950>.)
-%define withodbc 0
-
 Name:           wxGTK
 Version:        2.8.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
-# The wxWindows licence is the LGPL with a specific exemption allowing
-# distribution of derived binaries under any terms. (This will eventually
-# change to be "wxWidgets License" once that is approved by OSI.)
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
@@ -22,6 +15,8 @@ Patch0:         %{name}-2.8.10-CVE-2009-2369.patch
 Patch1:         %{name}-2.8.10-wxTimer-fix.patch
 # http://trac.wxwidgets.org/ticket/11310
 Patch2:         %{name}-2.8.10-menubar-height.patch
+# http://trac.wxwidgets.org/ticket/10370 (#534030)
+Patch3:         %{name}-2.8.10-htmltable.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -35,9 +30,6 @@ BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
 %if 0%{?fedora} < 11
 BuildRequires:  dbus-devel
-%endif
-%if %{withodbc}
-BuildRequires:  unixODBC-devel
 %endif
 
 # all of these are for previous Fedora Extras sub-packages
@@ -106,17 +98,6 @@ Obsoletes:      compat-wxGTK-gl  < %{version}-%{release}
 OpenGL (a 3D graphics API) add-on for the wxWidgets library.
 
 
-%if %{withodbc}
-%package        odbc
-Summary:        ODBC add-on for the wxWidgets library
-Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
-
-%description odbc
-ODBC (a SQL database connectivity API) add-on for the wxWidgets library.
-%endif
-
-
 %package -n     wxBase
 Summary:        Non-GUI support classes from the wxWidgets library
 Group:          System Environment/Libraries
@@ -134,6 +115,7 @@ libraries or the X Window System.
 %patch0 -p0 -b .CVE-2009-2369
 %patch1 -p0 -b .wxTimer-fix
 %patch2 -p0 -b .menubar-height
+%patch3 -p0 -b .htmltable
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -158,9 +140,6 @@ CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %configure \
   --x-libraries=%{x11libdir} \
   --with-opengl \
-%if %{withodbc}
-  --with-odbc \
-%endif
   --with-sdl \
   --with-gnomeprint \
   --enable-shared \
@@ -218,11 +197,6 @@ rm -rf $RPM_BUILD_ROOT
 %post gl -p /sbin/ldconfig
 %postun gl -p /sbin/ldconfig
 
-%if %{withodbc}
-%post odbc -p /sbin/ldconfig
-%postun odbc -p /sbin/ldconfig
-%endif
-
 %post -n wxBase -p /sbin/ldconfig
 %postun -n wxBase -p /sbin/ldconfig
 
@@ -263,12 +237,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_libdir}/libwx_gtk2u_gl-*.so.*
 
-%if %{withodbc}
-%files odbc
-%defattr(-,root,root,-)
-%{_libdir}/libwx_gtk2u_odbc-*.so.*
-%endif
-
 %files -n wxBase
 %defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
@@ -279,6 +247,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Nov 10 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-5
+- added fix for html tables rendering (#534030)
+- removed the long time disabled odbc subpackage
+
 * Sun Oct 25 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-4
 - add fix for wrong menubar height when using larger system font (#528376)
 
