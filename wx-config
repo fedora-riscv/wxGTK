@@ -1,0 +1,36 @@
+#! /bin/sh
+#
+# Multilib-aware wrapper for the wx-config script
+#
+# Usage: wx-config [arch]
+#
+
+if [ $# -eq 1 ]; then
+    arch=$1
+elif [ $# -eq 0 ]; then
+    arch=`uname -m`
+else
+    echo "Usage: $0 [arch]"
+    exit 1
+fi
+
+case $arch in
+    i?86|ppc|s390|sparc|arm*|ia64)
+        libdir=/usr/lib
+        ;;
+    x86_64|ppc64|s390x|sparc64)
+        libdir=/usr/lib64
+        ;;
+    *)
+        echo "Unsupported architecture '$arch'"
+        exit 2
+        ;;
+esac
+
+wxconfig=$libdir/wx/config/gtk2-unicode-release-2.8
+if [ -x $wxconfig ]; then
+    exec $wxconfig
+else
+    echo "wxGTK-devel isn't installed for architecture '$arch'"
+    exit 3
+fi

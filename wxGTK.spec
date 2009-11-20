@@ -1,11 +1,12 @@
 Name:           wxGTK
 Version:        2.8.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+Source1:        wx-config
 
 # http://trac.wxwidgets.org/ticket/10883
 Patch0:         %{name}-2.8.10-gsocket.patch
@@ -154,10 +155,9 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall -C contrib/src/svg
 
 
-# this ends up being a symlink into the buildroot directly -- 
-# not what we want!
+# install our multilib-aware wrapper
 rm $RPM_BUILD_ROOT%{_bindir}/wx-config
-ln -s %{_libdir}/wx/config/gtk2-unicode-release-2.8 $RPM_BUILD_ROOT%{_bindir}/wx-config
+install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/wx-config
 
 # we don't support bakefiles
 rm -rf $RPM_BUILD_ROOT%{_datadir}/bakefile 
@@ -231,6 +231,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Nov 20 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-8
+- added multilib-aware wrapper for wx-config
+
 * Tue Nov 10 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-7
 - added fix for html tables rendering (#534030)
 - removed the long time disabled odbc subpackage
