@@ -2,16 +2,18 @@
 #
 # Multilib-aware wrapper for the wx-config script
 #
-# Usage: wx-config [arch]
+# Usage: wx-config [--arch <arch>] <regular wx-config options>
 #
 
-if [ $# -eq 1 ]; then
-    arch=$1
-elif [ $# -eq 0 ]; then
+if [ $# -ge 2 ]; then
+    if [ $1 = "--arch" ]; then
+	arch=$2
+	shift 2
+    fi
+fi
+
+if [ -z $arch ]; then
     arch=`uname -m`
-else
-    echo "Usage: $0 [arch]"
-    exit 1
 fi
 
 case $arch in
@@ -23,14 +25,19 @@ case $arch in
         ;;
     *)
         echo "Unsupported architecture '$arch'"
-        exit 2
+        exit 8
         ;;
 esac
 
 wxconfig=$libdir/wx/config/gtk2-unicode-release-2.8
+# special case when using 32-bit userspace and 64-bit kernel
+if [ ! -f $wxconfig -a \( $arch = ppc64 -o $arch = sparc64 \) ]; then
+    wxconfig=/usr/lib/wx/config/gtk2-unicode-release-2.8
+fi
+
 if [ -x $wxconfig ]; then
-    exec $wxconfig
+    exec $wxconfig $@
 else
     echo "wxGTK-devel isn't installed for architecture '$arch'"
-    exit 3
+    exit 9
 fi

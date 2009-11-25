@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.10
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -231,6 +231,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 25 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-9
+- updated the wrapper script (#541087)
+
 * Fri Nov 20 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-8
 - added multilib-aware wrapper for wx-config
 
