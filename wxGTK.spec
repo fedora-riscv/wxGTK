@@ -5,7 +5,7 @@ Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
-Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
 
 # http://trac.wxwidgets.org/ticket/10883
