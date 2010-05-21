@@ -1,23 +1,12 @@
 Name:           wxGTK
-Version:        2.8.10
-Release:        9%{?dist}
+Version:        2.8.11
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
-
-# http://trac.wxwidgets.org/ticket/10883
-Patch0:         %{name}-2.8.10-gsocket.patch
-# http://trac.wxwidgets.org/ticket/10993 (#511279)
-Patch1:         %{name}-2.8.10-CVE-2009-2369.patch
-# http://trac.wxwidgets.org/ticket/11315 (#494425)
-Patch2:         %{name}-2.8.10-wxTimer-fix.patch
-# http://trac.wxwidgets.org/ticket/11310 (#528376)
-Patch3:         %{name}-2.8.10-menubar-height.patch
-# http://trac.wxwidgets.org/ticket/10370 (#534030)
-Patch4:         %{name}-2.8.10-htmltable.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -29,6 +18,7 @@ BuildRequires:  libSM-devel
 BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
 BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
+BuildRequires:  cppunit-devel
 
 Requires:       wxBase = %{version}-%{release}
 
@@ -85,11 +75,6 @@ libraries or the X Window System.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1 -b .gsocket
-%patch1 -p0 -b .CVE-2009-2369
-%patch2 -p0 -b .wxTimer-fix
-%patch3 -p0 -b .menubar-height
-%patch4 -p0 -b .htmltable
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -102,10 +87,6 @@ chmod a-x src/common/msgout.cpp
 
 
 %build
-
-# must do this to regenerate ./configure if patching to a cvs
-# version.
-#autoconf
 
 export GDK_USE_XFT=1
 
@@ -169,6 +150,11 @@ cat wxmsw.lang >> wxstd.lang
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%check
+pushd tests
+make test
+popd
+
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -231,6 +217,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 15 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-1
+- updated to 2.8.11
+
 * Wed Nov 25 2009 Dan Horák <dan[at]danny.cz> - 2.8.10-9
 - updated the wrapper script (#541087)
 
