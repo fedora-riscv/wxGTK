@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -114,7 +114,8 @@ CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
   --enable-mediactrl \
   --enable-display \
   --enable-timer \
-  --enable-compat24
+  --enable-compat24 \
+  --disable-catch_segvs
 
 make %{?_smp_mflags}
 make %{?_smp_mflags} -C contrib/src/stc
@@ -217,6 +218,9 @@ popd
 
 
 %changelog
+* Thu Jul  1 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-2
+- rebuilt without the internal crash handler
+
 * Thu Apr 15 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-1
 - updated to 2.8.11
 
