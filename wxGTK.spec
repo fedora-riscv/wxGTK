@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        2.8.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 # The wxWindows licence is the LGPL with a specific exemption allowing
 # distribution of derived binaries under any terms. (This will eventually
@@ -15,6 +15,8 @@ License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://dl.sf.net/wxwindows/%{name}-%{version}.tar.bz2
+# https://bugzilla.redhat.com/show_bug.cgi?id=626012
+Patch0:         %{name}-2.8.11-dnd.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -71,6 +73,7 @@ Requires:       %{name}-gl = %{version}-%{release}
 Requires:       wxBase = %{version}-%{release}
 Requires:       gtk2-devel
 Requires:       libGL-devel, libGLU-devel
+Requires:       bakefile
 Obsoletes:      wxGTK2-devel < %{version}-%{release}
 Provides:       wxGTK2-devel = %{version}-%{release}
 Obsoletes:      wxGTK-common-devel < %{version}-%{release}
@@ -121,6 +124,7 @@ libraries or the X Window System.
 
 %prep
 %setup -q
+%patch0 -p0 -b .dnd
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -241,7 +245,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/wx/config
 %{_libdir}/wx/config/gtk2*
 %{_datadir}/aclocal/*
-%{_datadir}/bakefile/presets/
+%{_datadir}/bakefile/presets/*
 
 %files gl
 %defattr(-,root,root,-)
@@ -263,6 +267,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 29 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-2
+- added fix for crashes during DnD (#626012)
+- bakefiles are included in devel subpackage (#626314)
+
 * Mon Apr 26 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-1
 - update to 2.8.11
 
