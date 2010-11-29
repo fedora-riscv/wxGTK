@@ -1,12 +1,14 @@
 Name:           wxGTK
 Version:        2.8.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
+# https://bugzilla.redhat.com/show_bug.cgi?id=626012
+Patch0:         %{name}-2.8.11-dnd.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -38,6 +40,7 @@ Requires:       %{name}-media = %{version}-%{release}
 Requires:       wxBase = %{version}-%{release}
 Requires:       gtk2-devel
 Requires:       libGL-devel, libGLU-devel
+Requires:       bakefile
 
 %description devel
 This package include files needed to link with the wxGTK2 library.
@@ -75,6 +78,7 @@ libraries or the X Window System.
 
 %prep
 %setup -q -n %{name}-%{version}
+%patch0 -p0 -b .dnd
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -140,9 +144,6 @@ rm -rf $RPM_BUILD_ROOT
 rm $RPM_BUILD_ROOT%{_bindir}/wx-config
 install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/wx-config
 
-# we don't support bakefiles
-rm -rf $RPM_BUILD_ROOT%{_datadir}/bakefile 
-
 %find_lang wxstd
 %find_lang wxmsw
 cat wxmsw.lang >> wxstd.lang
@@ -198,6 +199,7 @@ popd
 %dir %{_libdir}/wx/config
 %{_libdir}/wx/config/gtk2*
 %{_datadir}/aclocal/*
+%{_datadir}/bakefile/presets/*
 
 %files gl
 %defattr(-,root,root,-)
@@ -217,6 +219,10 @@ popd
 
 
 %changelog
+* Mon Nov 29 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-2
+- added fix for crashes during DnD (#626012)
+- bakefiles are included in devel subpackage (#626314)
+
 * Thu Apr 15 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-1
 - updated to 2.8.11
 
