@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -220,6 +220,9 @@ popd
 
 
 %changelog
+* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Mon Nov 29 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-3
 - added fix for crashes during DnD (#626012)
 - bakefiles are included in devel subpackage (#626314)
