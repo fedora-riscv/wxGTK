@@ -1,14 +1,13 @@
 Name:           wxGTK
-Version:        2.8.11
-Release:        2%{?dist}
+Version:        2.8.12
+Release:        1%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
 Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
-# https://bugzilla.redhat.com/show_bug.cgi?id=626012
-Patch0:         %{name}-2.8.11-dnd.patch
+Patch0:         %{name}-2.8.12-test.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -78,7 +77,7 @@ libraries or the X Window System.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p0 -b .dnd
+%patch0 -p1 -b .test
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -219,6 +218,9 @@ popd
 
 
 %changelog
+* Thu Apr 14 2011 Dan Horák <dan[at]danny.cz> - 2.8.12-1
+- updated to 2.8.12
+
 * Mon Nov 29 2010 Dan Horák <dan[at]danny.cz> - 2.8.11-2
 - added fix for crashes during DnD (#626012)
 - bakefiles are included in devel subpackage (#626314)
