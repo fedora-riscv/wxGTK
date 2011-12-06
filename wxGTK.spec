@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -219,6 +219,9 @@ popd
 
 
 %changelog
+* Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 2.8.12-2
+- Rebuild for new libpng
+
 * Thu Apr 14 2011 Dan Horák <dan[at]danny.cz> - 2.8.12-1
 - updated to 2.8.12
 
