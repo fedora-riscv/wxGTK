@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -219,6 +219,9 @@ popd
 
 
 %changelog
+* Mon Jan 21 2013 Adam Tkac <atkac redhat com> - 2.8.12-7
+- rebuild due to "jpeg8-ABI" feature drop
+
 * Fri Dec 21 2012 Adam Tkac <atkac redhat com> - 2.8.12-6
 - rebuild against new libjpeg
 
