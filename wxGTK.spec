@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -219,6 +219,9 @@ popd
 
 
 %changelog
+* Fri Feb 15 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Mon Jan 21 2013 Adam Tkac <atkac redhat com> - 2.8.12-7
 - rebuild due to "jpeg8-ABI" feature drop
 
