@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -8,8 +8,6 @@ URL:            http://www.wxwidgets.org/
 Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
 Patch0:         %{name}-2.8.12-test.patch
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
@@ -130,8 +128,6 @@ make %{?_smp_mflags} -C contrib/src/svg
 make %{?_smp_mflags} -C locale allmo
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 %makeinstall
 
 %makeinstall -C contrib/src/stc
@@ -147,9 +143,6 @@ install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/wx-config
 %find_lang wxstd
 %find_lang wxmsw
 cat wxmsw.lang >> wxstd.lang
-
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 %check
 pushd tests
@@ -171,7 +164,6 @@ popd
 
 
 %files -f wxstd.lang
-%defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
 %doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
 %{_libdir}/libwx_gtk2u_adv-*.so.*
@@ -188,7 +180,6 @@ popd
 %{_libdir}/libwx_gtk2u_xrc-*.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %{_bindir}/wx-config
 %{_bindir}/wxrc*
 %{_includedir}/wx-2.8
@@ -202,15 +193,12 @@ popd
 %{_datadir}/bakefile/presets/*
 
 %files gl
-%defattr(-,root,root,-)
 %{_libdir}/libwx_gtk2u_gl-*.so.*
 
 %files media
-%defattr(-,root,root,-)
 %{_libdir}/libwx_gtk2u_media-*.so.*
 
 %files -n wxBase
-%defattr(-,root,root,-)
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
 %doc docs/licendoc.txt docs/preamble.txt docs/readme.txt
 %{_libdir}/libwx_baseu-*.so.*
@@ -219,6 +207,9 @@ popd
 
 
 %changelog
+* Tue Jan 14 2014 Peter Robinson <pbrobinson@fedoraproject.org> 2.8.12-10
+- Add aarch64, clean up spec
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
 
