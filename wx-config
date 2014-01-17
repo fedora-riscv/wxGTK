@@ -20,7 +20,7 @@ case $arch in
     i?86|ppc|s390|sparc|arm*|ia64)
         libdir=/usr/lib
         ;;
-    x86_64|ppc64|s390x|sparc64|aarch64)
+    x86_64|ppc64|ppc64le|s390x|sparc64|aarch64)
         libdir=/usr/lib64
         ;;
     *)

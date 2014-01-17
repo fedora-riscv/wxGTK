@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -207,6 +207,9 @@ popd
 
 
 %changelog
+* Fri Jan 17 2014 Dan Horák <dan[at]danny.cz> - 2.8.12-11
+- Add ppc64le (#1054411)
+
 * Tue Jan 14 2014 Peter Robinson <pbrobinson@fedoraproject.org> 2.8.12-10
 - Add aarch64, clean up spec
 
