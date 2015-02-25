@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -207,6 +207,9 @@ popd
 
 
 %changelog
+* Wed Feb 25 2015 Petr Pisar <ppisar@redhat.com> - 2.8.12-15
+- Rebuild for reverted GCC 5.0 C++ ABI signature
+
 * Tue Feb 10 2015 Petr Pisar <ppisar@redhat.com> - 2.8.12-14
 - Rebuild for new GCC 5.0 C++ ABI signature (bug #1190971)
 
