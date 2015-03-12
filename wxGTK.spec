@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -8,6 +8,9 @@ URL:            http://www.wxwidgets.org/
 Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
 Patch0:         %{name}-2.8.12-test.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=1200611
+# remove abort when ABI check fails
+Patch1:         %{name}-2.8.12-abicheck.patch
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
@@ -76,6 +79,7 @@ libraries or the X Window System.
 %prep
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .test
+%patch1 -p1 -b .abicheck
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -207,6 +211,9 @@ popd
 
 
 %changelog
+* Thu Mar 12 2015 Dan Horák <dan[at]danny.cz> - 2.8.12-16
+- only warn on ABI mismatch (#1200611)
+
 * Wed Feb 25 2015 Petr Pisar <ppisar@redhat.com> - 2.8.12-15
 - Rebuild for reverted GCC 5.0 C++ ABI signature
 
