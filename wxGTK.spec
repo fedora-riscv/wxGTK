@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -23,6 +23,7 @@ BuildRequires:  autoconf, gettext
 BuildRequires:  cppunit-devel
 
 Requires:       wxBase = %{version}-%{release}
+Provides:       bundled(scintilla) = 1.70
 
 %description
 wxWidgets/GTK2 is the GTK2 port of the C++ cross-platform wxWidgets
@@ -211,6 +212,9 @@ popd
 
 
 %changelog
+* Mon May 04 2015 Jason L Tibbitts III <tibbs@math.uh.edu> - 2.8.12-18
+- Indicate that this package bundles scintilla 1.70.
+
 * Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 2.8.12-17
 - Rebuilt for GCC 5 C++11 ABI change
 
