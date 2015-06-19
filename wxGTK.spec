@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -212,6 +212,9 @@ popd
 
 
 %changelog
+* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.12-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Mon May 04 2015 Jason L Tibbitts III <tibbs@math.uh.edu> - 2.8.12-18
 - Indicate that this package bundles scintilla 1.70.
 
