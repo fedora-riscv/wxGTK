@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -14,7 +14,7 @@ Patch1:         %{name}-2.8.12-abicheck.patch
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
-BuildRequires:  expat-devel, SDL-devel, libgnomeprintui22-devel
+BuildRequires:  expat-devel, SDL-devel
 BuildRequires:  libGL-devel, libGLU-devel
 BuildRequires:  libSM-devel
 BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
@@ -105,7 +105,7 @@ CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %configure \
   --with-opengl \
   --with-sdl \
-  --with-gnomeprint \
+  --without-gnomeprint \
   --enable-shared \
   --enable-soname \
   --disable-optimise \
@@ -212,6 +212,9 @@ popd
 
 
 %changelog
+* Wed Nov 25 2015 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.12-20
+- Disable gnomeprint support (retired prior to F23)
+
 * Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.12-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
