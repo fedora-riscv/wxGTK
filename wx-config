@@ -17,10 +17,10 @@ if [ -z $arch ]; then
 fi
 
 case $arch in
-    i?86|ppc|s390|sparc|arm*|ia64)
+    i?86|ppc|s390|sparc|arm*|ia64|mips|mipsel)
         libdir=/usr/lib
         ;;
-    x86_64|ppc64|ppc64le|s390x|sparc64|aarch64)
+    x86_64|ppc64|ppc64le|s390x|sparc64|aarch64|mips64*)
         libdir=/usr/lib64
         ;;
     *)

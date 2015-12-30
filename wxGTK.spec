@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -212,6 +212,9 @@ popd
 
 
 %changelog
+* Wed Dec 30 2015 Michal Toman <mtoman@fedoraproject.org> - 2.8.12-21
+- Add support for MIPS to wx-config
+
 * Wed Nov 25 2015 Yaakov Selkowitz <yselkowi@redhat.com> - 2.8.12-20
 - Disable gnomeprint support (retired prior to F23)
 
