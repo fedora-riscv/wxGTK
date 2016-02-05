@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -212,6 +212,9 @@ popd
 
 
 %changelog
+* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.12-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Wed Dec 30 2015 Michal Toman <mtoman@fedoraproject.org> - 2.8.12-21
 - Add support for MIPS to wx-config
 
