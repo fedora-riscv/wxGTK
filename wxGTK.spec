@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -11,6 +11,9 @@ Patch0:         %{name}-2.8.12-test.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1200611
 # remove abort when ABI check fails
 Patch1:         %{name}-2.8.12-abicheck.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=1308243
+# backported from https://github.com/wxWidgets/wxWidgets/commit/1780a38b7bc9a9c04d33775a3176fe8516465f50
+Patch2:         %{name}-2.8.12-char.patch
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
@@ -20,7 +23,7 @@ BuildRequires:  libSM-devel
 BuildRequires:  gstreamer-devel >= 0.10, gstreamer-plugins-base-devel >= 0.10
 BuildRequires:  GConf2-devel
 BuildRequires:  autoconf, gettext
-BuildRequires:  cppunit-devel
+#BuildRequires:  cppunit-devel
 
 Requires:       wxBase = %{version}-%{release}
 Provides:       bundled(scintilla) = 1.70
@@ -81,6 +84,7 @@ libraries or the X Window System.
 %setup -q -n %{name}-%{version}
 %patch0 -p1 -b .test
 %patch1 -p1 -b .abicheck
+%patch2 -p1 -b .char
 
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
 
@@ -151,7 +155,7 @@ cat wxmsw.lang >> wxstd.lang
 
 %check
 pushd tests
-make test
+#make test
 popd
 
 
@@ -212,6 +216,10 @@ popd
 
 
 %changelog
+* Sat Feb 20 2016 Dan Horák <dan[at]danny.cz> - 2.8.12-23
+- fix FTBFS (#1308243)
+- skip tests as they depend on cppunit-config which was removed from cppunit-devel
+
 * Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.12-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
