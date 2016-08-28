@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -146,8 +146,13 @@ make %{?_smp_mflags} -C locale allmo
 
 
 # install our multilib-aware wrapper
-rm $RPM_BUILD_ROOT%{_bindir}/wx-config
-install -p -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}/wx-config
+rm %{buildroot}%{_bindir}/wx-config
+install -p -m 755 %{SOURCE1} %{buildroot}%{_bindir}/wx-config-2.0
+touch %{buildroot}%{_bindir}/wx-config
+
+#Alternatives setup with wxrc
+mv %{buildroot}%{_bindir}/wxrc %{buildroot}%{_bindir}/wxrc-2
+touch %{buildroot}%{_bindir}/wxrc
 
 %find_lang wxstd
 %find_lang wxmsw
@@ -171,6 +176,17 @@ popd
 %post -n wxBase -p /sbin/ldconfig
 %postun -n wxBase -p /sbin/ldconfig
 
+%post devel
+%{_sbindir}/update-alternatives --install %{_bindir}/wx-config \
+  wx-config %{_bindir}/wx-config-2.0 2
+%{_sbindir}/update-alternatives --install %{_bindir}/wxrc \
+  wxrc %{_bindir}/wxrc-2 2
+
+%postun devel
+if [ $1 -eq 0 ] ; then
+  %{_sbindir}/update-alternatives --remove wx-config %{_bindir}/wx-config-2.0
+  %{_sbindir}/update-alternatives --remove wxrc %{_bindir}/wxrc-2
+fi
 
 %files -f wxstd.lang
 %doc docs/changes.txt docs/gpl.txt docs/lgpl.txt docs/licence.txt
@@ -189,8 +205,10 @@ popd
 %{_libdir}/libwx_gtk2u_xrc-*.so.*
 
 %files devel
-%{_bindir}/wx-config
-%{_bindir}/wxrc*
+%ghost %{_bindir}/wx-config
+%ghost %{_bindir}/wxrc
+%{_bindir}/wx-config-*
+%{_bindir}/wxrc-*
 %{_includedir}/wx-2.8
 %{_libdir}/libwx_*.so
 %dir %{_libdir}/wx
@@ -216,6 +234,9 @@ popd
 
 
 %changelog
+* Sun Aug 28 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-24
+- Fix alternatives with wxGTK3 (#1128365)
+
 * Sat Feb 20 2016 Dan Horák <dan[at]danny.cz> - 2.8.12-23
 - fix FTBFS (#1308243)
 - skip tests as they depend on cppunit-config which was removed from cppunit-devel
