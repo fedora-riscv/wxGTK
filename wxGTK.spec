@@ -210,7 +210,7 @@ fi
 %ghost %{_bindir}/wx-config
 %ghost %{_bindir}/wxrc
 %{_bindir}/wx-config-2.0
-%{_bindir}/wxrc-2
+%{_bindir}/wxrc-*
 %{_includedir}/wx-2.8
 %{_libdir}/libwx_*.so
 %dir %{_libdir}/wx
