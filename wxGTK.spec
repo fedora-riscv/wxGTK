@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -45,6 +45,8 @@ Requires:       wxBase = %{version}-%{release}
 Requires:       gtk2-devel
 Requires:       libGL-devel, libGLU-devel
 Requires:       bakefile
+Requires(post): %{_sbindir}/update-alternatives
+Requires(postun): %{_sbindir}/update-alternatives
 
 %description devel
 This package include files needed to link with the wxGTK2 library.
@@ -207,8 +209,8 @@ fi
 %files devel
 %ghost %{_bindir}/wx-config
 %ghost %{_bindir}/wxrc
-%{_bindir}/wx-config-*
-%{_bindir}/wxrc-*
+%{_bindir}/wx-config-2.0
+%{_bindir}/wxrc-2
 %{_includedir}/wx-2.8
 %{_libdir}/libwx_*.so
 %dir %{_libdir}/wx
@@ -234,6 +236,9 @@ fi
 
 
 %changelog
+* Sun Sep 18 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-25
+- Missing update-alternatives requirement for devel package
+
 * Sun Aug 28 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-24
 - Fix alternatives with wxGTK3 (#1128365)
 
