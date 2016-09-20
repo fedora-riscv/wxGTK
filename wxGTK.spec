@@ -1,6 +1,6 @@
 Name:           wxGTK
 Version:        2.8.12
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
@@ -179,6 +179,9 @@ popd
 %postun -n wxBase -p /sbin/ldconfig
 
 %post devel
+if [ -f %{_bindir}/wx-config ] && [ ! -h %{_bindir}/wx-config ] ; then
+  rm %{_bindir}/wx-config
+fi
 %{_sbindir}/update-alternatives --install %{_bindir}/wx-config \
   wx-config %{_bindir}/wx-config-2.0 2
 %{_sbindir}/update-alternatives --install %{_bindir}/wxrc \
@@ -236,6 +239,9 @@ fi
 
 
 %changelog
+* Mon Sep 19 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-26
+- Workaround for alternatives: remove wx-config if it's not a symlink
+
 * Sun Sep 18 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-25
 - Missing update-alternatives requirement for devel package
 
