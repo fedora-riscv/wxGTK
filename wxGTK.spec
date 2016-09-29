@@ -5,15 +5,15 @@ Summary:        GTK2 port of the wxWidgets GUI library
 License:        wxWidgets
 Group:          System Environment/Libraries
 URL:            http://www.wxwidgets.org/
-Source0:        http://downloads.sourceforge.net/wxwindows/%{name}-%{version}.tar.bz2
+Source0:        http://downloads.sf.net/wxwindows/%{name}-%{version}.tar.bz2
 Source1:        wx-config
-Patch0:         %{name}-2.8.12-test.patch
+Patch0:         %{name}-%{version}-test.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1200611
 # remove abort when ABI check fails
-Patch1:         %{name}-2.8.12-abicheck.patch
+Patch1:         %{name}-%{version}-abicheck.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1308243
 # backported from https://github.com/wxWidgets/wxWidgets/commit/1780a38b7bc9a9c04d33775a3176fe8516465f50
-Patch2:         %{name}-2.8.12-char.patch
+Patch2:         %{name}-%{version}-char.patch
 
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
@@ -239,6 +239,9 @@ fi
 
 
 %changelog
+* Thu Sep 29 2016 Jeremy Newton <alexjnewt at hotmail dot com>
+- Spec cleanup, fixed broken download link
+
 * Mon Sep 19 2016 Jeremy Newton <alexjnewt at hotmail dot com> - 2.8.12-26
 - Workaround for alternatives: remove wx-config if it's not a symlink
 
@@ -464,7 +467,7 @@ fi
 * Thu Apr 13 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-2.6.3.2.0
 - patch to cvs subrelease 2.6.3.2 (matches wxPython)
 
-* Sat Mar 25 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-1    
+* Sat Mar 25 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.3-1
 - 2.6.3 final
 - remove the locale_install thing -- that was just an issue with using the
   release candidate.
@@ -488,9 +491,9 @@ fi
 * Mon Feb 06 2006 Matthew Miller <mattdm@mattdm.org> - 2.6.2-4
 - add wxGTK-2.6.2-socketclosefix.patch to fix aMule crashes. see
   bugzilla bug #178184
-- add wxGTK-2.6.2-gcc41stringh.patch (pulled from CVS) to make build on 
+- add wxGTK-2.6.2-gcc41stringh.patch (pulled from CVS) to make build on
   FC5 devel w/ gcc-4.1.
-  
+
 * Wed Nov 30 2005 Matthew Miller <mattdm@mattdm.org> - 2.6.2-3
 - add wxGTK-2.6.2-intl_cpp.patch to deal with amule and probably other
   issues (see bug #154618 comment #47)
@@ -498,7 +501,7 @@ fi
 
 * Mon Nov 28 2005 Matthew Miller <mattdm@mattdm.org> - 2.6.2-2
 - implemented some suggestions from Matthias Saou:
--   removed extraneous / from last line of ./configure 
+-   removed extraneous / from last line of ./configure
 -   removed -n from setup macro, since we're now actually using the
     standard name
 -   don't use summary macro in opengl subpackage, as it's not clear which
@@ -538,7 +541,7 @@ fi
 
 * Wed Apr 13 2005 Matthew Miller <mattdm@mattdm.org> - 2.5.5-0.2
 - removed provides: wxWidgets/wxWidgets devel -- handy for compatibility
-  with unmodified generic source packages, but not so good for 
+  with unmodified generic source packages, but not so good for
   repeatable builds.
 
 * Wed Apr 13 2005 Matthew Miller <mattdm@mattdm.org> - 2.5.5-0.1
