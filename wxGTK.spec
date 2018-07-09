@@ -15,6 +15,7 @@ Patch1:         %{name}-%{version}-abicheck.patch
 # backported from https://github.com/wxWidgets/wxWidgets/commit/1780a38b7bc9a9c04d33775a3176fe8516465f50
 Patch2:         %{name}-%{version}-char.patch
 
+BuildRequires:  gcc
 BuildRequires:  gtk2-devel, zlib-devel >= 1.1.4
 BuildRequires:  libpng-devel, libjpeg-devel, libtiff-devel
 BuildRequires:  expat-devel, SDL-devel
