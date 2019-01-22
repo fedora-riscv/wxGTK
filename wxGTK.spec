@@ -167,17 +167,13 @@ pushd tests
 popd
 
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
-%post gl -p /sbin/ldconfig
-%postun gl -p /sbin/ldconfig
+%ldconfig_scriptlets gl
 
-%post media -p /sbin/ldconfig
-%postun media -p /sbin/ldconfig
+%ldconfig_scriptlets media
 
-%post -n wxBase -p /sbin/ldconfig
-%postun -n wxBase -p /sbin/ldconfig
+%ldconfig_scriptlets -n wxBase
 
 %post devel
 if [ -f %{_bindir}/wx-config ] && [ ! -h %{_bindir}/wx-config ] ; then
