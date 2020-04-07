@@ -18,6 +18,8 @@ Source10:       wx-config
 Patch0:         %{name}-3.0.3-abicheck.patch
 Patch1:         disable-tests-failing-mock.patch
 Patch2:         update-license-text.patch
+Patch3:         fix-tests-ppc64le.patch
+Patch4:         fix-tests-s390x.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel

@@ -1,0 +1,25 @@
+From 1da9e342c29b7be94fe66b510ed2d71a003c16e4 Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Tue, 7 Apr 2020 03:30:44 +0200
+Subject: [PATCH] Fix tests when run on s390x arch
+
+---
+ tests/textfile/textfiletest.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tests/textfile/textfiletest.cpp b/tests/textfile/textfiletest.cpp
+index eda450d1f3..d76cb1b244 100644
+--- a/tests/textfile/textfiletest.cpp
++++ b/tests/textfile/textfiletest.cpp
+@@ -357,7 +357,7 @@ TEST_CASE("wxTextFile::Special", "[textfile][linux][special-file]")
+         CHECK( f.Open("/sys/power/state") );
+         REQUIRE( f.GetLineCount() == 1 );
+         INFO( "/sys/power/state contains \"" << f[0] << "\"" );
+-        CHECK( f[0].find("mem") != wxString::npos );
++        CHECK( (f[0].find("mem") != wxString::npos || f[0].find("disk") != wxString::npos) );
+     }
+ }
+ 
+-- 
+2.25.1
+
