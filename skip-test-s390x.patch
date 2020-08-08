@@ -1,0 +1,68 @@
+From d48ac8dd31d4091303af4336fcc2f37ecc49bd5c Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Wed, 5 Aug 2020 19:58:42 -0400
+Subject: [PATCH 1/2] Skip /sys/power tests on s390x architecture
+
+On certain s390x hosts (e.g., the Fedora builders), /sys/power does not exist.
+---
+ tests/file/filetest.cpp         | 2 ++
+ tests/filename/filenametest.cpp | 2 ++
+ tests/textfile/textfiletest.cpp | 2 ++
+ 3 files changed, 6 insertions(+)
+
+diff --git a/tests/file/filetest.cpp b/tests/file/filetest.cpp
+index 0f31b12db3..83d9893462 100644
+--- a/tests/file/filetest.cpp
++++ b/tests/file/filetest.cpp
+@@ -163,12 +163,14 @@ TEST_CASE("wxFile::Special", "[file][linux][special-file]")
+     // have that much data in them.
+     const long pageSize = sysconf(_SC_PAGESIZE);
+ 
++#if !defined(__s390x__)
+     wxFile fileSys("/sys/power/state");
+     CHECK( fileSys.Length() == pageSize );
+     CHECK( fileSys.IsOpened() );
+     CHECK( fileSys.ReadAll(&s) );
+     CHECK( !s.empty() );
+     CHECK( s.length() < pageSize );
++#endif // !__s390x__
+ }
+ 
+ #endif // __LINUX__
+diff --git a/tests/filename/filenametest.cpp b/tests/filename/filenametest.cpp
+index 12d2d571d7..37598c08ed 100644
+--- a/tests/filename/filenametest.cpp
++++ b/tests/filename/filenametest.cpp
+@@ -1062,7 +1062,9 @@ TEST_CASE("wxFileName::GetSizeSpecial", "[filename][linux][special-file]")
+ 
+     // All files in /sys are one page in size, irrespectively of the size of
+     // their actual contents.
++#if !defined(__s390x__)
+     CHECK( wxFileName::GetSize("/sys/power/state") == sysconf(_SC_PAGESIZE) );
++#endif // !__s390x__
+ }
+ 
+ #endif // __LINUX__
+diff --git a/tests/textfile/textfiletest.cpp b/tests/textfile/textfiletest.cpp
+index dc7d22423d..ab36047450 100644
+--- a/tests/textfile/textfiletest.cpp
++++ b/tests/textfile/textfiletest.cpp
+@@ -355,6 +355,7 @@ TEST_CASE("wxTextFile::Special", "[textfile][linux][special-file]")
+             CHECK( f.GetLineCount() > 1 );
+     }
+ 
++#if !defined(__s390x__)
+     SECTION("/sys")
+     {
+         wxTextFile f;
+@@ -363,6 +364,7 @@ TEST_CASE("wxTextFile::Special", "[textfile][linux][special-file]")
+         INFO( "/sys/power/state contains \"" << f[0] << "\"" );
+         CHECK( (f[0].find("mem") != wxString::npos || f[0].find("disk") != wxString::npos) );
+     }
++#endif // !__s390x__
+ }
+ 
+ #endif // __LINUX__
+-- 
+2.26.2
+
