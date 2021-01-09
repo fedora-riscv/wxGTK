@@ -20,6 +20,7 @@ Patch1:         disable-tests-failing-mock.patch
 Patch2:         fix-webview-tests.patch
 Patch3:         skip-test-s390x.patch
 
+BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel
 BuildRequires:  webkit2gtk3-devel
