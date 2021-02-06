@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -226,7 +226,7 @@ make %{?_smp_mflags}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 xvfb-run -a ./test
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a ./test_gui \
   ~wxDVC::GetItemRect ~wxHtmlPrintout::Pagination ~wxExecute::RedirectUTF8 \
-  ~WebViewTestCase
+  ~WebView
 popd
 
 %post -n %{wxbasename}-devel
@@ -303,10 +303,13 @@ fi
 %doc html
 
 %changelog
+* Sat Feb 06 2021 Scott Talbert <swt@techie.net> - 3.1.4-3
+- Properly skip WebView tests to fix FTBFS (#1923643)
+
 * Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
-* Wed Jul 22 2020 Scott Talbert <swt@techie.net> - 3.1.4-1
+* Sat Aug 08 2020 Scott Talbert <swt@techie.net> - 3.1.4-1
 - Update to new upstream release 3.1.4 (#1859715)
 
 * Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-3
