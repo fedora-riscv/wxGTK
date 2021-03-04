@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -19,6 +19,7 @@ Patch0:         %{name}-3.0.3-abicheck.patch
 Patch1:         disable-tests-failing-mock.patch
 Patch2:         fix-webview-tests.patch
 Patch3:         skip-test-s390x.patch
+Patch4:         catch1-sigstksz.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -303,6 +304,9 @@ fi
 %doc html
 
 %changelog
+* Thu Mar 04 2021 Scott Talbert <swt@techie.net> - 3.1.4-5
+- Fix FTBFS due to glibc non-const SIGSTKSZ
+
 * Wed Mar 03 2021 Peter Hutterer <peter.hutterer@redhat.com> 3.1.4-4
 - Require only xclock, not all of xorg-x11-apps (#1934359)
 
