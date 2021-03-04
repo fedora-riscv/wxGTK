@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -41,7 +41,7 @@ BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
 # For Tests
-BuildRequires:  xorg-x11-apps
+BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
 
 Provides:       %{srcname} = %{version}-%{release}
@@ -303,6 +303,9 @@ fi
 %doc html
 
 %changelog
+* Wed Mar 03 2021 Peter Hutterer <peter.hutterer@redhat.com> 3.1.4-4
+- Require only xclock, not all of xorg-x11-apps (#1934359)
+
 * Sat Feb 06 2021 Scott Talbert <swt@techie.net> - 3.1.4-3
 - Properly skip WebView tests to fix FTBFS (#1923643)
 
