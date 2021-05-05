@@ -1,11 +1,11 @@
 %global srcname wxWidgets
 %global wxbasename wxBase
 %global gtk3dir bld_gtk3
-%global sover 4
+%global sover 5
 
 Name:           wxGTK
-Version:        3.1.4
-Release:        5%{?dist}
+Version:        3.1.5
+Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -17,9 +17,10 @@ Source10:       wx-config
 # Backport from wxGTK
 Patch0:         %{name}-3.0.3-abicheck.patch
 Patch1:         disable-tests-failing-mock.patch
-Patch2:         fix-webview-tests.patch
-Patch3:         skip-test-s390x.patch
-Patch4:         catch1-sigstksz.patch
+Patch2:         catch1-sigstksz.patch
+Patch3:         gcc11_1.patch
+Patch4:         gcc11_2.patch
+Patch5:         gcc11_3.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -41,9 +42,11 @@ BuildRequires:  libmspack-devel
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
+BuildRequires:  libcurl-devel
 # For Tests
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  python3-httpbin
 
 Provides:       %{srcname} = %{version}-%{release}
 Provides:       bundled(scintilla) = 3.7.2
@@ -165,8 +168,6 @@ This package provides documentation for the %{srcname} library.
 
 # patch some installed files to avoid conflicts with 2.8.*
 sed -i -e 's|aclocal)|aclocal/wxwin31.m4)|' Makefile.in
-sed -i -e 's|wxstd.mo|wxstd31.mo|' Makefile.in
-sed -i -e 's|wxmsw.mo|wxmsw31.mo|' Makefile.in
 
 # fix plugin dir for 64-bit
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
@@ -217,17 +218,16 @@ touch %{buildroot}%{_bindir}/wxrc
 mkdir %{buildroot}%{_datadir}/bakefile/presets/wx31
 mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile/presets/wx31
 
-%find_lang wxstd31
-%find_lang wxmsw31
-cat wxmsw31.lang >> wxstd31.lang
+%find_lang wxstd-3.1
 
 %check
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 xvfb-run -a ./test
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a ./test_gui \
+python3 -m httpbin.core &
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 wxLXC=1 WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test ~WebRequest::SSL::Ignore ~wxLog::Trace ~wxExecute::RedirectUTF8 ~wxDateTime-BST-bugs
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 wxLXC=1 xvfb-run -a ./test_gui \
   ~wxDVC::GetItemRect ~wxHtmlPrintout::Pagination ~wxExecute::RedirectUTF8 \
-  ~WebView
+  ~WebView ~XRC::LoadURL
 popd
 
 %post -n %{wxbasename}-devel
@@ -282,7 +282,7 @@ fi
 %files gl
 %{_libdir}/libwx_gtk3u_gl-*.so.%{sover}*
 
-%files i18n -f wxstd31.lang
+%files i18n -f wxstd-3.1.lang
 
 %files media
 %{_libdir}/libwx_gtk3u_media-*.so.%{sover}*
@@ -304,6 +304,9 @@ fi
 %doc html
 
 %changelog
+* Thu Apr 15 2021 Scott Talbert <swt@techie.net> - 3.1.5-1
+- Update to new upstream release 3.1.5 (#1948935)
+
 * Thu Mar 04 2021 Scott Talbert <swt@techie.net> - 3.1.4-5
 - Fix FTBFS due to glibc non-const SIGSTKSZ
 

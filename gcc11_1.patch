@@ -1,0 +1,39 @@
+From 858248d055794928f0e26e07ea68fd67f9ea9e3f Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Wed, 21 Apr 2021 19:08:13 -0400
+Subject: [PATCH] Fix declaration shadow warning in wxHtmlHelpFrame
+
+Fixes this warning:
+In file included from ../../include/wx/html/helpctrl.h:19,
+                 from ../../include/wx/help.h:27,
+                 from ../../include/wx/cshelp.h:18,
+                 from ../../tests/allheaders.h:85,
+                 from ../../tests/allheaders.cpp:435:
+../../include/wx/html/helpfrm.h:74:50: error: declaration of 'wxWindowID' shadows a global declaration [-Werror=shadow]
+   74 |     wxHtmlHelpFrame(wxWindow* parent, wxWindowID wxWindowID,
+      |                                       ~~~~~~~~~~~^~~~~~~~~~
+In file included from ../../include/wx/wxprec.h:12,
+                 from ../../tests/testprec.h:4,
+                 from ../../tests/allheaders.cpp:433:
+../../include/wx/defs.h:1965:13: note: shadowed declaration is here
+ 1965 | typedef int wxWindowID;
+      |             ^~~~~~~~~~
+
+See https://trac.wxwidgets.org/ticket/19153
+---
+ include/wx/html/helpfrm.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/wx/html/helpfrm.h b/include/wx/html/helpfrm.h
+index 6b09d0d3dae..ac25907dccc 100644
+--- a/include/wx/html/helpfrm.h
++++ b/include/wx/html/helpfrm.h
+@@ -71,7 +71,7 @@ class WXDLLIMPEXP_HTML wxHtmlHelpFrame : public wxFrame
+ 
+ public:
+     wxHtmlHelpFrame(wxHtmlHelpData* data = NULL) { Init(data); }
+-    wxHtmlHelpFrame(wxWindow* parent, wxWindowID wxWindowID,
++    wxHtmlHelpFrame(wxWindow* parent, wxWindowID id,
+                     const wxString& title = wxEmptyString,
+                     int style = wxHF_DEFAULT_STYLE, wxHtmlHelpData* data = NULL
+ #if wxUSE_CONFIG

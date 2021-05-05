@@ -10,12 +10,3 @@ diff -up wxWidgets-3.1.4/tests/filename/filenametest.cpp.mock wxWidgets-3.1.4/te
  #endif // __LINUX__
  #ifndef __VMS
      wxString fifo = dirTemp.GetPath() + "/fifo";
-@@ -1058,7 +1058,7 @@ TEST_CASE("wxFileName::GetSizeSpecial",
- {
-     wxULongLong size = wxFileName::GetSize("/proc/kcore");
-     INFO( "size of /proc/kcore=" << size );
--    CHECK( size > 0 );
-+    //CHECK( size > 0 );
- 
-     // All files in /sys are one page in size, irrespectively of the size of
-     // their actual contents.
