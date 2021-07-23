@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -304,6 +304,9 @@ fi
 %doc html
 
 %changelog
+* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
 * Thu Apr 15 2021 Scott Talbert <swt@techie.net> - 3.1.5-1
 - Update to new upstream release 3.1.5 (#1948935)
 
