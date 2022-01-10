@@ -1,0 +1,23 @@
+From d68c3709e49b967272b0794b0dd30e57e46326e8 Mon Sep 17 00:00:00 2001
+From: Scott Talbert <swt@techie.net>
+Date: Thu, 30 Dec 2021 10:10:56 -0500
+Subject: [PATCH] wxGLCanvas EGL: don't assert if eglChooseConfig fails
+
+This assert prevents wxGLCanvas::IsDisplaySupported() from working properly
+in the case where unsupported attributes are passed.
+---
+ src/unix/glegl.cpp | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/unix/glegl.cpp b/src/unix/glegl.cpp
+index fa4ad29b5124..5e831713b51f 100644
+--- a/src/unix/glegl.cpp
++++ b/src/unix/glegl.cpp
+@@ -578,7 +578,6 @@ EGLConfig *wxGLCanvasEGL::InitConfig(const wxGLAttributes& dispAttrs)
+     }
+     else
+     {
+-        wxFAIL_MSG("eglChooseConfig failed");
+         delete config;
+         return NULL;
+     }
