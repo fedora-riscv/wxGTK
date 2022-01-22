@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -305,6 +305,9 @@ fi
 %doc html
 
 %changelog
+* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Mon Jan 10 2022 Scott Talbert <swt@techie.net> - 3.1.5-3
 - Fix wxGLCanvas::IsDisplaySupported() when using EGL
 
