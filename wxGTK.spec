@@ -230,6 +230,9 @@ python3 -m httpbin.core &
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 wxLXC=1 WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test ~WebRequest::SSL::Ignore ~wxLog::Trace ~wxExecute::RedirectUTF8 ~wxDateTime-BST-bugs
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 wxLXC=1 xvfb-run -a ./test_gui \
   ~wxDVC::GetItemRect ~wxHtmlPrintout::Pagination ~wxExecute::RedirectUTF8 \
+%ifarch i686
+  ~ImageTestCase \
+%endif
   ~WebView ~XRC::LoadURL
 popd
 
