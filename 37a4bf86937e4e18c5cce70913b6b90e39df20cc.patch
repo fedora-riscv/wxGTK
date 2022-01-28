@@ -1,0 +1,141 @@
+From 37a4bf86937e4e18c5cce70913b6b90e39df20cc Mon Sep 17 00:00:00 2001
+From: Vadim Zeitlin <vadim@wxwidgets.org>
+Date: Thu, 27 Jan 2022 15:46:42 +0100
+Subject: [PATCH] Add wxColour::Get{Red,Green,Blue,Alpha}() to avoid gcc 12
+ warnings
+
+These functions return the colour components as unsigned int and so
+promote to this type in arithmetic expressions, unlike unsigned char
+returned by the existing accessors without the "Get" prefix, which
+promotes to (signed) int and results in gcc 12 -Warith-conversion
+warnings when the result is then converted to unsigned, as it happened
+in our own wxColour::GetRGB() and GetRGBA() functions and would probably
+happen in a lot of code outside wx, which could also be updated to use
+the new functions instead of inserting casts.
+---
+ include/wx/colour.h   | 11 ++++++++--
+ interface/wx/colour.h | 51 +++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 60 insertions(+), 2 deletions(-)
+
+diff --git a/include/wx/colour.h b/include/wx/colour.h
+index 4e9e0a185407..22a145ab22d1 100644
+--- a/include/wx/colour.h
++++ b/include/wx/colour.h
+@@ -125,6 +125,13 @@ class WXDLLIMPEXP_CORE wxColourBase : public
+     virtual ChannelType Alpha() const
+         { return wxALPHA_OPAQUE ; }
+ 
++    // These getters return the values as unsigned int, which avoids promoting
++    // them to (signed) int in arithmetic expressions, unlike the ones above.
++    unsigned int GetRed() const { return Red(); }
++    unsigned int GetGreen() const { return Green(); }
++    unsigned int GetBlue() const { return Blue(); }
++    unsigned int GetAlpha() const { return Alpha(); }
++
+     virtual bool IsSolid() const
+         { return true; }
+ 
+@@ -147,10 +154,10 @@ class WXDLLIMPEXP_CORE wxColourBase : public
+     }
+ 
+     wxUint32 GetRGB() const
+-        { return Red() | (Green() << 8) | (Blue() << 16); }
++        { return GetRed() | (GetGreen() << 8) | (GetBlue() << 16); }
+ 
+     wxUint32 GetRGBA() const
+-        { return Red() | (Green() << 8) | (Blue() << 16) | (Alpha() << 24); }
++        { return GetRed() | (GetGreen() << 8) | (GetBlue() << 16) | (GetAlpha() << 24); }
+ 
+ #if !wxCOLOUR_IS_GDIOBJECT
+     virtual bool IsOk() const= 0;
+diff --git a/interface/wx/colour.h b/interface/wx/colour.h
+index 32424f1123c7..9cc0ac7c9dec 100644
+--- a/interface/wx/colour.h
++++ b/interface/wx/colour.h
+@@ -34,6 +34,20 @@ const unsigned char wxALPHA_OPAQUE = 0xff;
+ 
+     You can retrieve the current system colour settings with wxSystemSettings.
+ 
++
++    @section colour_accessors Channel Accessor Functions
++
++    Note that this class provides pairs of functions for each of the colour
++    channels, i.e. red, green, blue and alpha values. The one word functions
++    Red(), Green(), Blue() and Alpha() return the values of type @c unsigned @c
++    char, while GetRed(), GetGreen(), GetBlue() and GetAlpha() returns the same
++    value as @c unsigned @c int. According to the C++ integer promotion rules,
++    the result of any arithmetic expression involving the former will be
++    (signed) @c int, while that of the latter will be @c unsigned, which is
++    what would be commonly expected, so the latter family of functions should
++    be typically preferred (but they are only available since wxWidgets 3.1.6).
++
++
+     @library{wxcore}
+     @category{gdi}
+ 
+@@ -94,14 +108,47 @@ class wxColour : public wxObject
+     /**
+         Returns the alpha value, on platforms where alpha is not yet supported, this
+         always returns wxALPHA_OPAQUE.
++
++        @see GetAlpha()
+     */
+     virtual unsigned char Alpha() const;
+ 
+     /**
+         Returns the blue intensity.
++
++        @see GetBlue()
+     */
+     virtual unsigned char Blue() const;
+ 
++    /**
++        Returns the alpha value, on platforms where alpha is not yet supported, this
++        always returns wxALPHA_OPAQUE.
++
++        @since 3.1.6
++     */
++    unsigned int GetAlpha() const;
++
++    /**
++        Returns the blue intensity as unsigned int.
++
++        @since 3.1.6
++     */
++    unsigned int GetBlue() const;
++
++    /**
++        Returns the green intensity as unsigned int.
++
++        @since 3.1.6
++     */
++    unsigned int GetGreen() const;
++
++    /**
++        Returns the red intensity as unsigned int.
++
++        @since 3.1.6
++     */
++    unsigned int GetRed() const;
++
+     /**
+         Converts this colour to a wxString using the given flags.
+ 
+@@ -184,6 +231,8 @@ class wxColour : public wxObject
+ 
+     /**
+         Returns the green intensity.
++
++        @see GetGreen()
+     */
+     virtual unsigned char Green() const;
+ 
+@@ -195,6 +244,8 @@ class wxColour : public wxObject
+ 
+     /**
+         Returns the red intensity.
++
++        @see GetRed()
+     */
+     virtual unsigned char Red() const;
+ 

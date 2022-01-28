@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -22,6 +22,8 @@ Patch3:         gcc11_1.patch
 Patch4:         gcc11_2.patch
 Patch5:         gcc11_3.patch
 Patch6:         https://github.com/wxWidgets/wxWidgets/commit/d68c3709e49b967272b0794b0dd30e57e46326e8.patch
+Patch7:         https://github.com/wxWidgets/wxWidgets/commit/28b84a1e96a3f061f4ba56d64829206dbd0628c0.patch
+Patch8:         https://github.com/wxWidgets/wxWidgets/commit/37a4bf86937e4e18c5cce70913b6b90e39df20cc.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -305,6 +307,9 @@ fi
 %doc html
 
 %changelog
+* Fri Jan 28 2022 Scott Talbert <swt@techie.net> - 3.1.5-5
+- Fix FTBFS with GCC 12 (#2047123)
+
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
