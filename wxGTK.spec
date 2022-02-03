@@ -5,7 +5,7 @@
 
 Name:           wxGTK
 Version:        3.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -47,9 +47,11 @@ BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
 BuildRequires:  libcurl-devel
 # For Tests
+BuildRequires:  mesa-dri-drivers
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-httpbin
+BuildRequires:  vulkan-loader
 
 Provides:       %{srcname} = %{version}-%{release}
 Provides:       bundled(scintilla) = 3.7.2
@@ -227,13 +229,15 @@ mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
 python3 -m httpbin.core &
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 wxLXC=1 WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test ~WebRequest::SSL::Ignore ~wxLog::Trace ~wxExecute::RedirectUTF8 ~wxDateTime-BST-bugs
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 wxLXC=1 xvfb-run -a ./test_gui \
-  ~wxDVC::GetItemRect ~wxHtmlPrintout::Pagination ~wxExecute::RedirectUTF8 \
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 wxLXC=1 \
+  WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test \
+  ~[.] ~WebRequest::SSL::Ignore
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 wxLXC=1 xvfb-run -a \
+  ./test_gui ~[.] \
 %ifarch i686
   ~ImageTestCase \
 %endif
-  ~WebView ~XRC::LoadURL
+  ~wxHtmlPrintout::Pagination
 popd
 
 %post -n %{wxbasename}-devel
@@ -310,6 +314,9 @@ fi
 %doc html
 
 %changelog
+* Tue Feb 01 2022 Scott Talbert <swt@techie.net> - 3.1.5-6
+- Add some BRs to enable more tests
+
 * Fri Jan 28 2022 Scott Talbert <swt@techie.net> - 3.1.5-5
 - Fix FTBFS with GCC 12 (#2047123)
 
