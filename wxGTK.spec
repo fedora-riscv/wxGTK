@@ -1,11 +1,11 @@
 %global srcname wxWidgets
 %global wxbasename wxBase
 %global gtk3dir bld_gtk3
-%global sover 5
+%global sover 6
 
 Name:           wxGTK
-Version:        3.1.5
-Release:        6%{?dist}
+Version:        3.1.6
+Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -15,15 +15,7 @@ Source10:       wx-config
 # https://bugzilla.redhat.com/show_bug.cgi?id=1225148
 # remove abort when ABI check fails
 # Backport from wxGTK
-Patch0:         %{name}-3.0.3-abicheck.patch
-Patch1:         disable-tests-failing-mock.patch
-Patch2:         catch1-sigstksz.patch
-Patch3:         gcc11_1.patch
-Patch4:         gcc11_2.patch
-Patch5:         gcc11_3.patch
-Patch6:         https://github.com/wxWidgets/wxWidgets/commit/d68c3709e49b967272b0794b0dd30e57e46326e8.patch
-Patch7:         https://github.com/wxWidgets/wxWidgets/commit/28b84a1e96a3f061f4ba56d64829206dbd0628c0.patch
-Patch8:         https://github.com/wxWidgets/wxWidgets/commit/37a4bf86937e4e18c5cce70913b6b90e39df20cc.patch
+Patch0:         %{name}-3.1.6-abicheck.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -229,13 +221,19 @@ mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
 python3 -m httpbin.core &
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 wxLXC=1 \
-  WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test \
-  ~[.] ~WebRequest::SSL::Ignore
-LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 wxLXC=1 xvfb-run -a \
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} TZ=UTC wxUSE_XVFB=1 \
+  WX_TEST_WEBREQUEST_URL="http://localhost:5000" xvfb-run -a ./test ~[.] \
+%ifarch s390x
+  ~wxTextFile::Special ~wxFileName::GetSizeSpecial ~wxFile::Special \
+%endif
+  ~WebRequest::SSL::Ignore
+LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
   ./test_gui ~[.] \
 %ifarch i686
   ~ImageTestCase \
+%endif
+%ifarch s390x
+  ~WebView \
 %endif
   ~wxHtmlPrintout::Pagination
 popd
@@ -314,6 +312,9 @@ fi
 %doc html
 
 %changelog
+* Mon Apr 04 2022 Scott Talbert <swt@techie.net> - 3.1.6-1
+- Update to new upstream release 3.1.6 (#2071576)
+
 * Tue Feb 01 2022 Scott Talbert <swt@techie.net> - 3.1.5-6
 - Add some BRs to enable more tests
 
