@@ -1,10 +1,10 @@
 %global srcname wxWidgets
 %global wxbasename wxBase
 %global gtk3dir bld_gtk3
-%global sover 6
+%global sover 7
 
 Name:           wxGTK
-Version:        3.1.6
+Version:        3.1.7
 Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
@@ -312,6 +312,9 @@ fi
 %doc html
 
 %changelog
+* Thu Jun 09 2022 Scott Talbert <swt@techie.net> - 3.1.7-1
+- Update to new upstream release 3.1.7 (#2094214)
+
 * Mon Apr 04 2022 Scott Talbert <swt@techie.net> - 3.1.6-1
 - Update to new upstream release 3.1.6 (#2071576)
 
