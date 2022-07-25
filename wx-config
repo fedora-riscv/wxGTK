@@ -5,7 +5,7 @@
 # Usage: wx-config [--arch <arch>] <regular wx-config options>
 #
 
-version=3.1
+version=3.2
 
 if [ $# -ge 2 ]; then
     if [ $1 = "--arch" ]; then

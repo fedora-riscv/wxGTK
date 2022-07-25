@@ -1,11 +1,11 @@
 %global srcname wxWidgets
 %global wxbasename wxBase
 %global gtk3dir bld_gtk3
-%global sover 7
+%global sover 0
 
 Name:           wxGTK
-Version:        3.1.7
-Release:        2%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -39,6 +39,7 @@ BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
 BuildRequires:  libcurl-devel
 # For Tests
+BuildRequires:  glibc-langpack-en
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
@@ -164,7 +165,7 @@ This package provides documentation for the %{srcname} library.
 %autosetup -n %{srcname}-%{version} -p1
 
 # patch some installed files to avoid conflicts with 2.8.*
-sed -i -e 's|aclocal)|aclocal/wxwin31.m4)|' Makefile.in
+sed -i -e 's|aclocal)|aclocal/wxwin32.m4)|' Makefile.in
 
 # fix plugin dir for 64-bit
 sed -i -e 's|/usr/lib\b|%{_libdir}|' wx-config.in configure
@@ -203,19 +204,19 @@ rm %{buildroot}%{_bindir}/wx-config
 ##Install new and symlink
 install -p -D -m 755 %{SOURCE10} %{buildroot}%{_libexecdir}/%{name}/wx-config
 sed -i -e 's|=/usr|=%{_prefix}|' %{buildroot}%{_libexecdir}/%{name}/wx-config
-ln -s ../..%{_libexecdir}/%{name}/wx-config %{buildroot}%{_bindir}/wx-config-3.1
+ln -s ../..%{_libexecdir}/%{name}/wx-config %{buildroot}%{_bindir}/wx-config-3.2
 touch %{buildroot}%{_bindir}/wx-config
 
 #Alternatives setup with wxrc
 mv %{buildroot}%{_bindir}/wxrc* %{buildroot}%{_libexecdir}/%{name}
-ln -s ../..%{_libexecdir}/%{name}/wxrc-3.1 %{buildroot}%{_bindir}/wxrc-3.1
+ln -s ../..%{_libexecdir}/%{name}/wxrc-3.2 %{buildroot}%{_bindir}/wxrc-3.2
 touch %{buildroot}%{_bindir}/wxrc
 
 # move bakefiles to avoid conflicts with 2.8.*
-mkdir %{buildroot}%{_datadir}/bakefile/presets/wx31
-mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile/presets/wx31
+mkdir %{buildroot}%{_datadir}/bakefile/presets/wx32
+mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile/presets/wx32
 
-%find_lang wxstd-3.1
+%find_lang wxstd-3.2
 
 %check
 pushd %{gtk3dir}/tests
@@ -271,26 +272,26 @@ fi
 %files -n %{wxbasename}-devel
 %ghost %{_bindir}/wx-config
 %ghost %{_bindir}/wxrc
-%{_bindir}/wxrc-3.1
-%{_bindir}/wx-config-3.1
-%{_includedir}/wx-3.1
+%{_bindir}/wxrc-3.2
+%{_bindir}/wx-config-3.2
+%{_includedir}/wx-3.2
 %{_libdir}/libwx_baseu*.so
 %dir %{_libdir}/wx
 %dir %{_libdir}/wx/config
 %dir %{_libdir}/wx/include
-%{_datadir}/aclocal/wxwin31.m4
-%{_datadir}/bakefile/presets/wx31
+%{_datadir}/aclocal/wxwin32.m4
+%{_datadir}/bakefile/presets/wx32
 %{_libexecdir}/%{name}
 
 %files devel
 %{_libdir}/libwx_gtk3u_*.so
-%{_libdir}/wx/config/gtk3-unicode-3.1
-%{_libdir}/wx/include/gtk3-unicode-3.1
+%{_libdir}/wx/config/gtk3-unicode-3.2
+%{_libdir}/wx/include/gtk3-unicode-3.2
 
 %files gl
 %{_libdir}/libwx_gtk3u_gl-*.so.%{sover}*
 
-%files i18n -f wxstd-3.1.lang
+%files i18n -f wxstd-3.2.lang
 
 %files media
 %{_libdir}/libwx_gtk3u_media-*.so.%{sover}*
@@ -298,7 +299,7 @@ fi
 %files webview
 %{_libdir}/libwx_gtk3u_webview-*.so.%{sover}*
 %dir %{_libdir}/wx
-%{_libdir}/wx/%{version}
+%{_libdir}/wx/3.2
 
 %files -n %{wxbasename}
 %doc docs/changes.txt docs/readme.txt
@@ -312,6 +313,9 @@ fi
 %doc html
 
 %changelog
+* Mon Jul 25 2022 Scott Talbert <swt@techie.net> - 3.2.0-1
+- Update to new upstream release 3.2.0 (#2101974)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
