@@ -4,7 +4,7 @@
 %global sover 0
 
 Name:           wxGTK
-Version:        3.2.0
+Version:        3.2.1
 Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
@@ -313,6 +313,9 @@ fi
 %doc html
 
 %changelog
+* Fri Sep 09 2022 Scott Talbert <swt@techie.net> - 3.2.1-1
+- Update to new upstream release 3.2.1 (#2125703)
+
 * Mon Jul 25 2022 Scott Talbert <swt@techie.net> - 3.2.0-1
 - Update to new upstream release 3.2.0 (#2101974)
 
