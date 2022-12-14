@@ -1,0 +1,54 @@
+Include <sys/inotify.h> in the inotify_init probe, to avoid
+an implicit function declaration.  Future compilers are likely
+to reject implicit function declarations by default, making
+the configure check invalid as written.
+
+Fixed upstream via:
+
+commit da4b42688a6cd5444eefb91bf40183d88203ffca
+Author: Mojca Miklavec <mojca@macports.org>
+Date:   Sat Nov 5 13:22:25 2022 +0100
+
+    Fix implicit declaration configuration errors with Xcode 12
+    
+    Some configure could fail with errors like the following:
+    
+    conftest.c:56:33: error: implicitly declaring library function 'exit'
+    with type 'void (int) __attribute__((noreturn))'
+    [-Werror,-Wimplicit-function-declaration]
+    
+    See https://trac.macports.org/ticket/61672
+    
+    Closes #22946.
+
+
+diff --git a/configure b/configure
+index 54eb7a74f95d4dd2..232d202cc5da2345 100755
+--- a/configure
++++ b/configure
+@@ -37928,7 +37916,9 @@ if ${wx_cv_inotify_usable+:} false; then :
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+-int main() { return inotify_init(); }
++
++		    #include <sys/inotify.h>
++		    int main() { return inotify_init(); }
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"; then :
+   wx_cv_inotify_usable=yes
+diff --git a/configure.in b/configure.in
+index c76c528f6635bece..bf6a33b3c10dc27a 100644
+--- a/configure.in
++++ b/configure.in
+@@ -5622,7 +5622,9 @@ if test "$wxUSE_FSWATCHER" = "yes"; then
+                 [whether inotify is usable],
+                 wx_cv_inotify_usable,
+                 AC_LINK_IFELSE(
+-                    [AC_LANG_SOURCE([int main() { return inotify_init(); }])],
++                    [AC_LANG_SOURCE([
++		    #include <sys/inotify.h>
++		    int main() { return inotify_init(); }])],
+                     [wx_cv_inotify_usable=yes],
+                     [wx_cv_inotify_usable=no]
+                 )
