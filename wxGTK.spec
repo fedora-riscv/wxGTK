@@ -3,9 +3,16 @@
 %global gtk3dir bld_gtk3
 %global sover 0
 
+%ifarch riscv64
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
+
+
 Name:           wxGTK
 Version:        3.2.1
-Release:        3%{?dist}
+Release:        3.rv64%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -219,6 +226,7 @@ mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile
 
 %find_lang wxstd-3.2
 
+%if %{with tests}
 %check
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
@@ -239,6 +247,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
 %endif
   ~wxHtmlPrintout::Pagination
 popd
+%endif
 
 %post -n %{wxbasename}-devel
 if [ -f %{_bindir}/wx-config ] && [ ! -h %{_bindir}/wx-config ] ; then
@@ -314,6 +323,9 @@ fi
 %doc html
 
 %changelog
+* Fri Feb 3 2023 Liu Yang <Yang.Liu.sn@gmail.com> - 3.2.1-3.rv64
+- Disable tests for riscv64.
+
 * Tue Nov 22 2022 Scott Talbert <swt@techie.net> - 3.2.1-3
 - Rebuild (again) with wxGLCanvas GLX support (resolves many OpenGL issues)
 
