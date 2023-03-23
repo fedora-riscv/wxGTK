@@ -30,6 +30,7 @@ BuildRequires:  SDL2-devel
 BuildRequires:  libGLU-devel
 BuildRequires:  libSM-devel
 BuildRequires:  gstreamer1-plugins-base-devel
+BuildRequires:  GConf2-devel
 BuildRequires:  gettext
 BuildRequires:  cppunit-devel
 BuildRequires:  libmspack-devel
