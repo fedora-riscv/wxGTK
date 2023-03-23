@@ -38,14 +38,12 @@ BuildRequires:  graphviz
 BuildRequires:  libsecret-devel
 BuildRequires:  libcurl-devel
 # For Tests
-%if 0%{?fedora}
 BuildRequires:  glibc-langpack-en
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  xclock
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-httpbin
 BuildRequires:  vulkan-loader
-%endif
 
 Provides:       %{srcname} = %{version}-%{release}
 Provides:       bundled(scintilla) = 3.7.2
@@ -221,7 +219,6 @@ mv %{buildroot}%{_datadir}/bakefile/presets/*.* %{buildroot}%{_datadir}/bakefile
 %find_lang wxstd-3.2
 
 %check
-%if 0%{?fedora}
 pushd %{gtk3dir}/tests
 make %{?_smp_mflags}
 python3 -m httpbin.core &
@@ -241,7 +238,6 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} wxUSE_XVFB=1 xvfb-run -a \
 %endif
   ~wxHtmlPrintout::Pagination
 popd
-%endif
 
 %post -n %{wxbasename}-devel
 if [ -f %{_bindir}/wx-config ] && [ ! -h %{_bindir}/wx-config ] ; then
